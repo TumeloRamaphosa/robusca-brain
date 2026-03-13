@@ -4,7 +4,7 @@
 - **What to call them:** Agent Lord
 - **Username:** tumelorama_92850
 - **Discord ID:** 1470356494011863184
-- **Timezone:** GMT+8 (Asia/Shanghai configured, likely South Africa GMT+2 actual)
+- **Timezone:** South Africa — SAST (GMT+2) | Note: MaxClaw is configured GMT+8 so all timestamps show +6hrs ahead of real SA time
 - **Pronouns:** he/him (assumed)
 
 ## Context
