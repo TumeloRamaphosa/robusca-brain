@@ -1,15 +1,25 @@
 #!/usr/bin/env python3
 """
-Robusca Brain Backup — pushes workspace critical files to GitHub
+Robusca Brain Backup — pushes workspace brain files to GitHub
 Repo: TumeloRamaphosa/robusca-brain (private)
+Token sourced from /workspace/.github-config
 """
 import json
 import base64
 import urllib.request
 import urllib.error
 import os
+import glob
+from datetime import datetime
 
-TOKEN = "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"
+# Load token from config
+TOKEN = None
+with open("/workspace/.github-config", "r") as f:
+    for line in f:
+        if line.startswith("GITHUB_TOKEN="):
+            TOKEN = line.strip().split("=", 1)[1]
+            break
+
 OWNER = "TumeloRamaphosa"
 REPO = "robusca-brain"
 HEADERS = {
@@ -19,6 +29,8 @@ HEADERS = {
     "Content-Type": "application/json",
     "User-Agent": "Robusca-OpenClaw"
 }
+
+results = []
 
 def gh_request(method, path, data=None):
     url = f"https://api.github.com{path}"
@@ -30,7 +42,7 @@ def gh_request(method, path, data=None):
     except urllib.error.HTTPError as e:
         return json.loads(e.read()), e.code
 
-def create_repo():
+def ensure_repo():
     data = {
         "name": REPO,
         "description": "Robusca brain backup — memory, soul, identity, workspace files",
@@ -52,16 +64,17 @@ def get_sha(path):
         return result.get("sha")
     return None
 
-def push_file(local_path, remote_path, commit_msg):
+def push_file(local_path, remote_path):
     if not os.path.exists(local_path):
         print(f"⏩ Skip (not found): {local_path}")
+        results.append(("SKIP", remote_path))
         return
-    with open(local_path, "r", encoding="utf-8") as f:
+    with open(local_path, "r", encoding="utf-8", errors="replace") as f:
         content = f.read()
     encoded = base64.b64encode(content.encode()).decode()
     sha = get_sha(remote_path)
     data = {
-        "message": commit_msg,
+        "message": f"backup: {remote_path}",
         "content": encoded,
         "branch": "main"
     }
@@ -69,28 +82,64 @@ def push_file(local_path, remote_path, commit_msg):
         data["sha"] = sha
     result, status = gh_request("PUT", f"/repos/{OWNER}/{REPO}/contents/{remote_path}", data)
     if status in (200, 201):
-        print(f"✅ Pushed: {remote_path}")
+        action = "created" if status == 201 else "updated"
+        print(f"✅ {action.upper()}: {remote_path}")
+        results.append(("OK", remote_path))
     else:
-        print(f"❌ Failed {remote_path}: {status} — {result.get('message','')}")
+        msg = result.get('message', str(result))
+        print(f"❌ FAIL {remote_path}: {status} — {msg}")
+        results.append(("FAIL", remote_path, f"{status}: {msg}"))
 
-# Files to back up
-files = [
-    ("/workspace/SOUL.md", "SOUL.md", "backup: SOUL.md"),
-    ("/workspace/IDENTITY.md", "IDENTITY.md", "backup: IDENTITY.md"),
-    ("/workspace/USER.md", "USER.md", "backup: USER.md"),
-    ("/workspace/AGENTS.md", "AGENTS.md", "backup: AGENTS.md"),
-    ("/workspace/HEARTBEAT.md", "HEARTBEAT.md", "backup: HEARTBEAT.md"),
-    ("/workspace/memory/2026-03-11.md", "memory/2026-03-11.md", "backup: memory log 2026-03-11"),
-    ("/workspace/studex/naledi-cmo-workflow.md", "studex/naledi-cmo-workflow.md", "backup: naledi CMO workflow"),
-    ("/workspace/studex/easter-content-2026.md", "studex/easter-content-2026.md", "backup: easter content 2026"),
-    ("/workspace/studex/airtable-base-design.md", "studex/airtable-base-design.md", "backup: airtable design"),
-    ("/workspace/studex/cto-playbook.md", "studex/cto-playbook.md", "backup: CTO playbook"),
-    ("/workspace/studex/legal-and-website-audit.md", "studex/legal-and-website-audit.md", "backup: legal + website audit"),
-    ("/workspace/skills/github-integration/SKILL.md", "skills/github-integration/SKILL.md", "backup: github skill"),
+# Build file list
+static_files = [
+    "/workspace/SOUL.md",
+    "/workspace/IDENTITY.md",
+    "/workspace/USER.md",
+    "/workspace/AGENTS.md",
+    "/workspace/HEARTBEAT.md",
+    "/workspace/scripts/github-backup.py",
+    "/workspace/skills/github-integration/SKILL.md",
 ]
 
+memory_files = sorted(glob.glob("/workspace/memory/*.md"))
+studex_files = sorted(glob.glob("/workspace/studex/*.md"))
+
+all_files = static_files + memory_files + studex_files
+
 print("🚀 Robusca Brain Backup — starting...\n")
-if create_repo():
-    for local, remote, msg in files:
-        push_file(local, remote, msg)
-print("\n✅ Backup complete.")
+if not ensure_repo():
+    print("❌ Could not access/create repo. Aborting.")
+    exit(1)
+
+print()
+for local in all_files:
+    remote = local.replace("/workspace/", "")
+    push_file(local, remote)
+
+# Summary
+ok = [r for r in results if r[0] == "OK"]
+skipped = [r for r in results if r[0] == "SKIP"]
+failed = [r for r in results if r[0] == "FAIL"]
+
+print(f"\n📊 Summary: {len(ok)} pushed, {len(skipped)} skipped, {len(failed)} failed")
+
+# Write status log
+ts = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
+status_lines = [f"# GitHub Backup Status\n\n", f"**Last run:** {ts}\n\n"]
+status_lines.append(f"**Result:** {len(ok)} pushed · {len(skipped)} skipped · {len(failed)} failed\n\n")
+status_lines.append("## Files Pushed\n")
+for r in ok:
+    status_lines.append(f"- ✅ {r[1]}\n")
+if skipped:
+    status_lines.append("\n## Skipped (not found)\n")
+    for r in skipped:
+        status_lines.append(f"- ⏩ {r[1]}\n")
+if failed:
+    status_lines.append("\n## Failed\n")
+    for r in failed:
+        status_lines.append(f"- ❌ {r[1]} — {r[2]}\n")
+
+with open("/workspace/memory/github-backup-status.md", "w") as f:
+    f.writelines(status_lines)
+
+print("📝 Status log written to /workspace/memory/github-backup-status.md")
