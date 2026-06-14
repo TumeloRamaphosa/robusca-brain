@@ -102,4 +102,50 @@ tags: [capture, <project>, <topic>]
   the **private** `robusca-brain` repo.
 - Never route a raw transcript to a public channel or external service.
 
+## 5. Local hotkey troubleshooting & findings (macOS)
+
+Findings from auditing the actual local install. The dictation app referenced throughout as
+"WhisperFlow" is the product **Wispr Flow**. These are app/config names and key-code values
+only — no secrets or private user data.
+
+### Installed apps
+
+| App | Path | Bundle ID |
+|-----|------|-----------|
+| Wispr Flow (dictation/PTT) | `/Applications/Wispr Flow.app` | `com.electron.wispr-flow` |
+| Flow | `/Applications/Flow.app` | `com.licardo.Flow` |
+| Perplexity | `/Applications/Perplexity.app` | `ai.perplexity.macv3` |
+| Comet | `/Applications/Comet.app` | `ai.perplexity.comet` |
+
+> Note: `Flow.app` (`com.licardo.Flow`) is a **different app** from Wispr Flow — don't
+> confuse the two when configuring shortcuts.
+
+### Wispr Flow push-to-talk binding (Control)
+
+- Config path: `~/Library/Application Support/Wispr Flow/config.json`
+- Push-to-talk lives in `prefs.cache.splitKeybinds` with value `ptt` and shortcut `[59]`.
+- **Key code `59` = the Control key on macOS** — so Wispr Flow's PTT is already bound to
+  Control, matching the desired final state.
+
+### Perplexity visor shortcut (currently Control-based)
+
+- Found in defaults domain `ai.perplexity.macv3`:
+  `KeyboardShortcuts_toggleVisor = {"carbonKeyCode":49,"carbonModifiers":768}`
+- Carbon key code `49` is **Space**; modifier mask `768` includes **Control**. So the visor
+  toggle currently uses a **Control-based** combination — which **collides with Wispr Flow's
+  Control PTT** and must be moved.
+
+### Recommended final state
+
+1. **Keep Control reserved for Wispr Flow** dictation / push-to-talk.
+2. **Move Perplexity/Computer activation off Control** — ideally to a supported
+   **Command-based** shortcut set **through the Perplexity UI**, not by editing defaults.
+3. **Caveat:** a modifier-only **Command** trigger (press-and-hold Command) may require
+   explicit app support and may **not be safely writable via `defaults`**. Prefer the
+   in-app shortcut UI; if modifier-only Command isn't supported, use a Command + key combo
+   that doesn't overlap Control.
+
+> All values above are key codes and app/config identifiers, intentionally free of any
+> secrets or personal data. Apply changes through each app's preferences UI where possible.
+
 _Last updated: 2026-06-14._
