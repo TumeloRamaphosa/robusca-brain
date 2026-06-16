@@ -208,3 +208,12 @@ Every meaningful session, I append below this line. Never delete history. Newest
 3. Decide Orgo home: existing "Auto Meat" computer vs fresh "Robusca" computer
 4. Rotate the VNC password that appeared in screenshot
 5. Trim admin roles on agent@studexmeat.com mailbox
+
+### 2026-06-16 21:42 +04 — Orgo VM connection LIVE
+- Installed orgo-sdk in Perplexity sandbox
+- Connected to "StudEx Meat - Auto Meat" computer (Ubuntu 24.04, 8GB RAM, 2 vCPU)
+- Chrome installed, xdotool available, network reaches Cloudflare + AgentMail + GoDaddy
+- Status: RUNNING
+- ⚠ Old leaked Orgo key awaiting Tumelo revocation
+- ⚠ VNC password from earlier screenshot still not rotated
+- Awaiting Tumelo: Cloudflare signup email + password handling decision before opening Chrome on the VM
