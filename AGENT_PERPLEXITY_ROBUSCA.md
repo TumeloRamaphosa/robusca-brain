@@ -180,3 +180,9 @@ Every meaningful session, I append below this line. Never delete history. Newest
 - Next push: full commit + push to origin/main so external agent can clone and deploy
 
 <!-- END SESSION LOGS -->
+
+### 2026-06-16 16:36 +04 — Voice activation rebind
+- Tumelo rebinding Perplexity voice trigger to ⌘ (Command), not Control
+- Handled by Whispr Flow on Tumelo's Mac — Robusca not to touch
+- Perplexity's own voice trigger to be disabled to avoid double-listen
+- Email / Facebook / WhatsApp setup paused until "voice rebound, continue" is said
