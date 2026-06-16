@@ -186,3 +186,12 @@ Every meaningful session, I append below this line. Never delete history. Newest
 - Handled by Whispr Flow on Tumelo's Mac — Robusca not to touch
 - Perplexity's own voice trigger to be disabled to avoid double-listen
 - Email / Facebook / WhatsApp setup paused until "voice rebound, continue" is said
+
+### 2026-06-16 16:40 +04 — Voice rebind correction + integration push
+- CORRECTION to earlier note: Perplexity stays on Control key; Whispr Flow is being rebound to Command by Tumelo in Whispr Flow settings (Robusca does NOT touch)
+- Pushed `deployment/INTEGRATIONS.md` — canonical wiring for AgentMail / Workspace / WhatsApp / Shopify / FB / Orgo
+- Reconciled WhatsApp: Meta Cloud API = PRIMARY; Twilio kept as backup only (cost + native Shopify catalog wins it)
+- Documented Shopify ↔ Meta Catalog ↔ WhatsApp commerce flow
+- GoDaddy API vs Cloudflare vs Orgo VM comparison written — Robusca recommends Orgo Hacker tier ($29/mo) for always-on operation
+- Tumelo's direct WhatsApp captured in PRIVATE Robusca memory only (never repo)
+- Outstanding asks updated in main body
