@@ -195,3 +195,16 @@ Every meaningful session, I append below this line. Never delete history. Newest
 - GoDaddy API vs Cloudflare vs Orgo VM comparison written — Robusca recommends Orgo Hacker tier ($29/mo) for always-on operation
 - Tumelo's direct WhatsApp captured in PRIVATE Robusca memory only (never repo)
 - Outstanding asks updated in main body
+
+### 2026-06-16 19:19 +04 — Meta CLI handoff to sister agent
+- Another agent (working in parallel) is scaffolding the Meta automation CLI
+- Wrote deployment/META_CLI_HANDOFF.md — full context packet so they don't re-derive: brand rules, Naledi guardrail, money format, supplier anonymisation, POPIA, curl patterns (WhatsApp/Ads/IG), 8 templates to submit for Meta approval Day 1, recommended architecture (split modules vs fat CLI), recommended build target (Orgo VM not Mac/sandbox)
+- Coordination protocol set: they push to feature/meta-cli, I merge after review, they log to their own AGENT_*.md file at repo root
+- Robusca focus areas while they build: DNS unblock, AgentMail verification, daily brief automation, content approval queue, Naledi gate
+
+### Outstanding asks (rolling)
+1. Orgo API key (unblocks DNS + makes Robusca always-on)
+2. Meta credentials: APP_ID, APP_SECRET, ACCESS_TOKEN, WABA_ID, PHONE_NUMBER_ID, AD_ACCOUNT_ID, PAGE_ID, IG_BUSINESS_ACCOUNT_ID — share with the sister Meta-CLI agent OR give to Robusca to forward
+3. Decide Orgo home: existing "Auto Meat" computer vs fresh "Robusca" computer
+4. Rotate the VNC password that appeared in screenshot
+5. Trim admin roles on agent@studexmeat.com mailbox
