@@ -411,10 +411,10 @@ specs:
 - [ ] Higgsfield API key
 - [ ] Muapi (Open Generative AI) API key
 - [ ] OpenAI API key (for embeddings + TTS)
-- [ ] AgentMail API key — `am_us_8dc671f56280db47a8b602e682cbe27dde95e63979be6660b1dd81b7bfaa3188` (rotate before prod)
-- [ ] FeedHive API key — `fh_74b458c0bcd9317dd6019b1cae0c2ec608657fe3def408f4` (rotate before prod)
-- [ ] DTN API key — `dtn_30fb95c182dc9643b8a1636d48d0179b8c3315b7e264c5fd0d1f9d2c4ccbe839` (rotate before prod)
-- [ ] Affine MCP — workspace `53df77bf-3424-4a29-a037-84c23f21d7bc` · bearer `ut_rWVJwZhFeueuadRSjbgWToFfc3zqXpv9g7P0A_AukCY` (rotate)
+- [ ] AgentMail API key — REDACTED (was leaked publicly, must be rotated at [agentmail.to](https://agentmail.to)). New key lives in Perplexity vault as `custom-cred:api.agentmail.to`.
+- [ ] FeedHive API key — REDACTED (was leaked publicly, ROTATE at feedhive.com → Settings → Account → API Key). Vault handle: `custom-cred:api.feedhive.com`
+- [ ] DTN API key — REDACTED (was leaked publicly, ROTATE at DTN dashboard). Vault handle: `custom-cred:api.dtn.tld`
+- [ ] Affine MCP — workspace `53df77bf-3424-4a29-a037-84c23f21d7bc` · bearer REDACTED (was leaked publicly, ROTATE at Affine → Settings → Tokens). Vault handle: `custom-cred:app.affine.pro`
 - [ ] Hyperframes / HeyGen API key
 - [ ] Twilio (or 360dialog) for WhatsApp + SMS
 - [ ] Google Maps Platform API key

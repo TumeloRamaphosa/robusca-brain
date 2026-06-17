@@ -26,11 +26,23 @@
 - 2026-05-16: Spawn CLI installed. Daily 8AM cron job set for activity reports.
 - 2026-05-16: Tumelo asked about "Agent in a Box" / "Agent as a Service" project — no prior memory found. Need details.
 - 2026-05-16: StudExHermes-Command and agents-dr.fixit repos cloned.
+- 2026-06-17: 🚨 SECURITY INCIDENT — robusca-brain repo was PUBLIC since creation, leaking 5+ live API keys (AgentMail x2, FeedHive, DTN, Affine). Flipped to PRIVATE. All keys must be rotated; see `KEY_ROTATION_CHECKLIST.md`.
+- 2026-06-17: New stack pieces approved — BAASH! VM on Orgo.ai (Kate + Aurora world), n8n orchestrator, TencentDB Agent Memory, Freepik integration. Specs in `BAASH_VM.md`.
+- 2026-06-17: OpenCode (Claude Code on Tencent LKE DeepSeek) joining as sister agent. Onboarding pack: `CONNECTING_AGENTS.md` + `MEGAPROMPT_OPENCODE.md`.
+- 2026-06-17: Aurora identity protocol drafted (`AURORA_IDENTITY.md`), awaiting 9 reference photos.
 
 ## Preferences
-- Timezone: Asia/Dubai (GMT+4)
+- Timezone: Africa/Johannesburg (SAST, GMT+2)
+- Location: Johannesburg, Gauteng, South Africa
 - Communication: Bold, strategic, no fluff
 - Brand aesthetic: Black & Gold, luxury, apex energy
+
+## Family
+- **Kate** — wife, runs Rahura (AI + fitness + apparel; in development)
+- **Naledi** — 2nd wife, AI persona face for StudEx Meat + Studex Global Markets
+- 2 other wives, legally recognized under SA Customary Marriages Act + Venda culture
+- Tumelo's heritage: Venda tribe
+- **Aurora** — AI persona (like Naledi) for Kate's Rahura brand world; identity placeholder pending references
 
 ## Workspace Structure
 - Main workspace: `/Users/tumeloramaphosa/.openclaw/workspace/`

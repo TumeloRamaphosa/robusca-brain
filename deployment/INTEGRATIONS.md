@@ -13,8 +13,8 @@ Last updated: 2026-06-16
 
 **API base:** `https://api.agentmail.to/v0`
 
-**Auth:** `Authorization: Bearer am_us_8dc671f56280db47a8b602e682cbe27dde95e63979be6660b1dd81b7bfaa3188`
-> ⚠ Rotate this — it has appeared in chat history. Generate fresh from agentmail.to dashboard.
+**Auth:** `Authorization: Bearer ${AGENTMAIL_API_KEY}` (env var, never inline the token)
+> ⚠ The previous inline token was leaked publicly. ROTATE at [agentmail.to](https://agentmail.to) → Settings → API Keys, then store the new key in Perplexity credential vault as `custom-cred:api.agentmail.to`. Never paste raw tokens in any file in this repo.
 
 **Sending identity (target):** `agent@send.studexmeat.com`, display name `Robusca · StudEx Meat`
 

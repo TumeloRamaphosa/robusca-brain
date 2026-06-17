@@ -84,7 +84,7 @@ Flag: anything with "urgent", "order", "invoice", "customer complaint"
 
 ```
 GET https://api.agentmail.to/v0/inboxes/studex-2571@agentmail.to/threads
-Authorization: Bearer am_us_057fa690742140538d210a530fdfc0018f21c61e08b691d2fddcee0152b60005
+Authorization: Bearer ${AGENTMAIL_API_KEY}
 Flag: unread count
 ```
 
