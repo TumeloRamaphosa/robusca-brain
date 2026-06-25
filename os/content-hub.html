@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>STUDEX MEAT — Content Pipeline</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold:        #C9A84C;
+      --gold-bright: #FFD700;
+      --gold-dim:    #8B6914;
+      --black:       #0a0a0a;
+      --black-2:     #111111;
+      --black-3:     #1a1a1a;
+      --white:       #FFFFFF;
+      --white-70:    rgba(255,255,255,0.70);
+      --white-40:    rgba(255,255,255,0.40);
+      --white-15:    rgba(255,255,255,0.15);
+    }
+
+    /* ─── GRAIN TEXTURE OVERLAY ─── */
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+
+    /* ─── TYPOGRAPHY — DISTRESSED UPPERCASE STYLE ─── */
+    .heading-display {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      text-shadow: 2px 2px 0 rgba(0,0,0,0.8), 4px 4px 12px rgba(0,0,0,0.6);
+    }
+    .heading-gold {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-shadow: 0 0 20px rgba(201,168,76,0.4), 1px 1px 0 rgba(0,0,0,0.9);
+    }
+    .label-tag {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes goldGlow { 0%,100% { opacity:0.6; } 50% { opacity:1; } }
+    @keyframes pulse    { 0%,100% { box-shadow:0 0 8px rgba(201,168,76,0.3); } 50% { box-shadow:0 0 20px rgba(201,168,76,0.7); } }
+    @keyframes barGrow  { from { width:0; } to { width:var(--w); } }
+    .fade-up  { animation: fadeUp 0.55s ease both; }
+    .d1 { animation-delay:.05s; } .d2 { animation-delay:.10s; } .d3 { animation-delay:.15s; } .d4 { animation-delay:.20s; } .d5 { animation-delay:.25s; } .d6 { animation-delay:.30s; }
+
+    /* ─── HEADER ─── */
+    header {
+      background: #050505;
+      border-bottom: 1px solid rgba(201,168,76,0.4);
+      padding: 0 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .header-inner {
+      max-width: 1300px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      gap: 16px;
+    }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-seal {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1.5px solid var(--gold);
+      padding: 2px;
+      background: #000;
+      flex-shrink: 0;
+    }
+    .logo-text {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .logo-text .line1 { font-size: 18px; color: var(--white); display:block; line-height:1.1; }
+    .logo-text .line2 { font-size: 10px; color: var(--gold); display:block; letter-spacing: 0.18em; }
+
+    .header-meta { display:flex; align-items:center; gap:16px; }
+    .deadline-pill {
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.5);
+      color: var(--gold-bright);
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 5px 12px;
+      border-radius: 2px;
+      animation: pulse 2.5s ease infinite;
+    }
+    .privacy-btn {
+      background: none;
+      border: 1px solid var(--white-15);
+      color: var(--white-40);
+      font-size: 11px;
+      padding: 5px 12px;
+      cursor: pointer;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      border-radius: 2px;
+      transition: all .2s;
+    }
+    .privacy-btn:hover { border-color: var(--gold); color: var(--gold); }
+    .privacy-btn.active { border-color: var(--gold); color: var(--gold); }
+
+    /* ─── MAIN LAYOUT ─── */
+    main { max-width: 1300px; margin: 0 auto; padding: 0 24px 80px; }
+
+    /* ─── HERO BANNER (brochure page 1 style) ─── */
+    .hero-banner {
+      position: relative;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a0f00 60%, #0a0a0a 100%);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 2px;
+      margin: 28px 0 40px;
+      padding: 48px 40px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .hero-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(201,168,76,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-content { flex: 1; position: relative; z-index: 1; }
+    .hero-eyebrow {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after { content:''; flex:0 0 30px; height:1px; background: var(--gold-dim); }
+    .hero-title {
+      font-family: 'Oswald', sans-serif;
+      font-weight: 700;
+      font-size: clamp(32px, 5vw, 52px);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      line-height: 1.0;
+      color: var(--white);
+      text-shadow: 3px 3px 0 rgba(0,0,0,0.8);
+      margin-bottom: 6px;
+    }
+    .hero-title span { color: var(--gold); }
+    .hero-subtitle {
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--white-70);
+      margin-bottom: 24px;
+    }
+    .hero-stats { display: flex; gap: 32px; }
+    .hero-stat { text-align: left; }
+    .hero-stat .num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .hero-stat .lbl { font-size: 10px; color: var(--white-40); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 2px; }
+    .hero-seal-wrap {
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-seal-wrap img { width: 120px; height: 120px; border-radius: 50%; filter: drop-shadow(0 0 20px rgba(201,168,76,0.5)); }
+
+    /* ─── SECTION HEADER (brochure section style) ─── */
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 40px 0 20px;
+    }
+    .section-header::before {
+      content: '';
+      flex: 0 0 3px;
+      height: 28px;
+      background: var(--gold);
+    }
+    .section-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+    .section-count {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 0.1em;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 3px 8px;
+      border-radius: 2px;
+    }
+    .section-line { flex: 1; height: 1px; background: linear-gradient(90deg, rgba(201,168,76,0.3), transparent); }
+
+    /* ─── CONTENT GRID ─── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2px;
+    }
+
+    /* ─── CONTENT CARD (brochure page aesthetic) ─── */
+    .content-card {
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.12);
+      position: relative;
+      overflow: hidden;
+      transition: all .25s ease;
+    }
+    .content-card:hover {
+      border-color: rgba(201,168,76,0.5);
+      background: #141414;
+    }
+    .content-card:hover .card-overlay { opacity: 1; }
+
+    /* POST label stamp */
+    .post-stamp {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      z-index: 5;
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      background: var(--gold);
+      color: #000;
+      padding: 3px 8px;
+      border-radius: 1px;
+    }
+
+    /* Status badge */
+    .status-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      z-index: 5;
+      font-family: 'Oswald', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 3px 8px;
+      border-radius: 1px;
+    }
+    .status-badge.awaiting  { background:rgba(201,168,76,0.15); border:1px solid rgba(201,168,76,0.5); color:var(--gold); }
+    .status-badge.approved  { background:rgba(34,197,94,0.12); border:1px solid rgba(34,197,94,0.4); color:#4ade80; }
+    .status-badge.posted    { background:rgba(34,197,94,0.2); border:1px solid rgba(34,197,94,0.6); color:#4ade80; }
+    .status-badge.priority  { background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.5); color:#f87171; }
+
+    /* Card visual — dark photo style */
+    .card-visual {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #0d0d0d;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-visual img { width:100%; height:100%; object-fit:cover; filter:brightness(0.85) contrast(1.1); }
+    .card-visual video { width:100%; height:100%; object-fit:cover; }
+    .card-visual-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      color: var(--white-15);
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 20px;
+      text-align: center;
+    }
+    .card-visual-placeholder .icon { font-size: 32px; opacity: 0.3; }
+
+    /* Dark overlay on hover */
+    .card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(201,168,76,0.05);
+      opacity: 0;
+      transition: opacity .2s;
+      pointer-events: none;
+    }
+
+    /* Card body */
+    .card-body { padding: 16px 18px 18px; }
+    .card-platform {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .platform-dot { width:6px; height:6px; border-radius:50%; }
+    .platform-dot.ig   { background:#E1306C; }
+    .platform-dot.fb   { background:#1877F2; }
+    .platform-dot.wa   { background:#25D366; }
+    .platform-dot.gg   { background:#4285F4; }
+    .platform-label { font-size: 10px; color: var(--white-40); text-transform: uppercase; letter-spacing: 0.1em; font-family:'Oswald',sans-serif; font-weight:500; }
+
+    .card-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .card-caption {
+      font-size: 12px;
+      color: var(--white-70);
+      line-height: 1.55;
+      margin-bottom: 14px;
+      border-left: 2px solid rgba(201,168,76,0.3);
+      padding-left: 10px;
+    }
+
+    /* Approve/Reject buttons — brochure CTA style */
+    .card-actions { display:flex; gap:8px; align-items:center; }
+    .btn-approve {
+      background: var(--gold);
+      color: #000;
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: none;
+      padding: 7px 16px;
+      cursor: pointer;
+      border-radius: 1px;
+      transition: all .2s;
+      flex: 1;
+    }
+    .btn-approve:hover { background: var(--gold-bright); }
+    .btn-reject {
+      background: none;
+      color: var(--white-40);
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 7px 14px;
+      cursor: pointer;
+      border-radius: 1px;
+      transition: all .2s;
+    }
+    .btn-reject:hover { border-color: #ef4444; color: #f87171; }
+    .btn-view {
+      background: none;
+      color: var(--gold);
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: 1px solid rgba(201,168,76,0.3);
+      padding: 7px 14px;
+      cursor: pointer;
+      border-radius: 1px;
+      transition: all .2s;
+    }
+    .btn-view:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+
+    /* ─── STATS ROW (brochure data style) ─── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    .stat-card {
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.1);
+      padding: 18px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--gold);
+      opacity: 0.5;
+    }
+    .stat-card .s-label { font-size: 10px; color: var(--white-40); text-transform: uppercase; letter-spacing: 0.12em; font-family:'Oswald',sans-serif; margin-bottom: 8px; }
+    .stat-card .s-value {
+      font-family: 'Oswald', sans-serif;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-card .s-sub { font-size: 11px; color: var(--white-40); margin-top: 4px; }
+
+    /* Privacy mask */
+    .priv .s-value  { color: transparent !important; text-shadow: 0 0 10px rgba(201,168,76,0.8); background: rgba(201,168,76,0.1); border-radius: 2px; }
+    .priv .hero-stat .num { color: transparent !important; background: rgba(201,168,76,0.1); border-radius:2px; padding:2px 6px; }
+
+    /* ─── DEADLINE SECTION ─── */
+    .deadline-bar {
+      background: linear-gradient(90deg, rgba(201,168,76,0.12) 0%, rgba(201,168,76,0.04) 100%);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 2px;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    .deadline-icon { font-size: 24px; }
+    .deadline-text .d-main {
+      font-family: 'Oswald', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-bright);
+    }
+    .deadline-text .d-sub { font-size: 12px; color: var(--white-40); margin-top: 2px; }
+    .countdown-digits {
+      margin-left: auto;
+      display: flex;
+      gap: 12px;
+    }
+    .cd-unit { text-align: center; }
+    .cd-num {
+      font-family: 'Oswald', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--gold);
+      background: rgba(201,168,76,0.08);
+      border: 1px solid rgba(201,168,76,0.2);
+      padding: 4px 10px;
+      border-radius: 2px;
+      min-width: 44px;
+      display: block;
+      text-align: center;
+    }
+    .cd-label { font-size: 9px; color: var(--white-40); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 3px; }
+
+    /* ─── PIPELINE SECTION ─── */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-bottom: 2px;
+    }
+    @media (max-width: 768px) { .pipeline-grid { grid-template-columns: 1fr; } .hero-banner { flex-direction: column; text-align: center; } .hero-eyebrow { justify-content: center; } .hero-stats { justify-content: center; } }
+    .pipeline-col {
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.1);
+    }
+    .pipeline-col-header {
+      border-bottom: 1px solid rgba(201,168,76,0.12);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pipeline-col-header .ph-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .pipeline-col-header .ph-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .pipeline-col-header .ph-count {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--white-40);
+      font-family: 'Oswald', sans-serif;
+    }
+    .pipeline-items { padding: 12px; display:flex; flex-direction:column; gap:8px; }
+    .pipeline-item {
+      background: var(--black-3);
+      border-left: 2px solid;
+      padding: 10px 12px;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .pipeline-item:hover { background: #222; }
+    .pipeline-item.gold-border { border-left-color: var(--gold); }
+    .pipeline-item.green-border { border-left-color: #4ade80; }
+    .pipeline-item.gray-border { border-left-color: #444; }
+    .pi-label {
+      font-family: 'Oswald', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      margin-bottom: 3px;
+    }
+    .pi-meta { font-size: 10px; color: var(--white-40); }
+
+    /* ─── INSTRUCTION NOTE ─── */
+    .note-bar {
+      background: rgba(201,168,76,0.06);
+      border-left: 3px solid var(--gold);
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--white-70);
+      margin: 20px 0;
+      line-height: 1.6;
+    }
+    .note-bar strong { color: var(--gold-bright); font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:0.05em; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid rgba(201,168,76,0.15);
+      text-align: center;
+      padding: 24px;
+      color: var(--white-40);
+      font-size: 11px;
+      font-family: 'Oswald', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+    footer span { color: var(--gold); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.88); z-index:1000; align-items:center; justify-content:center; padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal {
+      background: var(--black-2);
+      border: 1px solid rgba(201,168,76,0.4);
+      max-width: 560px;
+      width: 100%;
+      padding: 28px;
+      position: relative;
+    }
+    .modal-title {
+      font-family: 'Oswald', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .modal-body { font-size: 13px; color: var(--white-70); line-height: 1.7; margin-bottom: 20px; }
+    .modal-actions { display:flex; gap:10px; }
+    .modal-close { position:absolute; top:12px; right:16px; background:none; border:none; color:var(--white-40); font-size:20px; cursor:pointer; }
+    .modal-close:hover { color:var(--white); }
+
+    /* ─── SCROLL BAR ─── */
+    ::-webkit-scrollbar { width:4px; } ::-webkit-scrollbar-track { background:#0a0a0a; } ::-webkit-scrollbar-thumb { background:rgba(201,168,76,0.3); border-radius:2px; }
+
+    /* ─── TOAST ─── */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111;
+      border: 1px solid var(--gold);
+      color: var(--white);
+      font-family: 'Oswald', sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 12px 20px;
+      border-radius: 2px;
+      z-index: 9999;
+      opacity: 0;
+      transition: opacity .3s;
+      pointer-events: none;
+    }
+    #toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="header-inner">
+      <div class="logo-area">
+        <img class="logo-seal" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23000' stroke='%23C9A84C' stroke-width='2'/%3E%3Ccircle cx='50' cy='50' r='40' fill='none' stroke='%23C9A84C' stroke-width='0.8'/%3E%3Ctext x='50' y='22' text-anchor='middle' font-family='serif' font-size='8' fill='%23C9A84C' letter-spacing='2'%3ESTUDEX MEAT%3C/text%3E%3Ctext x='50' y='88' text-anchor='middle' font-family='serif' font-size='5.5' fill='%23C9A84C' letter-spacing='1'%3EWWW.STUDEXMEAT.COM%3C/text%3E%3Ccircle cx='50' cy='50' r='22' fill='%23C9A84C10' stroke='%23C9A84C' stroke-width='0.6'/%3E%3Ctext x='50' y='56' text-anchor='middle' font-size='28' fill='%23C9A84C'%3E🐂%3C/text%3E%3C/svg%3E" alt="Studex Meat Seal">
+        <div class="logo-text">
+          <span class="line1">Studex Meat</span>
+          <span class="line2">Content Pipeline</span>
+        </div>
+      </div>
+      <div class="header-meta">
+        <div class="deadline-pill" style="background:rgba(239,68,68,0.15);border-color:rgba(239,68,68,0.4);color:#ef4444;">⏰ Father's Day Deadline Passed — Content Still Worth Posting</div>
+        <button class="privacy-btn" id="privToggle" onclick="togglePrivacy()">🔒 Privacy</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO BANNER -->
+    <div class="hero-banner fade-up d1" id="heroBanner">
+      <div class="hero-content">
+        <div class="hero-eyebrow">Wagyu Biltong Gold Campaign</div>
+        <div class="hero-title">Content<br><span>Pipeline Hub</span></div>
+        <div class="hero-subtitle">Father's Day Push — Jun 19–21</div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num" data-priv="true">R108K</div>
+            <div class="lbl">Pipeline Value</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-priv="true">7</div>
+            <div class="lbl">Posts Ready</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num" data-priv="true">0</div>
+            <div class="lbl">Posted</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-seal-wrap">
+        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='96' fill='%230a0a0a' stroke='%23C9A84C' stroke-width='3'/%3E%3Ccircle cx='100' cy='100' r='80' fill='none' stroke='%23C9A84C' stroke-width='1'/%3E%3Ccircle cx='100' cy='100' r='76' fill='none' stroke='%23C9A84C80' stroke-width='0.5'/%3E%3Ctext x='100' y='38' text-anchor='middle' font-family='Georgia,serif' font-size='14' fill='%23C9A84C' letter-spacing='3'%3ESTUDEX MEAT%3C/text%3E%3Ctext x='100' y='175' text-anchor='middle' font-family='Georgia,serif' font-size='9' fill='%23C9A84C' letter-spacing='1.5'%3EWWW.STUDEXMEAT.COM%3C/text%3E%3Ccircle cx='100' cy='100' r='45' fill='%23C9A84C0D' stroke='%23C9A84C' stroke-width='1'/%3E%3Ctext x='100' y='115' text-anchor='middle' font-size='56' fill='%23C9A84C'%3E🐂%3C/text%3E%3Ccircle cx='100' cy='55' r='4' fill='%23C9A84C'/%3E%3Ccircle cx='100' cy='148' r='4' fill='%23C9A84C'/%3E%3C/svg%3E" alt="Studex Meat Official Seal">
+      </div>
+    </div>
+
+    <!-- DEADLINE COUNTDOWN -->
+    <div class="deadline-bar fade-up d2">
+      <div class="deadline-icon">⏳</div>
+      <div class="deadline-text">
+        <div class="d-main">Father's Day Campaign — Deadline Passed</div>
+        <div class="d-sub">Noon SAST 21 Jun 2026 has passed — content still valuable for ongoing Biltong Gold sales &amp; brand awareness</div>
+      </div>
+      <div class="countdown-digits" id="countdown">
+        <div class="cd-unit"><span class="cd-num" id="cd-h">--</span><div class="cd-label">Hours</div></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">--</span><div class="cd-label">Min</div></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">--</span><div class="cd-label">Sec</div></div>
+      </div>
+    </div>
+
+    <!-- APPROVAL RULE NOTE -->
+    <div class="note-bar fade-up d2">
+      <strong>Approval Required</strong> — No content goes live without Tumelo's explicit "post it" command. All posts below are AWAITING APPROVAL. Approve to queue, then confirm to publish.
+    </div>
+
+    <!-- STATS ROW -->
+    <div class="stats-row fade-up d3">
+      <div class="stat-card">
+        <div class="s-label">Shopify Revenue Today</div>
+        <div class="s-value" data-priv="true">R0</div>
+        <div class="s-sub">Jun 19, 2026</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Unfulfilled Pipeline</div>
+        <div class="s-value" data-priv="true">R108K</div>
+        <div class="s-sub">40 orders — oldest #1227</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Biltong Gold Stock</div>
+        <div class="s-value" data-priv="true">496</div>
+        <div class="s-sub">Available — 1kg R1,450</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Posts Approved</div>
+        <div class="s-value" data-priv="true">0 / 7</div>
+        <div class="s-sub">Awaiting Tumelo approval</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Ads Budget Set</div>
+        <div class="s-value" data-priv="true">R450/d</div>
+        <div class="s-sub">Facebook + Google (manual)</div>
+      </div>
+    </div>
+
+    <!-- POSTING ORDER -->
+    <div class="section-header fade-up d3">
+      <div class="section-title">Content Queue — Post Order</div>
+      <span class="section-count">7 PENDING</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="content-grid fade-up d4">
+
+      <!-- POST F — PRIORITY: President video -->
+      <div class="content-card" style="grid-column: span 2;">
+        <div class="post-stamp">Post F — Priority 1</div>
+        <div class="status-badge priority">🔴 Awaiting Approval</div>
+        <div class="card-visual" style="aspect-ratio:16/7;">
+          <div class="card-visual-placeholder">
+            <div class="icon">🎬</div>
+            <div>Original President Video<br><small style="opacity:.5">11s · 480×624 · With Voiceover Added</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram Reel</span>
+            <span style="margin-left:6px" class="platform-dot fb"></span><span class="platform-label">Facebook</span>
+          </div>
+          <div class="card-title">The President Does Press-Ups — Then He Eats Biltong Gold</div>
+          <div class="card-caption">"This Father's Day, give the gift of greatness. Wagyu Biltong Gold — by Studex Meat. Premium marbled Wagyu beef, air-dried to perfection. Because real men deserve the best. Order now. studexmeat.com — Last orders Saturday noon."</div>
+          <div style="font-size:11px;color:var(--gold);font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px;">
+            ✅ Original video preserved — voiceover overlaid — video stream unchanged
+          </div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('F','President Video + Voiceover')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('F')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST G — Ribeye Auction -->
+      <div class="content-card">
+        <div class="post-stamp">Post G — Priority 2</div>
+        <div class="status-badge awaiting">Awaiting Approval</div>
+        <div class="card-visual">
+          <img src="" onerror="this.style.display='none'" alt="">
+          <div class="card-visual-placeholder">
+            <div class="icon">🥩</div>
+            <div>Ribeye Auction<br><small style="opacity:.5">Marble Score 7/8 — 70kg</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram</span>
+            <span style="margin-left:6px" class="platform-dot gg"></span><span class="platform-label">Google Ads</span>
+          </div>
+          <div class="card-title">Ribeye Auction — Marble Score 7/8</div>
+          <div class="card-caption">70kg Ankole Ribeye. Marble Score 7/8. This is a once-in-a-season cut. Bid starts Friday — winners announced Saturday. DM to bid. #StudexMeat #WagyuSA</div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('G','Ribeye Auction')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('G')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST A -->
+      <div class="content-card">
+        <div class="post-stamp">Post A</div>
+        <div class="status-badge awaiting">Awaiting Approval</div>
+        <div class="card-visual">
+          <div class="card-visual-placeholder">
+            <div class="icon">📋</div>
+            <div>Biltong Benefits Graphic<br><small style="opacity:.5">1000007827.jpg</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram</span>
+            <span style="margin-left:6px" class="platform-dot fb"></span><span class="platform-label">Facebook</span>
+          </div>
+          <div class="card-title">Wagyu Biltong Benefits</div>
+          <div class="card-caption">High protein. Zero sugar. Rich Wagyu marbling. The snack that works as hard as you do. Order at studexmeat.com</div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('A','Biltong Benefits Graphic')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('A')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST B -->
+      <div class="content-card">
+        <div class="post-stamp">Post B</div>
+        <div class="status-badge awaiting">Awaiting Approval</div>
+        <div class="card-visual">
+          <div class="card-visual-placeholder">
+            <div class="icon">🎁</div>
+            <div>Father's Day Gift Box<br><small style="opacity:.5">1000332466.jpg</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram</span>
+          </div>
+          <div class="card-title">The Perfect Father's Day Gift</div>
+          <div class="card-caption">He doesn't want a tie. He wants Wagyu Biltong Gold. Gift the premium experience this Father's Day — last orders Saturday noon. studexmeat.com</div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('B','Gift Box Father\'s Day')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('B')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST D — Wagyu cutting board -->
+      <div class="content-card">
+        <div class="post-stamp">Post D</div>
+        <div class="status-badge awaiting">Awaiting Approval</div>
+        <div class="card-visual">
+          <div class="card-visual-placeholder">
+            <div class="icon">🎬</div>
+            <div>Wagyu Cutting Board Reel<br><small style="opacity:.5">1000426674.mp4</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram Reel</span>
+          </div>
+          <div class="card-title">Wagyu — The Art of the Cut</div>
+          <div class="card-caption">Watch the marbling. That rich fat content is what makes Wagyu Biltong Gold the premium difference. Available now at studexmeat.com</div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('D','Wagyu Cutting Board Reel')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('D')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- POST E — Umar Kremlev Russia biltong -->
+      <div class="content-card">
+        <div class="post-stamp">Post E — Russia</div>
+        <div class="status-badge awaiting">Awaiting Approval</div>
+        <div class="card-visual">
+          <div class="card-visual-placeholder">
+            <div class="icon">🇷🇺</div>
+            <div>Kremlev Tries Biltong — Russia<br><small style="opacity:.5">1000006350.mp4 — PRIORITY Reel</small></div>
+          </div>
+          <div class="card-overlay"></div>
+        </div>
+        <div class="card-body">
+          <div class="card-platform">
+            <span class="platform-dot ig"></span><span class="platform-label">Instagram Reel</span>
+            <span style="margin-left:6px" class="platform-dot fb"></span><span class="platform-label">Facebook</span>
+          </div>
+          <div class="card-title">Russia Approves — AIBA President Tries Wagyu Biltong Gold</div>
+          <div class="card-caption">From South Africa to Russia — Wagyu Biltong Gold is crossing borders. Studex Global Markets bringing premium SA taste to the world. studexmeat.com</div>
+          <div class="card-actions">
+            <button class="btn-approve" onclick="approvePost('E','Russia Kremlev Biltong Reel')">✓ Approve</button>
+            <button class="btn-reject" onclick="rejectPost('E')">✗ Reject</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /content-grid -->
+
+    <!-- PIPELINE STATUS -->
+    <div class="section-header fade-up d5" style="margin-top:40px;">
+      <div class="section-title">Pipeline Status</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="pipeline-grid fade-up d5">
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <div class="ph-dot" style="background:#F59E0B;"></div>
+          <div class="ph-title" style="color:#F59E0B;">Pending Approval</div>
+          <span class="ph-count">7</span>
+        </div>
+        <div class="pipeline-items">
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post F — President Video + VO</div>
+            <div class="pi-meta">Instagram + Facebook · Reel · 11s</div>
+          </div>
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post G — Ribeye Auction</div>
+            <div class="pi-meta">Instagram + Google Ads · Static</div>
+          </div>
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post E — Russia / Kremlev</div>
+            <div class="pi-meta">Instagram + Facebook · Reel</div>
+          </div>
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post A — Benefits Graphic</div>
+            <div class="pi-meta">Instagram + Facebook · Static</div>
+          </div>
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post B — Father's Day Gift Box</div>
+            <div class="pi-meta">Instagram · Static</div>
+          </div>
+          <div class="pipeline-item gold-border">
+            <div class="pi-label">Post D — Wagyu Cutting Board</div>
+            <div class="pi-meta">Instagram Reel</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <div class="ph-dot" style="background:#4ade80;"></div>
+          <div class="ph-title" style="color:#4ade80;">Approved — Ready to Post</div>
+          <span class="ph-count" id="approved-count">0</span>
+        </div>
+        <div class="pipeline-items" id="approved-list">
+          <div class="pipeline-item gray-border" style="color:rgba(255,255,255,0.3);">
+            <div class="pi-label" style="color:inherit;">No approved posts yet</div>
+            <div class="pi-meta">Approve posts from the queue above</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pipeline-col">
+        <div class="pipeline-col-header">
+          <div class="ph-dot" style="background:#60a5fa;"></div>
+          <div class="ph-title" style="color:#60a5fa;">Ads — Manual Setup Required</div>
+          <span class="ph-count">2</span>
+        </div>
+        <div class="pipeline-items">
+          <div class="pipeline-item" style="border-left-color:#60a5fa;">
+            <div class="pi-label">Google PMAX Campaign</div>
+            <div class="pi-meta">Account 2234319068 — Setup at ads.google.com<br>Budget: R300/day · Biltong Gold</div>
+          </div>
+          <div class="pipeline-item" style="border-left-color:#60a5fa;">
+            <div class="pi-label">Facebook / Instagram Ads</div>
+            <div class="pi-meta">act_560666565541381 — R150/day<br>3 ad sets: Biltong, Gift, Tomahawk</div>
+          </div>
+          <div class="pipeline-item" style="border-left-color:#F59E0B;">
+            <div class="pi-label">Google Ads Brief Ready</div>
+            <div class="pi-meta">biltong_gold_google_ads.md — use for manual setup</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+
+    <!-- GOOGLE ADS LIVE DATA -->
+    <div class="section-header fade-up" style="margin-top:48px;">
+      <div class="section-title">Google Ads — Live Campaigns</div>
+      <span class="section-count">17 CAMPAIGNS</span>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="note-bar" style="margin-bottom:16px;">
+      <strong>Full Control Active</strong> — Google Ads connector is live. I can pause, enable, adjust budgets, create ad groups, add keywords, and pull performance reports directly from here. No need to log in to ads.google.com.
+    </div>
+
+    <div class="stats-row" style="margin-bottom:2px;">
+      <div class="stat-card">
+        <div class="s-label">Active Campaigns</div>
+        <div class="s-value" style="color:#4ade80;">3</div>
+        <div class="s-sub">PMAX + Brand + Gen Search</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Paused Campaigns</div>
+        <div class="s-value" style="color:#F59E0B;">13</div>
+        <div class="s-sub">Shopping, Display, Province PMAX</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Removed</div>
+        <div class="s-value" style="color:#6b7280;">1</div>
+        <div class="s-sub">Old shopping campaign</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Daily Budget (Active)</div>
+        <div class="s-value font-mono" data-priv="true">R1,810</div>
+        <div class="s-sub">R1,400 PMAX + R360 Brand + R50 Gen</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:40px;">
+      <!-- Active campaigns — full column -->
+      <div style="background:var(--black-2);border:1px solid rgba(74,222,128,0.2);padding:18px 20px;grid-column:1/-1;">
+        <div style="font-family:Oswald,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:#4ade80;margin-bottom:16px;">✅ Currently Running — 3 Campaigns</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;">
+          <div style="border-left:2px solid #4ade80;padding-left:12px;">
+            <div style="font-family:Oswald,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;color:var(--white);">STU - PMAX - SALES</div>
+            <div style="font-size:11px;color:var(--white-40);margin-top:2px;">Performance Max · ID 20300874153</div>
+            <div style="font-size:12px;color:var(--gold);margin-top:6px;font-family:monospace;">R1,400/day</div>
+            <div style="font-size:11px;color:#F59E0B;margin-top:4px;">⚠ Spending R0 — needs creative assets</div>
+          </div>
+          <div style="border-left:2px solid #4ade80;padding-left:12px;">
+            <div style="font-family:Oswald,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;color:var(--white);">STU - SRCH - BRAND</div>
+            <div style="font-size:11px;color:var(--white-40);margin-top:2px;">Brand Search · ID 20655386827</div>
+            <div style="font-size:12px;color:var(--gold);margin-top:6px;font-family:monospace;">R360/day</div>
+            <div style="font-size:11px;color:#4ade80;margin-top:4px;">✅ Enabled Jun 21 — runs when searched</div>
+          </div>
+          <div style="border-left:2px solid #4ade80;padding-left:12px;">
+            <div style="font-family:Oswald,sans-serif;font-size:13px;font-weight:700;text-transform:uppercase;color:var(--white);">STU - SRCH - GEN</div>
+            <div style="font-size:11px;color:var(--white-40);margin-top:2px;">General Search · ID 21586907226</div>
+            <div style="font-size:12px;color:var(--gold);margin-top:6px;font-family:monospace;">R50/day</div>
+            <div style="font-size:11px;color:#4ade80;margin-top:4px;">✅ Enabled Jun 21 — keywords need review</div>
+          </div>
+        </div>
+        <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.06);font-size:12px;color:var(--white-70);">
+          <span style="color:#F59E0B;font-weight:700;">⚡ Priority action:</span> Upload packaging image + president video to PMAX so R1,400/day budget actually spends. Also review General Search keywords — missing biltong-specific terms.
+        </div>
+      </div>
+    </div>
+
+    <!-- FACEBOOK ADS -->
+    <div class="section-header fade-up" style="margin-top:8px;">
+      <div class="section-title">Facebook &amp; Instagram Ads</div>
+      <div class="section-line"></div>
+    </div>
+
+    <div class="note-bar" style="margin-bottom:16px;">
+      <strong>Permission Upgrade Needed</strong> — The current Facebook connector can read the page but needs <code style="color:var(--gold-bright);font-size:11px;">pages_manage_posts</code> + <code style="color:var(--gold-bright);font-size:11px;">instagram_content_publish</code> permissions to post. To fix: click "Reconnect Facebook" above → log in → grant all permissions → done. Alternatively Tumelo can post via browser takeover.
+    </div>
+
+    <div class="stats-row" style="margin-bottom:2px;">
+      <div class="stat-card">
+        <div class="s-label">Ad Account</div>
+        <div class="s-value" style="font-size:14px;color:var(--gold);">act_560666</div>
+        <div class="s-sub">565541381</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Facebook Page ID</div>
+        <div class="s-value" style="font-size:14px;color:var(--gold);">108934</div>
+        <div class="s-sub">711902801</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Instagram ID</div>
+        <div class="s-value" style="font-size:14px;color:var(--gold);">17841</div>
+        <div class="s-sub">403538967823</div>
+      </div>
+      <div class="stat-card">
+        <div class="s-label">Planned Budget</div>
+        <div class="s-value" data-priv="true">R450/d</div>
+        <div class="s-sub">3 ad sets — pending setup</div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;margin-bottom:48px;">
+      <div style="background:var(--black-2);border:1px solid rgba(201,168,76,0.12);padding:18px 20px;">
+        <div style="font-family:Oswald,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px;">Ad Set 1 — Biltong Gold</div>
+        <div style="font-size:12px;color:var(--white-70);line-height:1.6;">Father's Day push · R200/day<br>Creative: President video + packaging<br>Audience: Men 25-50, Gauteng, food interest<br><span style="color:#F59E0B;">Status: Pending setup</span></div>
+      </div>
+      <div style="background:var(--black-2);border:1px solid rgba(201,168,76,0.12);padding:18px 20px;">
+        <div style="font-family:Oswald,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px;">Ad Set 2 — Gift Box</div>
+        <div style="font-size:12px;color:var(--white-70);line-height:1.6;">Gift campaign · R150/day<br>Creative: Gift box image + caption<br>Audience: Women 28-55, SA, gifting intent<br><span style="color:#F59E0B;">Status: Pending setup</span></div>
+      </div>
+      <div style="background:var(--black-2);border:1px solid rgba(201,168,76,0.12);padding:18px 20px;">
+        <div style="font-family:Oswald,sans-serif;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.12em;color:var(--gold);margin-bottom:10px;">Ad Set 3 — Tomahawk</div>
+        <div style="font-size:12px;color:var(--white-70);line-height:1.6;">Premium cut · R100/day<br>Creative: Tomahawk sizzle reel<br>Audience: Braai enthusiasts, SA men 30-60<br><span style="color:#F59E0B;">Status: Pending setup</span></div>
+      </div>
+    </div>
+
+  <footer>
+    <span>STUDEX MEAT</span> · Content Pipeline · Orchestrated by Perplexity Computer · All posts require Tumelo's approval before publishing · <span>studexmeat.com</span>
+  </footer>
+
+  <!-- APPROVAL MODAL -->
+  <div class="modal-overlay" id="approvalModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">×</button>
+      <div class="modal-title" id="modal-title">Approve Post?</div>
+      <div class="modal-body" id="modal-body">Review this post before approving. Once approved it will be queued. Tumelo must still confirm "post it" before it goes live.</div>
+      <div class="modal-actions">
+        <button class="btn-approve" id="modal-confirm" style="flex:1;">✓ Confirm Approval</button>
+        <button class="btn-reject" onclick="closeModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script>
+    // ─── PRIVACY TOGGLE ───
+    let privacyOn = false;
+    function togglePrivacy() {
+      privacyOn = !privacyOn;
+      document.getElementById('privToggle').textContent = privacyOn ? '🔓 Reveal' : '🔒 Privacy';
+      document.getElementById('privToggle').classList.toggle('active', privacyOn);
+      document.querySelectorAll('[data-priv="true"]').forEach(el => {
+        el.style.color = privacyOn ? 'transparent' : '';
+        el.style.background = privacyOn ? 'rgba(201,168,76,0.15)' : '';
+        el.style.borderRadius = privacyOn ? '3px' : '';
+        el.style.padding = privacyOn ? '0 6px' : '';
+      });
+    }
+
+    // ─── COUNTDOWN ───
+    function updateCountdown() {
+      const deadline = new Date('2026-06-21T10:00:00Z'); // noon SAST = 10:00 UTC
+      const now = new Date();
+      const diff = deadline - now;
+      if (diff <= 0) {
+        document.getElementById('cd-h').textContent = '00';
+        document.getElementById('cd-m').textContent = '00';
+        document.getElementById('cd-s').textContent = '00';
+        return;
+      }
+      const h = Math.floor(diff / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+      document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    // ─── APPROVAL FLOW ───
+    let pendingPostId = null;
+    let pendingPostLabel = null;
+    let approvedPosts = [];
+
+    function approvePost(id, label) {
+      pendingPostId = id;
+      pendingPostLabel = label;
+      document.getElementById('modal-title').textContent = 'Approve Post ' + id + '?';
+      document.getElementById('modal-body').textContent = '"' + label + '" will be marked as APPROVED and queued. Tumelo must still confirm "Post it now" before anything goes live on Instagram or Facebook.';
+      document.getElementById('modal-confirm').onclick = confirmApproval;
+      document.getElementById('approvalModal').classList.add('open');
+    }
+
+    function confirmApproval() {
+      approvedPosts.push({ id: pendingPostId, label: pendingPostLabel });
+      closeModal();
+      updateApprovedList();
+      showToast('✅ Post ' + pendingPostId + ' approved — awaiting post command');
+    }
+
+    function rejectPost(id) {
+      showToast('❌ Post ' + id + ' rejected');
+    }
+
+    function closeModal() {
+      document.getElementById('approvalModal').classList.remove('open');
+    }
+
+    function updateApprovedList() {
+      const list = document.getElementById('approved-list');
+      document.getElementById('approved-count').textContent = approvedPosts.length;
+      if (approvedPosts.length === 0) return;
+      list.innerHTML = approvedPosts.map(p =>
+        '<div class="pipeline-item green-border"><div class="pi-label">Post ' + p.id + ' — ' + p.label + '</div><div class="pi-meta">✅ Approved — waiting for: "Post it now"</div></div>'
+      ).join('');
+    }
+
+    // ─── TOAST ───
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // Close modal on overlay click
+    document.getElementById('approvalModal').addEventListener('click', function(e) {
+      if (e.target === this) closeModal();
+    });
+  </script>
+</body>
+</html>
