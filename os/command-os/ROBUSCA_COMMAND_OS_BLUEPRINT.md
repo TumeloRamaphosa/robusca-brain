@@ -55,6 +55,7 @@ Robusca Command OS
 |   +-- Policy engine
 |   +-- Audit log
 |   +-- Device registry
+|   +-- CashClaw finance agent
 |
 +-- Communication
 |   +-- Rocket.Chat rooms
@@ -109,6 +110,7 @@ Each Orgo VM represents a business operating unit, not just compute.
 | Global Markets VM | trade-intelligence unit | buyer discovery, country research, documents, pricing |
 | Rahura / BAASH VM | Kate/Rahura brand world | content workflows, education platform workflows, Aurora persona |
 | SEO / Growth VM | growth intelligence | SEO Office/Claude SEO specialists, site audits, content briefs |
+| Finance VM / Worker | finance intelligence | CashClaw, revenue reporting, margin analysis, ROI, finance meetings |
 
 Every business VM must have:
 
@@ -139,6 +141,7 @@ Recommended rooms:
 #global-markets
 #rahura
 #seo-growth
+#finance
 #infrastructure
 #device-mesh
 #meeting-memory
@@ -153,6 +156,7 @@ Recommended bot pattern:
 | naledi-brand | content drafts and brand approvals |
 | coffee-jarvis | Studex Coffee workflows |
 | seo-office | SEO audit summaries and content briefs |
+| cashclaw-finance | revenue pulse, margin warnings, finance action items |
 | page-agent-bot | browser/action results requiring approval |
 | meeting-memory-bot | meeting summaries, action items, transcript links, sync status |
 
@@ -519,7 +523,51 @@ License note:
 
 ---
 
-## 15. Build phases
+## 15. Finance subsystem
+
+Detailed agent instruction file: [finance/CLAUDE.md](finance/CLAUDE.md)
+
+CashClaw is the finance operating agent for Studex Group. It owns revenue tracking, margin analysis, finance reporting, campaign ROI, and target risk alerts.
+
+Core targets:
+
+```text
+Annual target: R4,000,000
+Monthly target: R333,333
+Daily target: R10,999
+```
+
+Finance responsibilities:
+
+- daily revenue pulse
+- weekly CFO brief
+- vertical revenue tracking
+- MRR/ARR gap tracking
+- campaign ROI analysis
+- pricing recommendations
+- margin risk alerts
+- finance meeting action extraction
+- Notion finance summary drafts
+- Linear finance task drafts
+- Rocket.Chat finance alerts
+
+Finance writes require strict approval when they affect money, accounting records, prices, refunds, invoices, external reporting, or customer-facing statements.
+
+Finance integration model:
+
+```text
+Shopify / payment provider / accounting data
+-> Command API
+-> CashClaw
+-> finance report draft
+-> approval queue
+-> Notion / Word / Linear / Rocket.Chat sync
+-> audit log
+```
+
+---
+
+## 16. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -574,6 +622,7 @@ License note:
 
 - connect Studex Meat VM first
 - add Coffee, Global Markets, Rahura, SEO Growth
+- add CashClaw finance worker
 - isolate secrets/memory per business
 - add daily reports per VM
 - route business meeting artifacts into the correct memory namespace
@@ -605,9 +654,19 @@ License note:
 - add Linear issue creation from approved action items
 - add Calendar event linking and follow-up creation
 
+### Phase 9 - finance intelligence
+
+- implement [finance/CLAUDE.md](finance/CLAUDE.md) as CashClaw operating rules
+- create finance targets and revenue snapshot tables
+- connect Shopify revenue snapshot
+- add MRR/ARR tracker to Command OS
+- generate daily finance pulse
+- extract finance action items from meeting notes
+- queue Notion/Linear finance sync for approval
+
 ---
 
-## 16. First MVP definition
+## 17. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -622,10 +681,11 @@ MVP is complete when Tumelo can:
 9. record a meeting from the desktop app
 10. review the transcript, summary, decisions, and action items
 11. approve sync to Notion, Word, Calendar, Linear, and Rocket.Chat
+12. ask CashClaw for revenue target status and receive sourced numbers
 
 ---
 
-## 17. Immediate next implementation tasks
+## 18. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -638,11 +698,12 @@ MVP is complete when Tumelo can:
 9. Create LLM-wiki memory schema for Studex businesses.
 10. Create meeting memory schema and recording storage policy.
 11. Define Notion, Word, Calendar, and Linear sync contracts.
-12. Audit all third-party install scripts before running them.
+12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
+13. Audit all third-party install scripts before running them.
 
 ---
 
-## 18. Non-negotiables
+## 19. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -653,4 +714,5 @@ MVP is complete when Tumelo can:
 - No model route should send sensitive documents to an external API unless Tumelo explicitly approves that route.
 - No recording or storing private meetings without explicit start/consent policy.
 - No external sharing of meeting artifacts without approval.
+- No finance write, refund, invoice send, accounting change, or payment action without approval.
 

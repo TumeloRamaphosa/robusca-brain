@@ -269,6 +269,35 @@ Decision:
 
 ---
 
+## CashClaw finance/CLAUDE.md
+
+Observed:
+
+- internal finance agent context already exists under `studex-empire/agents/cashclaw-context.md`
+- Command OS finance agent instructions now live at `os/command-os/finance/CLAUDE.md`
+
+Use:
+
+- revenue target tracking
+- margin analysis
+- finance reports
+- campaign ROI
+- meeting finance action extraction
+- Notion/Linear finance sync drafts
+
+Risks:
+
+- payments, accounting records, invoices, refunds, customer PII, and financial reporting are high-risk surfaces
+- inaccurate model-generated numbers can mislead decisions
+
+Decision:
+
+- finance agent is read/report/analyze by default
+- require approval for writes, external sharing, invoices, refunds, price changes, accounting updates, or task creation from sensitive finance notes
+- every important number needs a source
+
+---
+
 ## Google Calendar
 
 Observed:

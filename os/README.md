@@ -41,6 +41,7 @@ It defines the plan for:
 - Tailscale device mesh
 - local/API LLM routing
 - Orgo business VM agents
+- CashClaw finance agent
 - Page-Agent browser control
 - Omi/RileyJarvis voice capture
 - meeting recording, transcription, and productivity sync
@@ -52,6 +53,8 @@ It defines the plan for:
 Preliminary third-party module notes live in [`command-os/MODULE_VETTING_NOTES.md`](command-os/MODULE_VETTING_NOTES.md).
 
 Meeting memory and productivity integration details live in [`command-os/MEETING_MEMORY_INTEGRATIONS.md`](command-os/MEETING_MEMORY_INTEGRATIONS.md).
+
+CashClaw finance-agent operating rules live in [`command-os/finance/CLAUDE.md`](command-os/finance/CLAUDE.md).
 
 ---
 
