@@ -29,6 +29,28 @@ A fullstack dashboard — Express + Vite + React + Tailwind + SQLite — deploye
 
 ---
 
+## Command OS Expansion
+
+The next layer is tracked in [`command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md`](command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md).
+
+It defines the plan for:
+
+- desktop and mobile command apps
+- voice control
+- Rocket.Chat command rooms
+- Tailscale device mesh
+- local/API LLM routing
+- Orgo business VM agents
+- Page-Agent browser control
+- Omi/RileyJarvis voice capture
+- SEO specialist agents
+- persistent LLM-maintained business memory
+- approval, audit, and security gates
+
+Preliminary third-party module notes live in [`command-os/MODULE_VETTING_NOTES.md`](command-os/MODULE_VETTING_NOTES.md).
+
+---
+
 ## Stack
 
 ```
