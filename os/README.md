@@ -43,11 +43,15 @@ It defines the plan for:
 - Orgo business VM agents
 - Page-Agent browser control
 - Omi/RileyJarvis voice capture
+- meeting recording, transcription, and productivity sync
+- Notion, Word, Calendar, and Linear integrations
 - SEO specialist agents
 - persistent LLM-maintained business memory
 - approval, audit, and security gates
 
 Preliminary third-party module notes live in [`command-os/MODULE_VETTING_NOTES.md`](command-os/MODULE_VETTING_NOTES.md).
+
+Meeting memory and productivity integration details live in [`command-os/MEETING_MEMORY_INTEGRATIONS.md`](command-os/MEETING_MEMORY_INTEGRATIONS.md).
 
 ---
 

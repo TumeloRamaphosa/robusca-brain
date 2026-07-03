@@ -189,3 +189,103 @@ Decision:
 - fork, rebrand, and harden before connecting to business systems
 - microphone can be tested first; withhold Accessibility/Screen Recording until approval gates exist
 
+---
+
+## Notion
+
+Observed:
+
+- Notion MCP server is present but currently requires authentication in this environment
+
+Use:
+
+- meeting pages
+- business knowledge base
+- task database sync
+- project pages and dashboards
+
+Risks:
+
+- meeting notes may contain private, customer, financial, or strategic data
+- external sharing settings can expose sensitive pages
+
+Decision:
+
+- use MCP after authentication
+- sync only approved summaries/pages by default
+- store source recording links with access controls, not public URLs
+
+---
+
+## Linear
+
+Observed:
+
+- Linear MCP server is present but currently requires authentication in this environment
+
+Use:
+
+- create issues from approved meeting action items
+- link implementation work to meeting source records
+- keep project status visible inside Command OS
+
+Risks:
+
+- meeting notes can create noisy or sensitive issues if auto-synced without review
+- wrong workspace/team/project routing can fragment execution
+
+Decision:
+
+- use MCP after authentication
+- require review before creating issues from meetings unless internal/low-risk policy is configured
+- every Linear issue created from a meeting should backlink to the Command OS meeting ID
+
+---
+
+## Microsoft 365 / Word / Calendar
+
+Observed:
+
+- no Microsoft MCP server is currently available in this environment
+- integration likely requires Microsoft Graph OAuth for Word/OneDrive/SharePoint/Outlook Calendar
+
+Use:
+
+- polished Word meeting minutes
+- OneDrive/SharePoint storage
+- Outlook Calendar event linking and follow-up creation
+
+Risks:
+
+- OAuth scope overreach
+- external sharing links
+- raw transcripts or private recordings accidentally saved into broadly shared folders
+
+Decision:
+
+- integrate through a server-side Microsoft Graph connector
+- use least-privilege scopes
+- require approval before external sharing or attendee-facing follow-up events
+
+---
+
+## Google Calendar
+
+Observed:
+
+- no Google Calendar MCP server is currently available in this environment
+
+Use:
+
+- meeting schedule, attendee metadata, agendas, reminders, follow-up events
+
+Risks:
+
+- calendar metadata can expose sensitive relationships and business activity
+- external guests make follow-up automation higher risk
+
+Decision:
+
+- implement through server-side connector or n8n workflow
+- approval required for external attendee changes
+

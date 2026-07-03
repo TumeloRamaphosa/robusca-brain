@@ -61,6 +61,7 @@ Robusca Command OS
 |   +-- Agent bots
 |   +-- Approval queue
 |   +-- Daily command briefs
+|   +-- Meeting summaries
 |
 +-- Model Mesh
 |   +-- LiteLLM gateway
@@ -78,6 +79,13 @@ Robusca Command OS
 |   +-- vector store
 |   +-- LLM-maintained wiki
 |   +-- raw sources vault
+|   +-- meeting recordings and transcripts
+|
++-- Productivity Integrations
+|   +-- Notion
+|   +-- Word / Microsoft 365
+|   +-- Calendar
+|   +-- Linear
 |
 +-- Mesh Network
     +-- Tailscale nodes
@@ -133,6 +141,7 @@ Recommended rooms:
 #seo-growth
 #infrastructure
 #device-mesh
+#meeting-memory
 ```
 
 Recommended bot pattern:
@@ -145,6 +154,7 @@ Recommended bot pattern:
 | coffee-jarvis | Studex Coffee workflows |
 | seo-office | SEO audit summaries and content briefs |
 | page-agent-bot | browser/action results requiring approval |
+| meeting-memory-bot | meeting summaries, action items, transcript links, sync status |
 
 All outbound actions triggered from Rocket.Chat must pass through the Command API approval engine.
 
@@ -185,7 +195,8 @@ Microphone / Omi / desktop app
 | Listen | transcribe and summarize only |
 | Command | execute safe internal commands |
 | Approval | ask Tumelo to approve/reject pending actions |
-| Meeting | capture minutes, decisions, and action items |
+| Meeting | record, transcribe, summarize, and extract decisions/action items |
+| Meeting Review | approve Notion, Word, Calendar, Linear, and Rocket.Chat sync outputs |
 | Private | local-only model routing; no external APIs |
 
 ---
@@ -300,6 +311,7 @@ Layers:
 | Log | append-only markdown/table | ingests, queries, decisions |
 | Vector store | Qdrant/pgvector | semantic retrieval at scale |
 | Operational DB | Postgres | tasks, approvals, device state, agent runs |
+| Meeting archive | encrypted file vault + Postgres | recordings, transcripts, summaries, decisions, action items |
 
 Business memory namespaces:
 
@@ -320,7 +332,70 @@ Human review rule:
 
 ---
 
-## 11. Security baseline
+## 11. Meeting memory and productivity integrations
+
+Detailed spec: [MEETING_MEMORY_INTEGRATIONS.md](MEETING_MEMORY_INTEGRATIONS.md)
+
+Meetings are first-class business records. The system must record, store, summarize, present, and sync approved meeting artifacts.
+
+Meeting artifact outputs:
+
+- raw recording
+- transcript with timestamps
+- speaker labels where available
+- executive summary
+- decisions
+- action items
+- risks and blockers
+- follow-up agenda
+- linked source files
+- Notion page
+- Word document export
+- Calendar event link and follow-up events
+- Linear issues for implementation tasks
+- Rocket.Chat summary post
+- searchable memory entry
+
+Productivity sync pattern:
+
+```text
+Meeting capture
+-> Command API
+-> transcription and diarization
+-> structured summary
+-> human review
+-> Notion / Word / Calendar / Linear / Rocket.Chat sync
+-> memory ingest
+-> audit log
+```
+
+Integration roles:
+
+| Integration | Role |
+| --- | --- |
+| Notion | meeting pages, knowledge base, task databases |
+| Word / Microsoft 365 | polished meeting minutes, DOCX exports, board/client documents |
+| Calendar | agenda, attendee list, schedule, reminders, follow-up meetings |
+| Linear | engineering/product/project action items |
+| Rocket.Chat | internal summary posts, approval requests, daily rollups |
+
+MCP status:
+
+- Notion MCP is present but currently requires authentication in this environment.
+- Linear MCP is present but currently requires authentication in this environment.
+- Once authenticated, MCP should be preferred for Notion/Linear operations.
+
+Meeting-specific approval rules:
+
+- recording must be explicit or calendar-policy approved
+- external sharing of recordings, transcripts, Word docs, or Notion pages requires approval
+- Linear issue creation requires review unless the action item is internal and low risk
+- raw private recordings should use local/private model routes by default
+- calendar follow-up creation requires confirmation when external attendees are included
+
+---
+
+## 12. Security baseline
 
 This system controls businesses, computers, voice capture, and web sessions. Security is core architecture.
 
@@ -337,6 +412,8 @@ Mandatory controls:
 - backups and restore tests
 - device allowlist
 - kill switch
+- recording consent indicators
+- retention policy for raw recordings and transcripts
 
 Actions requiring explicit approval:
 
@@ -349,6 +426,9 @@ Actions requiring explicit approval:
 - access sensitive files
 - run Page-Agent clicks on risky buttons
 - share screenshots/transcripts externally
+- share meeting recordings or generated Word/Notion minutes externally
+- create calendar events with external attendees
+- create Linear issues from sensitive meeting notes
 
 Refused actions:
 
@@ -361,7 +441,7 @@ Refused actions:
 
 ---
 
-## 12. App surfaces
+## 13. App surfaces
 
 ### Desktop app
 
@@ -375,6 +455,9 @@ Best starting point:
 - device mesh view
 - business switcher
 - Page-Agent bridge
+- meeting recorder
+- meeting library
+- Word/Notion/Calendar/Linear sync status
 
 ### Mobile app
 
@@ -387,6 +470,8 @@ Best starting point:
 - Rocket.Chat rooms
 - daily brief
 - business dashboards
+- meeting recorder
+- meeting approval review
 
 ### Web app
 
@@ -397,10 +482,12 @@ Continue evolving the current War Room:
 - add Voice Sessions tab
 - add Rocket.Chat bridge tab
 - add LLM Mesh tab
+- add Meeting Memory tab
+- add Integrations tab for Notion, Word, Calendar, and Linear
 
 ---
 
-## 13. SEO and growth subsystem
+## 14. SEO and growth subsystem
 
 Use `claude-seo` and `seo-os` as a dedicated growth-intelligence unit.
 
@@ -432,7 +519,7 @@ License note:
 
 ---
 
-## 14. Build phases
+## 15. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -453,6 +540,7 @@ License note:
 - create Command API skeleton
 - create audit log table
 - create approval queue table
+- create meetings and meeting_action_items tables
 
 ### Phase 2 - desktop talk prototype
 
@@ -461,6 +549,7 @@ License note:
 - route audio commands to Command API
 - add safe local command mode
 - add approval-readout voice mode
+- add explicit meeting recording start/stop state
 
 ### Phase 3 - LLM mesh
 
@@ -469,6 +558,7 @@ License note:
 - add health/capacity reporting
 - configure LiteLLM aliases
 - enforce local-only route for sensitive data
+- define local/private transcription route for sensitive meetings
 
 ### Phase 4 - Rocket.Chat command network
 
@@ -478,6 +568,7 @@ License note:
 - post daily briefs
 - post approval cards
 - add `/agent` command route
+- add #meeting-memory and meeting summary cards
 
 ### Phase 5 - business VM workers
 
@@ -485,6 +576,7 @@ License note:
 - add Coffee, Global Markets, Rahura, SEO Growth
 - isolate secrets/memory per business
 - add daily reports per VM
+- route business meeting artifacts into the correct memory namespace
 
 ### Phase 6 - Page-Agent browser hands
 
@@ -501,10 +593,21 @@ License note:
 - Rocket.Chat
 - command brief
 - push notifications
+- meeting capture and review
+
+### Phase 8 - productivity integrations
+
+- authenticate Notion and Linear MCP/API access
+- configure Microsoft Graph for Word/OneDrive/Calendar if Microsoft stack is used
+- configure Google Calendar if Google Calendar is first
+- create meeting export templates
+- add Notion meeting page sync
+- add Linear issue creation from approved action items
+- add Calendar event linking and follow-up creation
 
 ---
 
-## 15. First MVP definition
+## 16. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -516,10 +619,13 @@ MVP is complete when Tumelo can:
 6. see action logged in Rocket.Chat and audit log
 7. ask which machines/models are online
 8. route a private prompt to a local model
+9. record a meeting from the desktop app
+10. review the transcript, summary, decisions, and action items
+11. approve sync to Notion, Word, Calendar, Linear, and Rocket.Chat
 
 ---
 
-## 16. Immediate next implementation tasks
+## 17. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -530,11 +636,13 @@ MVP is complete when Tumelo can:
 7. Define Omi privacy mode before connecting it.
 8. Create model alias config for LiteLLM.
 9. Create LLM-wiki memory schema for Studex businesses.
-10. Audit all third-party install scripts before running them.
+10. Create meeting memory schema and recording storage policy.
+11. Define Notion, Word, Calendar, and Linear sync contracts.
+12. Audit all third-party install scripts before running them.
 
 ---
 
-## 17. Non-negotiables
+## 18. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -543,4 +651,6 @@ MVP is complete when Tumelo can:
 - No public admin surfaces before authentication and network controls.
 - No single shared memory for all businesses; namespace everything.
 - No model route should send sensitive documents to an external API unless Tumelo explicitly approves that route.
+- No recording or storing private meetings without explicit start/consent policy.
+- No external sharing of meeting artifacts without approval.
 
