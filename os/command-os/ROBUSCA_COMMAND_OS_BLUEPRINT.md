@@ -56,6 +56,7 @@ Robusca Command OS
 |   +-- Audit log
 |   +-- Device registry
 |   +-- CashClaw finance agent
+|   +-- Daily routines scheduler
 |
 +-- Communication
 |   +-- Rocket.Chat rooms
@@ -567,7 +568,49 @@ Shopify / payment provider / accounting data
 
 ---
 
-## 16. Build phases
+## 16. Daily routines subsystem
+
+Detailed routine file: [DAILY_ROUTINES.md](DAILY_ROUTINES.md)
+
+The first standing routine is the 10:00 AM NotebookLM video routine.
+
+Purpose:
+
+- collect the day's business context
+- generate a NotebookLM-ready source bundle
+- create a script and production plan
+- generate narration through ElevenLabs or fallback TTS
+- route drafting through local Ollama or approved API models
+- save artifacts to Command OS memory
+- post internal summary to Rocket.Chat
+- queue external publishing for approval
+
+Key integrations:
+
+| Integration | Role |
+| --- | --- |
+| NotebookLM | knowledge/video/audio artifact surface; may require human-in-the-loop browser access |
+| ElevenLabs | polished voice narration |
+| Ollama | private local drafting and summarization |
+| Google AI Studio / Gemini | approved API model route for higher-quality or multimodal drafting |
+| n8n | 10:00 trigger and workflow orchestration |
+| Rocket.Chat | internal completion summary and approval cards |
+
+Secret handling:
+
+- `ELEVENLABS_API_KEY` and `GOOGLE_AI_STUDIO_API_KEY` must live in vault/env only.
+- never paste real API keys into docs, chat, client bundles, screenshots, or notebooks.
+- if a key is pasted into chat, rotate it before use.
+
+NotebookLM handling:
+
+- do not automate Google login or CAPTCHA bypass
+- use a dedicated Google profile/account if browser automation is later approved
+- keep a local source bundle even when NotebookLM is unavailable
+
+---
+
+## 17. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -664,9 +707,20 @@ Shopify / payment provider / accounting data
 - extract finance action items from meeting notes
 - queue Notion/Linear finance sync for approval
 
+### Phase 10 - daily NotebookLM video routine
+
+- create [DAILY_ROUTINES.md](DAILY_ROUTINES.md) workflow as n8n cron
+- create source bundle generator
+- add local Ollama summarization route
+- add ElevenLabs narration connector
+- add Google AI Studio server-side connector
+- add NotebookLM manual/browser-assisted step
+- save artifacts in Command OS memory
+- add dashboard tile for latest routine run
+
 ---
 
-## 17. First MVP definition
+## 18. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -682,10 +736,11 @@ MVP is complete when Tumelo can:
 10. review the transcript, summary, decisions, and action items
 11. approve sync to Notion, Word, Calendar, Linear, and Rocket.Chat
 12. ask CashClaw for revenue target status and receive sourced numbers
+13. run the 10:00 NotebookLM video routine and save its artifact package
 
 ---
 
-## 18. Immediate next implementation tasks
+## 19. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -699,11 +754,12 @@ MVP is complete when Tumelo can:
 10. Create meeting memory schema and recording storage policy.
 11. Define Notion, Word, Calendar, and Linear sync contracts.
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
-13. Audit all third-party install scripts before running them.
+13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine.
+14. Audit all third-party install scripts before running them.
 
 ---
 
-## 19. Non-negotiables
+## 20. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -715,4 +771,5 @@ MVP is complete when Tumelo can:
 - No recording or storing private meetings without explicit start/consent policy.
 - No external sharing of meeting artifacts without approval.
 - No finance write, refund, invoice send, accounting change, or payment action without approval.
+- No pasted API key should be considered safe for use until rotated.
 

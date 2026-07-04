@@ -42,6 +42,7 @@ It defines the plan for:
 - local/API LLM routing
 - Orgo business VM agents
 - CashClaw finance agent
+- 10:00 NotebookLM video routine
 - Page-Agent browser control
 - Omi/RileyJarvis voice capture
 - meeting recording, transcription, and productivity sync
@@ -55,6 +56,8 @@ Preliminary third-party module notes live in [`command-os/MODULE_VETTING_NOTES.m
 Meeting memory and productivity integration details live in [`command-os/MEETING_MEMORY_INTEGRATIONS.md`](command-os/MEETING_MEMORY_INTEGRATIONS.md).
 
 CashClaw finance-agent operating rules live in [`command-os/finance/CLAUDE.md`](command-os/finance/CLAUDE.md).
+
+Daily scheduled routines live in [`command-os/DAILY_ROUTINES.md`](command-os/DAILY_ROUTINES.md).
 
 ---
 

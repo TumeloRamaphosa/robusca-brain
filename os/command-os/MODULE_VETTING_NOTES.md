@@ -318,3 +318,109 @@ Decision:
 - implement through server-side connector or n8n workflow
 - approval required for external attendee changes
 
+---
+
+## NotebookLM
+
+Observed:
+
+- NotebookLM is a Google web product that may require interactive Google sign-in, account selection, and CAPTCHA
+- no supported NotebookLM API has been confirmed in this environment
+
+Use:
+
+- daily knowledge/video/audio artifact surface
+- source-grounded business notebook generation
+- human-in-the-loop source review
+
+Risks:
+
+- Google account automation can be brittle and sensitive
+- NotebookLM sources may include private meeting or business material
+- browser automation may inherit personal Google sessions if not isolated
+
+Decision:
+
+- use manual export/import or a dedicated Google profile first
+- do not automate login or CAPTCHA bypass
+- require approval before sending sensitive meeting/business sources into NotebookLM
+
+---
+
+## ElevenLabs
+
+Observed:
+
+- intended role is narration generation for daily NotebookLM/video routines and voice storytelling
+
+Use:
+
+- polished narration
+- branded voice output
+- video/audio asset production
+
+Risks:
+
+- API keys are sensitive
+- voice cloning/persona use can be reputationally sensitive
+- generated voice can be mistaken as human speech if not governed
+
+Decision:
+
+- store `ELEVENLABS_API_KEY` only in vault/env
+- require explicit voice/persona selection
+- require approval before externally publishing generated voice assets
+
+---
+
+## Ollama
+
+Observed:
+
+- local model runtime; normally no cloud API key required
+
+Use:
+
+- local/private summarization
+- script drafting
+- sensitive meeting processing fallback
+- offline model route for Command OS
+
+Risks:
+
+- local endpoint exposure if bound to non-local interfaces
+- model quality varies by checkpoint
+
+Decision:
+
+- prefer localhost or Tailscale-only access
+- register Ollama nodes through the Command OS device registry
+- use local route by default for sensitive daily-routine sources
+
+---
+
+## Google AI Studio / Gemini API
+
+Observed:
+
+- intended role is high-quality drafting, multimodal reasoning, and optional daily-routine model route
+
+Use:
+
+- approved API model route
+- script improvement
+- multimodal analysis where needed
+
+Risks:
+
+- API keys are sensitive
+- external API route may process private business/meeting data
+- browser/mobile clients must not contain the key
+
+Decision:
+
+- rotate any key pasted into chat before use
+- store `GOOGLE_AI_STUDIO_API_KEY` only in vault/env
+- route through server-side LiteLLM/Command API
+- require policy approval for sensitive data
+
