@@ -30,6 +30,7 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | Source | Fit | Decision |
 | --- | --- | --- |
 | HyrveAI register page | Agent marketplace / external deployment surface | Treat as optional external marketplace integration. Do not make it core until account/API model is clear. |
+| UI UX Pro Max | UI/UX design intelligence and dashboard design-system reference | Use as a reference for Command OS design standards; install only after CLI/script review. |
 | Karpathy LLM-wiki gist | Persistent memory pattern | Use the raw-sources -> synthesized wiki -> schema/log pattern for business memory. |
 | BasedHardware Omi | Voice, screen, wearable, mobile capture | Use as a voice/capture connector only after self-hosting or privacy-controlled integration. Default quick start connects to Omi cloud. |
 | AgriciDaniel claude-seo | SEO specialist skill library | Use as specialist-agent inspiration and optional Claude Code plugin. Audit before installing. |
@@ -48,6 +49,7 @@ Robusca Command OS
 |   +-- Desktop command app
 |   +-- Mobile command app
 |   +-- Web War Room
+|   +-- UI/UX design system
 |
 +-- Command Core
 |   +-- Command API
@@ -446,7 +448,40 @@ Refused actions:
 
 ---
 
-## 13. App surfaces
+## 13. UI/UX standard and app surfaces
+
+Detailed UI standard: [UI_UX_STANDARD.md](UI_UX_STANDARD.md)
+
+Robusca Command OS must use spacious, clear dashboards with information positioned intentionally. Transparent/glass surfaces are allowed, but readability is mandatory.
+
+Design requirements:
+
+- black/gold command-glass visual language
+- clear page hierarchy in the first 5 seconds
+- top-level KPIs separated from activity/audit feeds
+- primary actions visually obvious
+- 4/8px spacing rhythm
+- readable transparent panels, never muddy overlays
+- monospaced/tabular numbers for finance/status metrics
+- accessible charts with labels and table fallbacks
+- mobile-first stacking for command/approval surfaces
+- no emojis as structural icons
+- semantic tokens for colors, not scattered hex values
+
+Reference module:
+
+```text
+https://github.com/nextlevelbuilder/ui-ux-pro-max-skill
+```
+
+Use it for:
+
+- design-system reasoning
+- dashboard layout checks
+- chart/data visualization guidance
+- accessibility and spacing review
+
+Do not install it into production until its CLI/scripts are reviewed and approved.
 
 ### Desktop app
 
@@ -489,6 +524,7 @@ Continue evolving the current War Room:
 - add LLM Mesh tab
 - add Meeting Memory tab
 - add Integrations tab for Notion, Word, Calendar, and Linear
+- apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to all new tabs
 
 ---
 
@@ -687,6 +723,7 @@ NotebookLM handling:
 ### Phase 7 - mobile cockpit
 
 - build Expo app
+- apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md)
 - approvals
 - voice command
 - Rocket.Chat
@@ -727,6 +764,14 @@ NotebookLM handling:
 - add 10:00 PM closeout workflow
 - update Obsidian/LLM-wiki daily notes and business memory pages
 
+### Phase 11 - UI/UX design-system hardening
+
+- apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to the War Room
+- define semantic theme tokens for command glass
+- create reusable KPI, command-card, table, chart, and approval-card components
+- review dashboard spacing and transparency
+- add accessibility checklist to UI PR review
+
 ---
 
 ## 18. First MVP definition
@@ -747,6 +792,7 @@ MVP is complete when Tumelo can:
 12. ask CashClaw for revenue target status and receive sourced numbers
 13. run the 10:00 AM NotebookLM video routine and save its artifact package
 14. run the 10:00 PM closeout routine and update Obsidian/LLM-wiki memory
+15. view all major dashboards through the Command OS UI standard with clear, spaced, readable information placement
 
 ---
 
@@ -765,7 +811,8 @@ MVP is complete when Tumelo can:
 11. Define Notion, Word, Calendar, and Linear sync contracts.
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
-14. Audit all third-party install scripts before running them.
+14. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
+15. Audit all third-party install scripts before running them.
 
 ---
 
@@ -782,4 +829,5 @@ MVP is complete when Tumelo can:
 - No external sharing of meeting artifacts without approval.
 - No finance write, refund, invoice send, accounting change, or payment action without approval.
 - No pasted API key should be considered safe for use until rotated.
+- No transparent dashboard surface may reduce readability or accessibility.
 

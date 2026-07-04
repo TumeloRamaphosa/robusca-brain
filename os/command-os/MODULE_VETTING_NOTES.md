@@ -39,6 +39,35 @@ Decision:
 
 ---
 
+## UI UX Pro Max
+
+Observed:
+
+- MIT-licensed UI/UX design intelligence skill
+- includes design-system generation guidance, style/color/typography data, chart guidance, and accessibility rules
+- install command is `npx ui-ux-pro-max-cli init --ai <platform>` and should be treated as executable supply-chain surface
+
+Use:
+
+- Command OS dashboard design standard
+- transparent/glass dashboard guidance
+- spacing, typography, chart, and accessibility review
+- future design-system generation for War Room, desktop, and mobile app
+
+Risks:
+
+- CLI/scripts modify local project files during install/init
+- broad design data should be adapted to Studex black/gold brand, not copied blindly
+- transparent/glass surfaces can reduce readability if misused
+
+Decision:
+
+- use as reference guidance first
+- do not install CLI until reviewed and approved
+- Command OS standard lives at `os/command-os/UI_UX_STANDARD.md`
+
+---
+
 ## Omi
 
 Observed:
