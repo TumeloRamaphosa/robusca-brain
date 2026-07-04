@@ -26,8 +26,18 @@ docker compose up -d
 
 ## Docs
 
-- [POLSIA_HANDOFF.md](./POLSIA_HANDOFF.md) — 3-hour launch plan for Polsia
-- [CLOUDFLARE_STATIX_DNS.md](./CLOUDFLARE_STATIX_DNS.md) — statix.com DNS setup
+- [CLOUDFLARE_WALKTHROUGH.md](./CLOUDFLARE_WALKTHROUGH.md) — **start here** for Orgo + Cloudflare
+- [POLSIA_HANDOFF.md](./POLSIA_HANDOFF.md) — Polsia partnership + 3-hour launch
+- [CLOUDFLARE_STATIX_DNS.md](./CLOUDFLARE_STATIX_DNS.md) — DNS reference (Fly.io path)
+
+## Deploy to Orgo VM
+
+```bash
+cp .env.example .env.local
+# Edit .env.local — add ORGO_API_KEY
+npm run check:env
+npm run deploy:orgo
+```
 
 ## Voice onboarding
 

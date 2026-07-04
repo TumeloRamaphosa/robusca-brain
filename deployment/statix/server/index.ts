@@ -5,7 +5,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
-const PORT = parseInt(process.env.PORT || "5181", 10);
+const PORT = parseInt(process.env.PORT || "5180", 10);
 
 app.use(cors());
 app.use(express.json());
