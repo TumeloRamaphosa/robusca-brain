@@ -241,3 +241,152 @@ Refuse:
 8. Build the first n8n cron workflow.
 9. Add a Command OS dashboard tile for latest run status.
 
+---
+
+## 11. 10:00 PM Daily Closeout + Obsidian Update
+
+Daily at 10:00 PM, Robusca Command OS should produce a closeout report for the day and update the Obsidian/LLM-wiki memory.
+
+Default timezone:
+
+```text
+Africa/Johannesburg / SAST
+```
+
+If Tumelo is operating from Dubai, the routine should display both:
+
+```text
+22:00 SAST
+00:00 Dubai
+```
+
+### Objective
+
+Create a complete daily operating record:
+
+1. summarize what happened today
+2. capture what Robusca and agents did
+3. update Obsidian daily note
+4. update business memory pages where needed
+5. create a NotebookLM-ready closeout source bundle
+6. add unresolved decisions and tomorrow priorities
+7. post an internal Rocket.Chat daily closeout
+8. queue Notion/Linear follow-up tasks for approval
+
+### NotebookLM target
+
+The target NotebookLM notebook should be configured as a secret or private setting:
+
+```env
+NOTEBOOKLM_DAILY_CLOSEOUT_URL=<vault>
+```
+
+Do not commit private NotebookLM URLs, Google account data, cookies, or browser session details into the repo.
+
+### Daily inputs
+
+- git commits and PR updates
+- Command OS docs changed today
+- meeting summaries and transcripts
+- Rocket.Chat highlights
+- Notion updates
+- Linear updates
+- Calendar events completed/tomorrow
+- CashClaw finance pulse
+- SEO/growth actions
+- Orgo VM/business-agent status
+- open approvals and blocked tasks
+
+### Obsidian output
+
+Write/update:
+
+```text
+memory/YYYY-MM-DD.md
+memory/business/<business>/daily/YYYY-MM-DD.md
+memory/business/<business>/meetings/
+memory/business/<business>/decisions/
+memory/business/<business>/tasks/
+```
+
+Daily note structure:
+
+```markdown
+# Daily Closeout — YYYY-MM-DD
+
+## Executive Summary
+
+## What We Did
+
+## Meetings and Calls
+
+## Decisions
+
+## Business Updates
+
+## Finance
+
+## Agent Activity
+
+## Open Loops
+
+## Tomorrow Priorities
+
+## NotebookLM Source Bundle
+```
+
+### NotebookLM closeout source bundle
+
+Every 10:00 PM run should produce:
+
+```text
+daily-closeout-YYYY-MM-DD/
+  closeout.md
+  obsidian-updates.md
+  notebooklm-sources.md
+  tomorrow-priorities.md
+  open-loops.md
+  metadata.json
+```
+
+### Automation outline
+
+Recommended n8n workflow:
+
+```text
+Cron 22:00
+-> collect Command OS activity
+-> collect business VM summaries
+-> collect meeting/task/calendar deltas
+-> generate closeout summary with local/private model route
+-> update Obsidian/LLM-wiki files
+-> create NotebookLM source bundle
+-> if browser/manual NotebookLM update is approved, queue the update step
+-> post Rocket.Chat closeout summary
+-> queue Notion/Linear follow-up tasks for approval
+```
+
+Suggested endpoints:
+
+```text
+POST /api/routines/daily-closeout/run
+GET  /api/routines/daily-closeout/latest
+POST /api/routines/daily-closeout/approve-notebooklm
+```
+
+### Security and approval rules
+
+Require approval before:
+
+- pushing closeout content into NotebookLM through browser automation
+- syncing sensitive notes to Notion or Linear
+- creating public Google Drive/NotebookLM/Notion links
+- sending closeout reports externally
+
+Never:
+
+- automate Google login or CAPTCHA bypass
+- store NotebookLM cookies/session tokens
+- commit private NotebookLM URLs or Google account details
+- include raw private meeting transcripts in external-facing summaries
+

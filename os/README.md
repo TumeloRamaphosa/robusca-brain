@@ -42,7 +42,7 @@ It defines the plan for:
 - local/API LLM routing
 - Orgo business VM agents
 - CashClaw finance agent
-- 10:00 NotebookLM video routine
+- 10:00 AM NotebookLM video routine and 10:00 PM Obsidian closeout
 - Page-Agent browser control
 - Omi/RileyJarvis voice capture
 - meeting recording, transcription, and productivity sync

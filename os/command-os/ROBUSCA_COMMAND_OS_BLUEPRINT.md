@@ -572,7 +572,10 @@ Shopify / payment provider / accounting data
 
 Detailed routine file: [DAILY_ROUTINES.md](DAILY_ROUTINES.md)
 
-The first standing routine is the 10:00 AM NotebookLM video routine.
+The first standing routines are:
+
+- 10:00 AM NotebookLM video routine
+- 10:00 PM daily closeout and Obsidian update routine
 
 Purpose:
 
@@ -581,6 +584,8 @@ Purpose:
 - create a script and production plan
 - generate narration through ElevenLabs or fallback TTS
 - route drafting through local Ollama or approved API models
+- update Obsidian/LLM-wiki memory at closeout
+- summarize what was done, decisions made, and tomorrow priorities
 - save artifacts to Command OS memory
 - post internal summary to Rocket.Chat
 - queue external publishing for approval
@@ -595,6 +600,7 @@ Key integrations:
 | Google AI Studio / Gemini | approved API model route for higher-quality or multimodal drafting |
 | n8n | 10:00 trigger and workflow orchestration |
 | Rocket.Chat | internal completion summary and approval cards |
+| Obsidian / LLM-wiki | daily closeout memory and business knowledge updates |
 
 Secret handling:
 
@@ -607,6 +613,7 @@ NotebookLM handling:
 - do not automate Google login or CAPTCHA bypass
 - use a dedicated Google profile/account if browser automation is later approved
 - keep a local source bundle even when NotebookLM is unavailable
+- keep private NotebookLM URLs in vault/env, not in repo files
 
 ---
 
@@ -707,7 +714,7 @@ NotebookLM handling:
 - extract finance action items from meeting notes
 - queue Notion/Linear finance sync for approval
 
-### Phase 10 - daily NotebookLM video routine
+### Phase 10 - daily NotebookLM routines
 
 - create [DAILY_ROUTINES.md](DAILY_ROUTINES.md) workflow as n8n cron
 - create source bundle generator
@@ -717,6 +724,8 @@ NotebookLM handling:
 - add NotebookLM manual/browser-assisted step
 - save artifacts in Command OS memory
 - add dashboard tile for latest routine run
+- add 10:00 PM closeout workflow
+- update Obsidian/LLM-wiki daily notes and business memory pages
 
 ---
 
@@ -736,7 +745,8 @@ MVP is complete when Tumelo can:
 10. review the transcript, summary, decisions, and action items
 11. approve sync to Notion, Word, Calendar, Linear, and Rocket.Chat
 12. ask CashClaw for revenue target status and receive sourced numbers
-13. run the 10:00 NotebookLM video routine and save its artifact package
+13. run the 10:00 AM NotebookLM video routine and save its artifact package
+14. run the 10:00 PM closeout routine and update Obsidian/LLM-wiki memory
 
 ---
 
@@ -754,7 +764,7 @@ MVP is complete when Tumelo can:
 10. Create meeting memory schema and recording storage policy.
 11. Define Notion, Word, Calendar, and Linear sync contracts.
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
-13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine.
+13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
 14. Audit all third-party install scripts before running them.
 
 ---
