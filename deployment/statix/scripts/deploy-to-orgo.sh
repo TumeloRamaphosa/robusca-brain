@@ -56,14 +56,15 @@ cd "$INSTALL_DIR/deployment/statix"
 npm ci || npm install
 npm run build
 
-# Stop existing process if running
+# Stop existing process if running (pkill returns 1 if none — that's fine)
 pkill -f "node dist/server.js" 2>/dev/null || true
 sleep 1
 
 export NODE_ENV=production
 export PORT=5180
 nohup node dist/server.js > /tmp/statix.log 2>&1 &
-sleep 2
+disown
+sleep 1
 
 if curl -sf http://127.0.0.1:5180/api/health >/dev/null; then
   echo "[statix] LIVE — http://127.0.0.1:5180/api/health"
@@ -80,15 +81,15 @@ SETUP_SCRIPT="${SETUP_SCRIPT//__INSTALL_DIR__/$INSTALL_DIR}"
 SETUP_SCRIPT="${SETUP_SCRIPT//__REPO_URL__/$REPO_URL}"
 SETUP_SCRIPT="${SETUP_SCRIPT//__BRANCH__/$BRANCH}"
 
-# Escape for JSON
-JSON_CODE=$(python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' <<< "$SETUP_SCRIPT")
+# Escape for JSON — use bash endpoint (exec runs Python only)
+JSON_CMD=$(python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' <<< "$SETUP_SCRIPT")
 
-echo "Sending setup to Orgo VM..."
+echo "Sending setup to Orgo VM (bash)..."
 RESPONSE=$(curl -sS -w "\n%{http_code}" -X POST \
-  "${ORGO_API_BASE}/computers/${ORGO_COMPUTER_ID}/exec" \
+  "${ORGO_API_BASE}/computers/${ORGO_COMPUTER_ID}/bash" \
   -H "Authorization: Bearer ${ORGO_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d "{\"code\": ${JSON_CODE}, \"timeout\": 300}")
+  -d "{\"command\": ${JSON_CMD}, \"timeout\": 300}")
 
 HTTP_CODE=$(echo "$RESPONSE" | tail -1)
 BODY=$(echo "$RESPONSE" | sed '$d')
@@ -96,7 +97,17 @@ BODY=$(echo "$RESPONSE" | sed '$d')
 echo "HTTP $HTTP_CODE"
 echo "$BODY" | python3 -m json.tool 2>/dev/null || echo "$BODY"
 
-if [[ "$HTTP_CODE" != "200" ]]; then
+# bash endpoint returns success/exit_code; -1 can happen when pkill finds nothing
+EXIT_CODE=$(echo "$BODY" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('exit_code', 1))" 2>/dev/null || echo "1")
+SUCCESS=$(echo "$BODY" | python3 -c "import json,sys; d=json.load(sys.stdin); print('true' if d.get('success') else 'false')" 2>/dev/null || echo "false")
+HAS_LIVE=$(echo "$BODY" | python3 -c "import json,sys; d=json.load(sys.stdin); print('true' if '[statix] LIVE' in (d.get('output') or '') else 'false')" 2>/dev/null || echo "false")
+
+if [[ "$HTTP_CODE" != "200" ]] || [[ "$SUCCESS" != "true" ]]; then
+  echo "Deploy failed. Check ORGO_API_KEY and ORGO_COMPUTER_ID."
+  exit 1
+fi
+
+if [[ "$HAS_LIVE" != "true" ]] && [[ "$EXIT_CODE" != "0" ]]; then
   echo "Deploy failed. Check ORGO_API_KEY and ORGO_COMPUTER_ID."
   exit 1
 fi
