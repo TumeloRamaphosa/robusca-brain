@@ -6,6 +6,15 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = parseInt(process.env.PORT || "5180", 10);
+const SEO_OFFICE_URL = process.env.SEO_OFFICE_URL || "http://localhost:3000";
+
+async function fetchSeoOffice(path: string) {
+  const res = await fetch(`${SEO_OFFICE_URL}${path}`, {
+    signal: AbortSignal.timeout(8000),
+  });
+  if (!res.ok) throw new Error(`SEO Office ${res.status}`);
+  return res.json();
+}
 
 app.use(cors());
 app.use(express.json());
@@ -83,6 +92,63 @@ app.get("/api/nestvm/:tenant/status", (req, res) => {
 
 app.get("/api/nestvm/tenants", (_req, res) => {
   res.json(Array.from(tenants.entries()).map(([slug, data]) => ({ slug, ...data })));
+});
+
+// SEO Office proxy — companies (clients) + people/entities from brain vault
+app.get("/api/seo/clients", async (_req, res) => {
+  try {
+    const data = await fetchSeoOffice("/api/clients");
+    res.json(data);
+  } catch (err) {
+    console.warn("[seo-office] clients offline:", err);
+    res.json({ clients: [], offline: true, seoOfficeUrl: SEO_OFFICE_URL });
+  }
+});
+
+app.get("/api/seo/brain/:slug", async (req, res) => {
+  try {
+    const data = (await fetchSeoOffice(`/api/brain?slug=${encodeURIComponent(req.params.slug)}`)) as {
+      ok: boolean;
+      client?: unknown;
+      summary?: { total: number; pendingReview: number };
+      grouped?: Record<string, Array<{ title: string; path: string; type: string; status: string; confidence: string | null; tags: string[]; updated: string }>>;
+    };
+    const entities = data.grouped?.entity ?? [];
+    const stakeholders = data.grouped?.stakeholder ?? [];
+    const all = [...stakeholders, ...entities];
+
+    const people: typeof all = [];
+    const brands: typeof all = [];
+    const competitors: typeof all = [];
+
+    for (const note of all) {
+      const path = note.path.toLowerCase();
+      const tags = (note.tags ?? []).map((t) => t.toLowerCase());
+      if (note.type === "stakeholder" || tags.includes("people") || path.includes("/people/")) {
+        people.push(note);
+      } else if (tags.includes("competitors") || path.includes("competitor")) {
+        competitors.push(note);
+      } else if (tags.includes("brands") || path.includes("/brands/")) {
+        brands.push(note);
+      } else if (note.title.toLowerCase().includes("competitor")) {
+        competitors.push(note);
+      } else {
+        people.push(note);
+      }
+    }
+
+    res.json({
+      ok: true,
+      client: data.client,
+      summary: data.summary,
+      people,
+      brands,
+      competitors,
+    });
+  } catch (err) {
+    console.warn("[seo-office] brain offline:", err);
+    res.json({ ok: false, offline: true, people: [], brands: [], competitors: [] });
+  }
 });
 
 // Polsia webhook — tenant events for orchestration

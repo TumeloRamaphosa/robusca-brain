@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
 import VoiceCompanion from "../components/VoiceCompanion";
+import SeoOfficePanel from "../components/SeoOfficePanel";
 
 const AGENTS = [
   { id: "soul", name: "Soul", role: "Northstar & strategy", status: "live" },
@@ -15,6 +16,7 @@ const AGENTS = [
 
 const NAV = [
   { id: "home", label: "Home" },
+  { id: "companies", label: "Companies" },
   { id: "agents", label: "Agents" },
   { id: "memory", label: "Memory" },
   { id: "channels", label: "Channels" },
@@ -48,7 +50,9 @@ export default function Dashboard() {
   const voiceMessage =
     tab === "home"
       ? brief ?? "Loading your morning brief..."
-      : tab === "agents"
+      : tab === "companies"
+        ? "SEO Office is wired in. Pick a company to see people, brands, and competitors from the brain vault."
+        : tab === "agents"
         ? "All eight Super Agents are configured. Soul and Obsidian Brain are live. Tap an agent card for details."
         : tab === "channels"
           ? "WhatsApp is connected. Reply HELLO to test. Email and Shopify connect in Settings."
@@ -122,6 +126,8 @@ export default function Dashboard() {
             ))}
           </>
         )}
+
+        {tab === "companies" && <SeoOfficePanel />}
 
         {tab === "agents" && (
           <div className="agent-grid">
