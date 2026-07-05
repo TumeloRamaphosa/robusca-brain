@@ -11,6 +11,8 @@
     "cf:preflight": "bash scripts/cloudflare-preflight.sh",
     "cf:dns": "bash scripts/cloudflare-dns.sh",
     "cf:studex": "bash scripts/cloudflare-studex.sh",
+    "caddy:orgo": "bash scripts/setup-caddy-orgo.sh",
+    "tunnel:orgo": "bash scripts/setup-tunnel-orgo.sh",
     "deploy:orgo": "bash scripts/deploy-to-orgo.sh",
     "orgo:info": "bash scripts/orgo-vm-info.sh",
     "preview": "vite preview --host 0.0.0.0 --port 5180"

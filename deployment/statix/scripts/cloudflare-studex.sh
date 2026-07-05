@@ -17,11 +17,15 @@ fi
 
 echo "=== Studex Group Cloudflare DNS ==="
 echo "Zone: studex-group.com ($CLOUDFLARE_ZONE_ID)"
-echo "Records: $STATIX_DOMAIN, www.$STATIX_DOMAIN, *.$STATIX_DOMAIN"
+echo "Records:"
+echo "  statix.studex-group.com      → ORGO_VM_IP"
+echo "  agent.studex-group.com       → ORGO_VM_IP"
+echo "  www.agent.studex-group.com   → ORGO_VM_IP"
+echo "  (no tenant wildcards)"
 echo ""
 
 bash scripts/cloudflare-preflight.sh
-bash scripts/cloudflare-dns.sh
+bash scripts/cloudflare-studex-dns.sh
 
 echo ""
 echo "=== Verify (wait 2–5 min) ==="
