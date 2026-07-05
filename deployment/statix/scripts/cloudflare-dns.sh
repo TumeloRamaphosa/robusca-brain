@@ -18,6 +18,10 @@ fi
 
 DOMAIN="${STATIX_DOMAIN:-statix.com}"
 
+# For subdomains (e.g. statix.studex-group.com), set:
+#   STATIX_DOMAIN=statix.studex-group.com
+#   CLOUDFLARE_ZONE_ID=<zone id of parent domain studex-group.com>
+
 upsert_record() {
   local type="$1"
   local name="$2"

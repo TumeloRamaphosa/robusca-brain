@@ -122,20 +122,66 @@ Expected:
 
 ---
 
-## Part D — Automated DNS (once you have API token)
+## Part D — Automated DNS (API token — Path B)
 
-1. Cloudflare → **My Profile** → **API Tokens** → **Create Token**
-2. Use template **Edit zone DNS** → zone = statix.com
-3. Add to `.env.local`:
-   ```
-   CLOUDFLARE_API_TOKEN=your_token
-   CLOUDFLARE_ZONE_ID=from_step_B2
-   ORGO_VM_IP=your_orgo_ip
-   ```
-4. Run:
-   ```bash
-   bash scripts/cloudflare-dns.sh
-   ```
+**Use this if you cannot click the Cloudflare dashboard.**
+
+### Step 1 — Create token with correct permissions
+
+Cloudflare → **My Profile** → **API Tokens** → **Create Token**
+
+Use template **Edit zone DNS**, scoped to your zone.
+
+Required permission:
+- **Zone → DNS → Edit**
+
+The token must be able to **read and write DNS records**. A read-only or zone-overview token will fail preflight.
+
+### Step 2 — Confirm which domain you own in Cloudflare
+
+```bash
+# After adding token to .env.local:
+npm run cf:preflight
+```
+
+If `statix.com` is **not** in your Cloudflare account yet, you have two options:
+
+| Option | What to do |
+|--------|------------|
+| **A — Add statix.com** | Cloudflare → Add site → point registrar nameservers → re-run preflight |
+| **B — Use studex-group.com subdomain** | Set `STATIX_DOMAIN=statix.studex-group.com` and `CLOUDFLARE_ZONE_ID` for studex-group.com |
+
+### Step 3 — Fill `.env.local`
+
+```bash
+cd deployment/statix
+cp .env.example .env.local
+```
+
+```
+CLOUDFLARE_API_TOKEN=your_token_here
+CLOUDFLARE_ZONE_ID=your_zone_id
+ORGO_VM_IP=YOUR.ORGO.PUBLIC.IP
+STATIX_DOMAIN=statix.com
+# Or interim: STATIX_DOMAIN=statix.studex-group.com
+```
+
+### Step 4 — Run automation
+
+```bash
+npm run cf:preflight   # validates token + zone + DNS permission
+npm run cf:dns         # creates/updates A records (@, www, *)
+```
+
+Records created:
+- `STATIX_DOMAIN` → Orgo VM IP (proxied)
+- `www.STATIX_DOMAIN` → Orgo VM IP (proxied)
+- `*.STATIX_DOMAIN` → Orgo VM IP (proxied) — tenant subdomains
+
+### Security
+
+- Never paste API tokens in chat or commit `.env.local`
+- Rotate any token that was exposed in plain text
 
 ---
 
@@ -183,7 +229,7 @@ Then set Cloudflare SSL to **Full (strict)**.
 | Create deploy scripts | ✓ Done | — |
 | Run `deploy:orgo` | ✓ Once you add `.env.local` | Paste ORGO_API_KEY |
 | Cloudflare dashboard clicks | ✗ No access to your account | 15 min manual steps above |
-| Cloudflare API DNS | ✓ Once token in `.env.local` | Create API token |
+| Cloudflare API DNS | ✓ Once token has DNS Edit + zone in `.env.local` | Create token + ORGO_VM_IP |
 
 **Fastest path:** Paste your Orgo API key into `deployment/statix/.env.local` and tell me **"deploy now"** — I'll run the deploy script immediately.
 
