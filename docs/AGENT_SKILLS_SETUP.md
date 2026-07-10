@@ -153,6 +153,20 @@ Assumes credentials ready (`~/.studex/meta.env`, Fly.io, API keys).
 
 ---
 
+## Puppetier workspace (built 2026-07-10)
+
+Full stack in `puppetier/`:
+
+```bash
+cd puppetier && ./start.sh
+```
+
+- Open WebUI :3080
+- Hermes Voice (Mac): `cd puppetier/studex-voice && npm run dev`
+- See [puppetier/README.md](../puppetier/README.md)
+
+---
+
 ## Quick verify (this workspace)
 
 ```bash
