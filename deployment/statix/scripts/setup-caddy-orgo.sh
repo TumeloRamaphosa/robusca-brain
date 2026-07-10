@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Install Caddy on Orgo VM — route hostnames to Statix (5180) and War Room (5000)
+# Install Caddy on Orgo VM — route hostnames to StudEx (5180) and War Room (5000)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -28,16 +28,16 @@ fi
 cat > /etc/caddy/Caddyfile <<'CADDY'
 # HTTP only — TLS terminated by Cloudflare Tunnel or Cloudflare proxy
 :80 {
-  @statix host statix.studex-group.com
+  @studex host studex.studex-group.com
   @agent host agent.studex-group.com www.agent.studex-group.com
 
-  handle @statix {
+  handle @studex {
     reverse_proxy 127.0.0.1:5180
   }
   handle @agent {
     reverse_proxy 127.0.0.1:5180
   }
-  respond "Statix — host not configured" 404
+  respond "StudEx — host not configured" 404
 }
 CADDY
 
@@ -45,7 +45,7 @@ pkill -f "caddy run" 2>/dev/null || true
 nohup caddy run --config /etc/caddy/Caddyfile --adapter caddyfile > /root/caddy.log 2>&1 &
 sleep 2
 ss -tlnp | grep ':80' || echo "port 80 pending"
-curl -sf -H "Host: statix.studex-group.com" http://127.0.0.1/api/health && echo " statix-vhost-ok"
+curl -sf -H "Host: studex.studex-group.com" http://127.0.0.1/api/health && echo " studex-vhost-ok"
 curl -sf -H "Host: agent.studex-group.com" http://127.0.0.1/api/health && echo " agent-vhost-ok"
 echo CADDY_DONE
 REMOTE

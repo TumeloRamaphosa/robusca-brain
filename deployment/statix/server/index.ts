@@ -34,7 +34,7 @@ const tenants = new Map<
 >();
 
 app.get("/api/health", (_req, res) => {
-  res.json({ ok: true, service: "statix-nestvm", version: "0.1.0" });
+  res.json({ ok: true, service: "studex-nestvm", version: "0.1.0" });
 });
 
 // Ollama — local brain for desktop demo (optional cloud model via :cloud tag)
@@ -117,8 +117,8 @@ app.post("/api/nestvm/provision", (req, res) => {
   res.json({
     success: true,
     tenantSlug: slug,
-    dashboardUrl: `https://${slug}.statix.com/dashboard`,
-    nestvmUrl: `https://${slug}.nestvm.statix.com`,
+    dashboardUrl: `https://${slug}.agent.studex-group.com/dashboard`,
+    nestvmUrl: `https://${slug}.nestvm.studex-group.com`,
     message: `NestVM provisioned for ${companyName}. WhatsApp confirmation queued.`,
   });
 });
@@ -231,5 +231,5 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.listen(PORT, "0.0.0.0", () => {
-  console.log(`Statix API on http://0.0.0.0:${PORT}`);
+  console.log(`StudEx API on http://0.0.0.0:${PORT}`);
 });

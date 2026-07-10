@@ -57,15 +57,15 @@ export default function Dashboard() {
         ? "All eight Super Agents are configured. Soul and Obsidian Brain are live. Tap an agent card for details."
         : tab === "channels"
           ? "WhatsApp is connected. Reply HELLO to test. Email and Shopify connect in Settings."
-          : "Your Statix NestVM dashboard is ready. Ask me anything.";
+          : "Your StudEx NestVM dashboard is ready. Ask me anything.";
 
   return (
     <div className="dash-layout">
       <aside className="dash-sidebar">
         <div style={{ padding: "0 1.5rem 1.5rem", borderBottom: "1px solid var(--border)" }}>
-          <p style={{ fontSize: "9px", letterSpacing: "4px", color: "var(--gold-dim)" }}>STATIX</p>
+          <p style={{ fontSize: "9px", letterSpacing: "4px", color: "var(--gold-dim)" }}>STUDEX</p>
           <p style={{ fontFamily: "var(--serif)", fontSize: "1.25rem" }}>NestVM</p>
-          <p style={{ fontSize: "11px", color: "var(--gold-dim)", marginTop: 4 }}>{tenant}.statix.com</p>
+          <p style={{ fontSize: "11px", color: "var(--gold-dim)", marginTop: 4 }}>{tenant}.agent.studex-group.com</p>
         </div>
         {NAV.map((n) => (
           <button
@@ -91,7 +91,7 @@ export default function Dashboard() {
               Good morning
             </h2>
             <p style={{ color: "var(--gold-dim)", marginBottom: "2rem", fontSize: "14px" }}>
-              Polsia orchestrates · NestVM executes · Statix is your face
+              Polsia orchestrates · NestVM executes · StudEx is your face
             </p>
             <div
               style={{
@@ -152,7 +152,7 @@ export default function Dashboard() {
               { name: "WhatsApp", status: "Connected", detail: "+27 business line" },
               { name: "Email", status: "Pending", detail: "AgentMail setup" },
               { name: "Shopify", status: "Optional", detail: "Connect in onboarding" },
-              { name: "Voice (Statix)", status: "Active", detail: "Browser + Tiiny edge" },
+              { name: "Voice (StudEx)", status: "Active", detail: "Browser + Tiiny edge" },
             ].map((c) => (
               <div key={c.name} style={{ background: "var(--surface)", border: "1px solid var(--border)", padding: "1rem" }}>
                 <strong>{c.name}</strong>

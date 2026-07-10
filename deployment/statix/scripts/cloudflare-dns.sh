@@ -16,10 +16,10 @@ fi
 : "${CLOUDFLARE_ZONE_ID:?Set CLOUDFLARE_ZONE_ID in .env.local}"
 : "${ORGO_VM_IP:?Set ORGO_VM_IP in .env.local — your Orgo VM public IP}"
 
-DOMAIN="${STATIX_DOMAIN:-statix.com}"
+DOMAIN="${STATIX_DOMAIN:-studex.studex-group.com}"
 
-# For subdomains (e.g. statix.studex-group.com), set:
-#   STATIX_DOMAIN=statix.studex-group.com
+# For subdomains (e.g. studex.studex-group.com), set:
+#   STATIX_DOMAIN=studex.studex-group.com
 #   CLOUDFLARE_ZONE_ID=<zone id of parent domain studex-group.com>
 
 upsert_record() {

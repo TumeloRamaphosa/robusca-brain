@@ -1,6 +1,6 @@
-# Statix NestVM — Long-Term Feature Roadmap
+# StudEx NestVM — Long-Term Feature Roadmap
 
-**Product:** Statix (statix.com)  
+**Product:** StudEx (studex.studex-group.com)  
 **Orchestrator:** Polsia  
 **Infra:** NestVM + Studex Global Markets
 
@@ -10,7 +10,7 @@
 
 | Feature | Status |
 |---|---|
-| statix.com landing + pricing tiers | Built |
+| studex.studex-group.com landing + pricing tiers | Built |
 | Voice-guided onboarding (5 steps, TTS + STT) | Built |
 | Polsia-style NestVM dashboard | Built |
 | Provision API + tenant status API | Built |
@@ -27,7 +27,7 @@
 | **Live WhatsApp** | Meta Cloud API — Soul speaks onboarding + morning brief |
 | **Polsia live integration** | Real provision + morning brief push from Polsia |
 | **Stripe / Peach billing** | Starter R3,500, Business R10,000 checkout |
-| **Wildcard tenants** | `acme.statix.com` → tenant routing |
+| **Wildcard tenants** | `acme.agent.studex-group.com` → tenant routing |
 | **Founder Circle** | Luma + Calendly bi-weekly 15-min check-ins |
 | **Email channel** | AgentMail send.studex.dev pattern |
 
@@ -42,7 +42,7 @@
 | **TencentDB memory** | Persona L3 + scene L2 per tenant |
 | **Headroom compression** | 60% API cost reduction |
 | **Graphify onboarding** | Auto-map uploaded docs |
-| **War Room embed** | Full Studex dashboard in Statix Enterprise |
+| **War Room embed** | Full Studex dashboard in StudEx Enterprise |
 
 ---
 
@@ -66,7 +66,7 @@
 | **ART Engineering DC bundle** | Tier III/IV + LightLLM inference |
 | **Global Markets auto-invite** | Business+ → working group |
 | **NtechLab / Pharmasyntez intros** | Sector matchmaking engine |
-| **White-label** | Agency resells Statix as their brand |
+| **White-label** | Agency resells StudEx as their brand |
 | **Windows computer control** | PowerShell UI automation (Enterprise) |
 | **Multi-language** | Zulu, Afrikaans, Russian for corridor clients |
 
@@ -76,7 +76,7 @@
 
 | Feature | Description |
 |---|---|
-| **Polsia full orchestration** | Polsia runs agents; Statix is Africa distribution |
+| **Polsia full orchestration** | Polsia runs agents; StudEx is Africa distribution |
 | **Sovereign DC network** | JHB, Nairobi, Cape Town, Lagos |
 | **China manufacturing line** | Edge boxes at scale |
 | **150+ tenants** | R2.1M MRR target |
@@ -99,4 +99,4 @@ Every customer hears Soul (or their persona) at:
 
 ---
 
-*Robusca · Statix · Polsia orchestrates · Studex scales*
+*Robusca · StudEx · Polsia orchestrates · Studex scales*

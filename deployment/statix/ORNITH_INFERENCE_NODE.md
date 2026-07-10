@@ -1,13 +1,13 @@
 # Ornith-35B inference node — Windows + Tailscale
 
-Host the quantized **Ornith-1.0-35B-GGUF** model on a Windows machine on your LAN, expose it only over **Tailscale**, and point Statix / OpenHuman / Ollama clients at it.
+Host the quantized **Ornith-1.0-35B-GGUF** model on a Windows machine on your LAN, expose it only over **Tailscale**, and point StudEx / OpenHuman / Ollama clients at it.
 
 ## Architecture
 
 ```
 ┌─────────────────────┐         Tailscale mesh          ┌──────────────────────────┐
 │  Your laptop / VM   │  ──── 100.x.x.x:11434 ────►  │  Windows inference box    │
-│  Statix (5180)      │       (private, encrypted)    │  Ollama + Ornith Q4_K_M  │
+│  StudEx (5180)      │       (private, encrypted)    │  Ollama + Ornith Q4_K_M  │
 │  OpenHuman desktop  │                               │  32 GB+ RAM recommended │
 └─────────────────────┘                               └──────────────────────────┘
 ```
@@ -85,7 +85,7 @@ ollama run hf.co/deepreinforce-ai/Ornith-1.0-35B-GGUF:Q4_K_M "Say hello in one s
 
 ## Step 3 — Tailscale on client (laptop / VM)
 
-Install Tailscale on the machine running Statix (Mac, Linux VM, or second Windows PC).
+Install Tailscale on the machine running StudEx (Mac, Linux VM, or second Windows PC).
 
 Test connectivity **from the client** (replace IP):
 
@@ -97,7 +97,7 @@ You should see JSON with the Ornith model listed.
 
 ---
 
-## Step 4 — Point Statix at the inference node
+## Step 4 — Point StudEx at the inference node
 
 On your **demo laptop** or **Orgo/Daytona VM**, create `deployment/statix/.env.local`:
 
@@ -162,7 +162,7 @@ Reply with:
 3. **RAM** on that box (confirm 32 GB+)
 4. Whether Ollama pull has finished
 
-I will plug the IP into Statix config and verify `/api/llm/status` end-to-end.
+I will plug the IP into StudEx config and verify `/api/llm/status` end-to-end.
 
 ---
 
@@ -186,4 +186,4 @@ The 8 GB **Super Agents Command** VM does not host Ornith — it only calls:
 OLLAMA_HOST=http://100.x.x.x:11434
 ```
 
-Same pattern for Daytona sandboxes: Statix container + `OLLAMA_HOST` pointing at your Windows Tailscale IP.
+Same pattern for Daytona sandboxes: StudEx container + `OLLAMA_HOST` pointing at your Windows Tailscale IP.

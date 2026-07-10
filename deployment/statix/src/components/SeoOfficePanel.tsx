@@ -69,7 +69,7 @@ export default function SeoOfficePanel() {
       <div style={{ maxWidth: 560 }}>
         <p style={{ color: "var(--gold-dim)", lineHeight: 1.6, marginBottom: "1rem" }}>
           SEO Office is not connected. Run it on your Orgo VM, then set{" "}
-          <code style={{ color: "var(--gold)" }}>SEO_OFFICE_URL</code> in Statix env.
+          <code style={{ color: "var(--gold)" }}>SEO_OFFICE_URL</code> in StudEx env.
         </p>
         <a
           href={seoOfficeUrl}

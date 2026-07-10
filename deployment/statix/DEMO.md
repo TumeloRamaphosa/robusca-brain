@@ -1,6 +1,6 @@
 # Desktop demo — 5 minutes
 
-Run Statix + Ollama on **your laptop** for a live demo. No VM, no Cloudflare required.
+Run StudEx + Ollama on **your laptop** for a live demo. No VM, no Cloudflare required.
 
 ## What you get
 
@@ -68,7 +68,7 @@ ollama launch codex --model nemotron-3-super:cloud --yes
 
 ---
 
-## Step 3 — Run Statix (1 min)
+## Step 3 — Run StudEx (1 min)
 
 From this repo:
 
@@ -96,11 +96,11 @@ npm run demo
 
 ## Demo script (what to show)
 
-1. Open **http://localhost:5180** — Statix landing (black & gold).
+1. Open **http://localhost:5180** — StudEx landing (black & gold).
 2. Click **Get started** → **Onboarding** — allow microphone; Soul speaks each step.
 3. Open **http://localhost:5180/dashboard/demo** — morning brief, 8 agents, Companies tab.
 4. Scroll to **Ask Soul (Ollama)** — type a question → live local/cloud LLM reply.
-5. Say: *"Same stack runs in a private NestVM per customer — Polsia sells, Statix is the face."*
+5. Say: *"Same stack runs in a private NestVM per customer — Polsia sells, StudEx is the face."*
 
 ---
 

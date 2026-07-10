@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# One-shot: find Ollama on tailnet + start Statix talking to it
+# One-shot: find Ollama on tailnet + start StudEx talking to it
 # Run ON YOUR MAC (must be on Tailscale). Do NOT paste API keys into this file.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-echo "=== Statix + Tailscale inference ==="
+echo "=== StudEx + Tailscale inference ==="
 
 # Prefer Mac mini, then MacBook, then any host with Ollama
 CANDIDATES=(
@@ -33,7 +33,7 @@ if [[ -z "$OLLAMA_IP" ]]; then
   echo "  3. ollama pull qwen2.5:3b   (quick demo)"
   echo "     or ollama pull hf.co/deepreinforce-ai/Ornith-1.0-35B-GGUF:Q4_K_M"
   echo ""
-  echo "Starting Statix with LOCAL ollama only..."
+  echo "Starting StudEx with LOCAL ollama only..."
   OLLAMA_IP="127.0.0.1"
 fi
 

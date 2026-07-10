@@ -6,7 +6,7 @@ const STEPS = [
   {
     id: "welcome",
     title: "Welcome",
-    voice: "Welcome to Statix. I'm Soul, your Northstar agent. I'll guide you through setup — by voice, WhatsApp, or typing. What's your company name?",
+    voice: "Welcome to StudEx. I'm Soul, your Northstar agent. I'll guide you through setup — by voice, WhatsApp, or typing. What's your company name?",
     field: "companyName",
     label: "Company name",
     type: "text",
@@ -40,7 +40,7 @@ const STEPS = [
   {
     id: "provision",
     title: "Launch",
-    voice: "Perfect. I'm provisioning your private NestVM now. You'll receive a WhatsApp confirmation within minutes. Your dashboard will be ready at your company dot statix dot com.",
+    voice: "Perfect. I'm provisioning your private NestVM now. You'll receive a WhatsApp confirmation within minutes. Your dashboard will be ready at your company dot agent dot studex-group dot com.",
     field: null,
   },
 ];
@@ -55,7 +55,7 @@ export default function Onboarding() {
 
   const current = STEPS[step];
   const voiceMsg = done
-    ? `Your NestVM is live at ${tenantSlug}.statix.com. Open your dashboard — I'll meet you there.`
+    ? `Your NestVM is live at ${tenantSlug}.agent.studex-group.com. Open your dashboard — I'll meet you there.`
     : current.voice;
 
   function slugify(name: string) {
@@ -97,7 +97,7 @@ export default function Onboarding() {
     <div className="onboarding-layout">
       <div className="onboarding-steps">
         <p style={{ fontSize: "9px", letterSpacing: "4px", color: "var(--gold-dim)", marginBottom: "1rem" }}>
-          STATIX ONBOARDING · STEP {step + 1} OF {STEPS.length}
+          STUDEX ONBOARDING · STEP {step + 1} OF {STEPS.length}
         </p>
         <div className="step-indicator">
           {STEPS.map((_, i) => (
@@ -150,7 +150,7 @@ export default function Onboarding() {
         )}
         {done && (
           <p style={{ color: "var(--gold)", marginBottom: "1rem" }}>
-            ✦ Live at <strong>{tenantSlug}.statix.com</strong> — redirecting to dashboard…
+            ✦ Live at <strong>{tenantSlug}.agent.studex-group.com</strong> — redirecting to dashboard…
           </p>
         )}
 

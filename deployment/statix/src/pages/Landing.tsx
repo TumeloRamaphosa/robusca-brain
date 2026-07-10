@@ -32,7 +32,7 @@ export default function Landing() {
   return (
     <>
       <section className="landing-hero">
-        <p className="tagline">Statix · Powered by NestVM · Orchestrated by Polsia</p>
+        <p className="tagline">StudEx · Powered by NestVM · Orchestrated by Polsia</p>
         <h1>
           Your Private AI Brain
           <br />
@@ -81,7 +81,7 @@ export default function Landing() {
 
       <VoiceCompanion
         agentName="Soul"
-        message="Welcome to Statix. I'm Soul, your Northstar agent. Tap Start when you're ready — I'll guide you through setup by voice."
+        message="Welcome to StudEx. I'm Soul, your Northstar agent. Tap Start when you're ready — I'll guide you through setup by voice."
         autoSpeak={false}
       />
     </>

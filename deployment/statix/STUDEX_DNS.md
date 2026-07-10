@@ -1,12 +1,12 @@
 # studex-group.com DNS mapping
 
-Fixed hostnames only — **no tenant wildcards** (`*.statix`, `*.agent`, etc.).
+Fixed hostnames only — **no tenant wildcards** (`*.studex`, `*.agent`, etc.).
 
 | Hostname | Routes to | Service |
 |----------|-----------|---------|
-| `statix.studex-group.com` | Orgo VM → Caddy :80 → Statix :5180 | NestVM dashboard |
-| `agent.studex-group.com` | Orgo VM → Caddy :80 → Statix :5180 | Agent entry |
-| `www.agent.studex-group.com` | Orgo VM → Caddy :80 → Statix :5180 | Agent entry (www) |
+| `studex.studex-group.com` | Orgo VM → Caddy :80 → StudEx :5180 | NestVM landing + dashboard |
+| `agent.studex-group.com` | Orgo VM → Caddy :80 → StudEx :5180 | Agent entry + API |
+| `www.agent.studex-group.com` | Orgo VM → Caddy :80 → StudEx :5180 | Agent entry (www) |
 
 ## Apply DNS (needs Cloudflare token with DNS Edit)
 
@@ -16,7 +16,7 @@ cd deployment/statix
 npm run cf:studex
 ```
 
-Creates proxied A records → `67.213.119.157` for all three hostnames.
+Creates proxied A records → `ORGO_VM_IP` for all three hostnames.
 
 ## Orgo VM routing (already scripted)
 
@@ -24,7 +24,7 @@ Creates proxied A records → `67.213.119.157` for all three hostnames.
 npm run caddy:orgo
 ```
 
-Caddy listens on `:80` and routes by `Host` header to Statix on `5180`.
+Caddy listens on `:80` and routes by `Host` header to StudEx on `5180`.
 
 ## Important: Orgo blocks inbound ports
 
@@ -38,9 +38,9 @@ Temporary test URL (quick tunnel): check `/root/cf-tunnel.log` on VM.
 ## Verify
 
 ```bash
-curl -s https://statix.studex-group.com/api/health
+curl -s https://studex.studex-group.com/api/health
 curl -s https://agent.studex-group.com/api/health
 curl -s https://www.agent.studex-group.com/api/health
 ```
 
-Expected: `{"ok":true,"service":"statix-nestvm","version":"0.1.0"}`
+Expected: `{"ok":true,"service":"studex-nestvm","version":"0.1.0"}`

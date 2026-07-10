@@ -1,6 +1,7 @@
-# Cloudflare DNS — statix.com Setup
+# Cloudflare DNS — statix.com Setup (legacy)
 
-**Goal:** Point statix.com to the Statix NestVM app.  
+**Goal:** Point statix.com to the StudEx NestVM app.  
+**Preferred path:** Use [STUDEX_DNS.md](./STUDEX_DNS.md) and `studex.studex-group.com` instead.  
 **Time:** ~15 minutes in Cloudflare dashboard.  
 **Owner:** Tumelo (Cloudflare access required)
 
@@ -85,7 +86,7 @@ curl https://statix.com/api/health
 
 Expected health response:
 ```json
-{"ok":true,"service":"statix-nestvm","version":"0.1.0"}
+{"ok":true,"service":"studex-nestvm","version":"0.1.0"}
 ```
 
 ---

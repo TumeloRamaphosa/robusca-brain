@@ -14,7 +14,7 @@ fi
 
 : "${CLOUDFLARE_API_TOKEN:?Set CLOUDFLARE_API_TOKEN in .env.local}"
 
-DOMAIN="${STATIX_DOMAIN:-statix.com}"
+DOMAIN="${STATIX_DOMAIN:-studex.studex-group.com}"
 ZONE_ID="${CLOUDFLARE_ZONE_ID:-}"
 
 echo "=== Cloudflare preflight ==="
@@ -62,7 +62,7 @@ for z in d.get('result') or []:
 "
   echo ""
   echo "Fix: add $DOMAIN to Cloudflare, or set STATIX_DOMAIN to a zone you own"
-  echo "     (e.g. STATIX_DOMAIN=statix.studex-group.com with CLOUDFLARE_ZONE_ID for studex-group.com)"
+  echo "     (e.g. STATIX_DOMAIN=studex.studex-group.com with CLOUDFLARE_ZONE_ID for studex-group.com)"
   exit 1
 fi
 

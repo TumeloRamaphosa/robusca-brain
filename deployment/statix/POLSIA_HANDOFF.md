@@ -1,27 +1,27 @@
-# Polsia × Statix × Studex — 3-Hour Launch Handoff
+# Polsia × StudEx × Studex — 3-Hour Launch Handoff
 
 **From:** Studex Group / Robusca  
 **To:** Polsia (Ben Cera team)  
-**Product:** Statix NestVM — private AI VM for Africa  
+**Product:** StudEx NestVM — private AI VM for Africa  
 **Launch window:** Today (3-hour sprint)  
-**Domain:** statix.com (Cloudflare — see CLOUDFLARE_STATIX_DNS.md)
+**Domain:** studex.studex-group.com (Cloudflare — see STUDEX_DNS.md)
 
 ---
 
 ## What Polsia sells
 
-Polsia already sells *"AI that runs your company while you sleep."* Statix is the **Africa-branded, sovereign-infra version** of NestVM — same orchestration model, different market:
+Polsia already sells *"AI that runs your company while you sleep."* StudEx is the **Africa-branded, sovereign-infra version** of NestVM — same orchestration model, different market:
 
-| Polsia (US) | Statix (Africa / Global South) |
+| Polsia (US) | StudEx (Africa / Global South) |
 |---|---|
-| polsia.com dashboard | statix.com/dashboard |
+| polsia.com dashboard | studex.studex-group.com/dashboard |
 | 9 generic agents | 8 Super Agents (Renaissance masters) |
 | Morning email | **Morning WhatsApp + voice** |
 | US cloud | **Private NestVM per tenant** |
 | Solo founders | SMEs + export corridor (Global Markets) |
 
 **Polsia's role:** Orchestrate provisioning, billing, agent scheduling, morning summaries.  
-**Statix's role:** Brand, Africa infra, WhatsApp, voice onboarding, Global Markets funnel.  
+**StudEx's role:** Brand, Africa infra, WhatsApp, voice onboarding, Global Markets funnel.  
 **Studex's role:** Enterprise sales, ART Engineering DC, Trade Week cohort.
 
 ---
@@ -32,29 +32,29 @@ Polsia already sells *"AI that runs your company while you sleep."* Statix is th
 
 | # | Task | Owner | Done? |
 |---|---|---|---|
-| 1 | Cloudflare: point statix.com → deploy target (see DNS doc) | Tumelo | ☐ |
-| 2 | Deploy Statix app: `deployment/statix` → Fly.io / Vercel / Orgo | Dev | ☐ |
-| 3 | Verify https://statix.com loads landing | Dev | ☐ |
-| 4 | Verify https://statix.com/onboarding voice flow | Dev | ☐ |
-| 5 | Verify https://statix.com/dashboard/demo | Dev | ☐ |
+| 1 | Cloudflare: point studex.studex-group.com → deploy target (see DNS doc) | Tumelo | ☐ |
+| 2 | Deploy StudEx app: `deployment/statix` → Fly.io / Vercel / Orgo | Dev | ☐ |
+| 3 | Verify https://studex.studex-group.com loads landing | Dev | ☐ |
+| 4 | Verify https://studex.studex-group.com/onboarding voice flow | Dev | ☐ |
+| 5 | Verify https://studex.studex-group.com/dashboard/demo | Dev | ☐ |
 
 ### Hour 2 — Polsia integration stubs
 
 | # | Task | Owner | Done? |
 |---|---|---|---|
-| 6 | Polsia webhook URL → `https://api.statix.com/api/polsia/webhook` | Polsia | ☐ |
+| 6 | Polsia webhook URL → `https://agent.studex-group.com/api/polsia/webhook` | Polsia | ☐ |
 | 7 | Provision event: Polsia calls POST `/api/nestvm/provision` | Polsia | ☐ |
-| 8 | Morning brief: Polsia pushes to Statix tenant status API | Polsia | ☐ |
+| 8 | Morning brief: Polsia pushes to StudEx tenant status API | Polsia | ☐ |
 | 9 | Stripe: Polsia billing or Studex Peach — pick one for today | Tumelo | ☐ |
 
 ### Hour 3 — First customer path
 
 | # | Task | Owner | Done? |
 |---|---|---|---|
-| 10 | WhatsApp template `statix_welcome` approved (Meta) | Tumelo | ☐ |
+| 10 | WhatsApp template `studex_welcome` approved (Meta) | Tumelo | ☐ |
 | 11 | Run onboarding as Tumelo (dogfood) | Tumelo | ☐ |
 | 12 | Polsia sends first morning brief to WhatsApp | Polsia | ☐ |
-| 13 | Announce: statix.com live + Founder Circle date | Tumelo | ☐ |
+| 13 | Announce: studex.studex-group.com live + Founder Circle date | Tumelo | ☐ |
 
 ---
 
@@ -63,7 +63,7 @@ Polsia already sells *"AI that runs your company while you sleep."* Statix is th
 ### Provision tenant
 
 ```http
-POST https://api.statix.com/api/nestvm/provision
+POST https://agent.studex-group.com/api/nestvm/provision
 Content-Type: application/json
 
 {
@@ -81,21 +81,21 @@ Content-Type: application/json
 {
   "success": true,
   "tenantSlug": "acme-exports",
-  "dashboardUrl": "https://acme-exports.statix.com/dashboard",
-  "nestvmUrl": "https://acme-exports.nestvm.statix.com"
+  "dashboardUrl": "https://acme-exports.agent.studex-group.com/dashboard",
+  "nestvmUrl": "https://acme-exports.nestvm.studex-group.com"
 }
 ```
 
 ### Tenant status (Polsia polls or pushes)
 
 ```http
-GET https://api.statix.com/api/nestvm/{tenantSlug}/status
+GET https://agent.studex-group.com/api/nestvm/{tenantSlug}/status
 ```
 
-### Polsia → Statix events
+### Polsia → StudEx events
 
 ```http
-POST https://api.statix.com/api/polsia/webhook
+POST https://agent.studex-group.com/api/polsia/webhook
 Content-Type: application/json
 
 {
@@ -118,12 +118,12 @@ Content-Type: application/json
 | **WhatsApp** | Same Soul script sent as voice note or text |
 | **Dashboard** | Voice companion reads morning brief |
 | **Tiiny device** | Local TTS on edge (future) |
-| **Mac / Windows** | Statix desktop app (Tauri) — same voice |
+| **Mac / Windows** | StudEx desktop app (Tauri) — same voice |
 | **Phone** | PWA + WhatsApp — no app store required |
 
 Onboarding script (Soul speaks each step):
 
-1. *"Welcome to Statix. What's your company name?"*
+1. *"Welcome to StudEx. What's your company name?"*
 2. *"What does success look like in 90 days?"*
 3. *"What's your WhatsApp for morning briefs?"*
 4. *"Starter or Business tier?"*
@@ -147,7 +147,7 @@ Onboarding script (Soul speaks each step):
 ## What ships today vs long-term
 
 ### Ships today (MVP)
-- statix.com landing + pricing
+- studex.studex-group.com landing + pricing
 - Voice-guided onboarding (5 steps)
 - Demo NestVM dashboard (Polsia-style)
 - Provision API + Polsia webhook stub
@@ -166,9 +166,9 @@ Onboarding script (Soul speaks each step):
 
 | File | Purpose |
 |---|---|
-| `deployment/statix/` | Full Statix web app |
+| `deployment/statix/` | Full StudEx web app (internal path) |
 | `deployment/statix/POLSIA_HANDOFF.md` | This document |
-| `deployment/statix/CLOUDFLARE_STATIX_DNS.md` | DNS setup |
+| `deployment/statix/STUDEX_DNS.md` | DNS setup |
 | `deployment/NESTVM_GTM_ONBOARDING.md` | Sales + onboarding pipeline |
 | `deployment/NESTVM_AGENT_SAAS_PLAN.md` | Architecture |
 
@@ -178,9 +178,9 @@ Onboarding script (Soul speaks each step):
 
 - **Studex:** t.ramaphosa@studex.dev  
 - **Polsia:** support@polsia.com  
-- **Statix product URL:** https://statix.com  
-- **Demo dashboard:** https://statix.com/dashboard/demo
+- **StudEx product URL:** https://studex.studex-group.com  
+- **Demo dashboard:** https://studex.studex-group.com/dashboard/demo
 
 ---
 
-*Private intelligence. Shared opportunity. Polsia orchestrates. Statix delivers.*
+*Private intelligence. Shared opportunity. Polsia orchestrates. StudEx delivers.*

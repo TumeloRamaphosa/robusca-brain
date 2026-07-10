@@ -19,7 +19,7 @@ fi
 # Hostnames → Orgo VM (proxied orange cloud)
 # Note: Orgo blocks inbound ports — use cloudflare-tunnel.sh for production.
 HOSTS=(
-  "statix.studex-group.com"
+  "studex.studex-group.com"
   "agent.studex-group.com"
   "www.agent.studex-group.com"
 )

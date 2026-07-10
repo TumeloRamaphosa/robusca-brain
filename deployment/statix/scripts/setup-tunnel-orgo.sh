@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run cloudflared on Orgo VM with ingress for studex-group.com hostnames → Statix :5180
+# Run cloudflared on Orgo VM with ingress for studex-group.com hostnames → StudEx :5180
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -18,11 +18,11 @@ ORGO_API_BASE="${ORGO_API_BASE:-https://www.orgo.ai/api}"
 
 TUNNEL_CONFIG_B64=$(python3 -c "
 import base64
-cfg = '''tunnel: studex-statix
-credentials-file: /root/.cloudflared/studex-statix.json
+cfg = '''tunnel: studex-nestvm
+credentials-file: /root/.cloudflared/studex-nestvm.json
 
 ingress:
-  - hostname: statix.studex-group.com
+  - hostname: studex.studex-group.com
     service: http://127.0.0.1:5180
   - hostname: agent.studex-group.com
     service: http://127.0.0.1:5180

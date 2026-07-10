@@ -13,7 +13,7 @@ export default function App() {
       <Route>
         <div className="center-page">
           <h1>404</h1>
-          <a href="/">Return to Statix</a>
+          <a href="/">Return to StudEx</a>
         </div>
       </Route>
     </Switch>

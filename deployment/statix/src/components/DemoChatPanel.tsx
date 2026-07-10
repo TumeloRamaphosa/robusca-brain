@@ -13,7 +13,7 @@ interface LlmStatus {
 
 export default function DemoChatPanel() {
   const [status, setStatus] = useState<LlmStatus | null>(null);
-  const [message, setMessage] = useState("What can Statix do for Studex Global Markets?");
+  const [message, setMessage] = useState("What can StudEx do for Studex Global Markets?");
   const [reply, setReply] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -21,7 +21,7 @@ export default function DemoChatPanel() {
     fetch("/api/llm/status")
       .then((r) => r.json())
       .then(setStatus)
-      .catch(() => setStatus({ ok: false, error: "Cannot reach Statix API" }));
+      .catch(() => setStatus({ ok: false, error: "Cannot reach StudEx API" }));
   }, []);
 
   async function ask() {

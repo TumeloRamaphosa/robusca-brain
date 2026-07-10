@@ -1,6 +1,6 @@
-# SEO Office + claude-seo → Statix Dashboard
+# SEO Office + claude-seo → StudEx Dashboard
 
-How **companies** and **people** from [seo-os](https://github.com/AgriciDaniel/seo-os) appear inside the Statix NestVM dashboard.
+How **companies** and **people** from [seo-os](https://github.com/AgriciDaniel/seo-os) appear inside the StudEx NestVM dashboard.
 
 ## What each repo does
 
@@ -25,14 +25,14 @@ SEO Office stores everything in `./.seo-office/` on disk:
   index.db               ← SQLite mirror for fast queries
 ```
 
-| What you want | SEO Office API | Statix proxy |
+| What you want | SEO Office API | StudEx proxy |
 |---------------|----------------|--------------|
 | **Companies** (clients) | `GET /api/clients` | `GET /api/seo/clients` |
 | **People + entities** | `GET /api/brain?slug=<client>` | `GET /api/seo/brain/:slug` |
 | **Knowledge graph** | `GET /api/brain/graph?slug=<client>` | (future) |
 | **3D office** | `http://localhost:3000/office` | Link from dashboard |
 
-The brain API returns notes grouped by type. Statix maps:
+The brain API returns notes grouped by type. StudEx maps:
 
 - `stakeholder` + entity notes tagged `people` → **People**
 - entity notes tagged `brands` → **Brands**
@@ -42,7 +42,7 @@ The brain API returns notes grouped by type. Statix maps:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│  Statix Dashboard (port 5180)                           │
+│  StudEx Dashboard (port 5180)                           │
 │  /dashboard/demo → Companies tab                        │
 │       │                                                 │
 │       ▼  proxy                                          │
@@ -94,7 +94,7 @@ In SEO Office:
 
 People appear after the brain scaffold runs. Empty vault = empty dashboard — that's expected.
 
-### 4. Wire Statix
+### 4. Wire StudEx
 
 In `deployment/statix/.env.local`:
 
@@ -102,9 +102,9 @@ In `deployment/statix/.env.local`:
 SEO_OFFICE_URL=http://localhost:3000
 ```
 
-If Statix and SEO Office run on the same Orgo VM, use `http://127.0.0.1:3000`.
+If StudEx and SEO Office run on the same Orgo VM, use `http://127.0.0.1:3000`.
 
-Restart Statix:
+Restart StudEx:
 
 ```bash
 cd deployment/statix
@@ -136,12 +136,12 @@ services:
 When a NestVM tenant is provisioned via `/api/nestvm/provision`, you can auto-create a matching SEO Office client:
 
 ```bash
-# Future webhook (Polsia → Statix → SEO Office)
+# Future webhook (Polsia → StudEx → SEO Office)
 POST /api/clients
 { "name": "<companyName>", "site_url": "<domain>", "owner": "<tenantSlug>" }
 ```
 
-Tenant slug ↔ client slug keeps one brain per Statix customer.
+Tenant slug ↔ client slug keeps one brain per StudEx customer.
 
 ## War Room integration (optional)
 
@@ -149,7 +149,7 @@ The Studex War Room (`os/war-room/`) can use the same proxy pattern:
 
 1. Add `SEO_OFFICE_URL` to War Room server env
 2. Add a **SEO** or **Companies** tab that calls `/api/seo/clients`
-3. Link through to Statix dashboard or iframe `/office`
+3. Link through to StudEx dashboard or iframe `/office`
 
 ## Troubleshooting
 
@@ -158,8 +158,8 @@ The Studex War Room (`os/war-room/`) can use the same proxy pattern:
 | "SEO Office is not connected" | `pnpm dev` in seo-os; set `SEO_OFFICE_URL` |
 | Companies list empty | Create client at `/clients/new` |
 | People list empty | Run "build the brain" in SEO Office for that client |
-| CORS errors | Use Statix proxy routes — don't call port 3000 from browser directly |
+| CORS errors | Use StudEx proxy routes — don't call port 3000 from browser directly |
 
 ## License note
 
-seo-os is **AGPL-3.0**. If you serve it over the network (multi-tenant SaaS), AGPL obligations apply. For internal Studex/Statix use on your own VM, you're fine. Consult counsel before white-labeling SEO Office to external customers.
+seo-os is **AGPL-3.0**. If you serve it over the network (multi-tenant SaaS), AGPL obligations apply. For internal Studex/StudEx use on your own VM, you're fine. Consult counsel before white-labeling SEO Office to external customers.

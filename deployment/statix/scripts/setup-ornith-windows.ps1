@@ -45,6 +45,6 @@ Write-Host "Smoke test..." -ForegroundColor Cyan
 ollama run $model "Reply with exactly: Ornith inference node is live." --verbose 2>&1 | Select-Object -First 20
 
 Write-Host ""
-Write-Host "Done. Share your Tailscale IP with Statix:" -ForegroundColor Green
+Write-Host "Done. Share your Tailscale IP with StudEx:" -ForegroundColor Green
 if ($tsIp) { Write-Host "  OLLAMA_HOST=http://${tsIp}:11434" }
 Write-Host "  DEMO_MODEL=$model"

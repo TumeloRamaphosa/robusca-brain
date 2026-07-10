@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# Deploy Statix v1 to Orgo VM via API exec
+# Deploy StudEx v1 to Orgo VM via API exec
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 ENV_FILE="$ROOT/.env.local"
 REPO_URL="${STATIX_REPO_URL:-https://github.com/TumeloRamaphosa/robusca-brain.git}"
 BRANCH="${STATIX_BRANCH:-cursor/nestvm-agent-saas-plan-c65b}"
-INSTALL_DIR="${STATIX_INSTALL_DIR:-/home/user/statix-nestvm}"
+INSTALL_DIR="${STATIX_INSTALL_DIR:-/home/user/studex-nestvm}"
 
 if [[ -f "$ENV_FILE" ]]; then
   set -a
@@ -19,7 +19,7 @@ fi
 ORGO_COMPUTER_ID="${ORGO_COMPUTER_ID:-946b3156-cab9-4187-a94b-056dfab35105}"
 ORGO_API_BASE="${ORGO_API_BASE:-https://www.orgo.ai/api}"
 
-echo "=== Statix → Orgo deploy ==="
+echo "=== StudEx → Orgo deploy ==="
 echo "Computer: $ORGO_COMPUTER_ID"
 echo "Install dir: $INSTALL_DIR"
 echo ""
@@ -114,5 +114,5 @@ fi
 
 echo ""
 echo "=== Next: Cloudflare ==="
-echo "Point statix.com A record → your Orgo VM public IP"
+echo "Point studex.studex-group.com A record → your Orgo VM public IP"
 echo "Or use Cloudflare Tunnel — see CLOUDFLARE_WALKTHROUGH.md"

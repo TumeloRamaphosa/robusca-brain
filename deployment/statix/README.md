@@ -1,6 +1,6 @@
-# Statix — NestVM Customer Experience (MVP)
+# StudEx — NestVM Customer Experience (MVP)
 
-Polsia-style dashboard + voice-guided onboarding for statix.com.
+Polsia-style dashboard + voice-guided onboarding for Studex Group customers.
 
 ## Quick start (desktop demo)
 
@@ -31,7 +31,7 @@ docker compose up -d
 
 - [CLOUDFLARE_WALKTHROUGH.md](./CLOUDFLARE_WALKTHROUGH.md) — **start here** for Orgo + Cloudflare
 - [POLSIA_HANDOFF.md](./POLSIA_HANDOFF.md) — Polsia partnership + 3-hour launch
-- [CLOUDFLARE_STATIX_DNS.md](./CLOUDFLARE_STATIX_DNS.md) — DNS reference (Fly.io path)
+- [CLOUDFLARE_STATIX_DNS.md](./CLOUDFLARE_STATIX_DNS.md) — DNS reference (legacy statix.com path)
 
 ## Deploy to Orgo VM
 
