@@ -7,6 +7,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = parseInt(process.env.PORT || "5180", 10);
 const SEO_OFFICE_URL = process.env.SEO_OFFICE_URL || "http://localhost:3000";
+const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://127.0.0.1:11434";
+const DEMO_MODEL = process.env.DEMO_MODEL || "qwen2.5:3b";
 
 async function fetchSeoOffice(path: string) {
   const res = await fetch(`${SEO_OFFICE_URL}${path}`, {
@@ -33,6 +35,63 @@ const tenants = new Map<
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "statix-nestvm", version: "0.1.0" });
+});
+
+// Ollama — local brain for desktop demo (optional cloud model via :cloud tag)
+app.get("/api/llm/status", async (_req, res) => {
+  try {
+    const tags = await fetch(`${OLLAMA_HOST}/api/tags`, { signal: AbortSignal.timeout(3000) });
+    if (!tags.ok) throw new Error(`Ollama ${tags.status}`);
+    const data = (await tags.json()) as { models?: Array<{ name: string; size: number }> };
+    const models = data.models ?? [];
+    res.json({
+      ok: true,
+      ollamaHost: OLLAMA_HOST,
+      modelCount: models.length,
+      models: models.map((m) => m.name),
+      demoModel: DEMO_MODEL,
+      ready: models.some((m) => m.name.startsWith(DEMO_MODEL.split(":")[0])),
+    });
+  } catch (err) {
+    res.json({
+      ok: false,
+      ollamaHost: OLLAMA_HOST,
+      demoModel: DEMO_MODEL,
+      error: err instanceof Error ? err.message : "Ollama offline",
+      hint: "Install Ollama → ollama serve → ollama pull qwen2.5:3b (or use nemotron-3-super:cloud)",
+    });
+  }
+});
+
+app.post("/api/llm/chat", async (req, res) => {
+  const { message, model } = req.body as { message?: string; model?: string };
+  if (!message?.trim()) {
+    return res.status(400).json({ ok: false, error: "message required" });
+  }
+  const useModel = model || DEMO_MODEL;
+  try {
+    const r = await fetch(`${OLLAMA_HOST}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: useModel,
+        messages: [{ role: "user", content: message }],
+        stream: false,
+      }),
+      signal: AbortSignal.timeout(120000),
+    });
+    if (!r.ok) {
+      const errText = await r.text();
+      return res.status(502).json({ ok: false, error: errText.slice(0, 200) });
+    }
+    const data = (await r.json()) as { message?: { content?: string } };
+    res.json({ ok: true, model: useModel, reply: data.message?.content ?? "" });
+  } catch (err) {
+    res.status(502).json({
+      ok: false,
+      error: err instanceof Error ? err.message : "Ollama request failed",
+    });
+  }
 });
 
 app.post("/api/nestvm/provision", (req, res) => {

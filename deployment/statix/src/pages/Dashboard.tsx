@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useParams } from "wouter";
 import VoiceCompanion from "../components/VoiceCompanion";
 import SeoOfficePanel from "../components/SeoOfficePanel";
+import DemoChatPanel from "../components/DemoChatPanel";
 
 const AGENTS = [
   { id: "soul", name: "Soul", role: "Northstar & strategy", status: "live" },
@@ -124,6 +125,7 @@ export default function Dashboard() {
                 <span>{a.action}</span>
               </div>
             ))}
+            <DemoChatPanel />
           </>
         )}
 

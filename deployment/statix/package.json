@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently -k \"vite --host 0.0.0.0 --port 5180\" \"tsx watch server/index.ts\"",
+    "demo": "bash scripts/demo-desktop.sh",
     "build": "vite build --outDir dist/client && esbuild server/index.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",
     "start": "NODE_ENV=production PORT=5180 node dist/server.js",
     "check:env": "bash scripts/check-env.sh",

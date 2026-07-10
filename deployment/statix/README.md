@@ -2,18 +2,21 @@
 
 Polsia-style dashboard + voice-guided onboarding for statix.com.
 
-## Quick start
+## Quick start (desktop demo)
 
 ```bash
 cd deployment/statix
 npm install
-npm run dev
+npm run demo
 ```
+
+See **[DEMO.md](./DEMO.md)** for the full 5-minute walkthrough (Ollama + voice + dashboard).
 
 - Landing: http://localhost:5180
 - Onboarding: http://localhost:5180/onboarding
 - Dashboard: http://localhost:5180/dashboard/demo
-- API health: http://localhost:5181/api/health
+- API health: http://localhost:5180/api/health
+- Ollama status: http://localhost:5180/api/llm/status
 
 ## Production
 
