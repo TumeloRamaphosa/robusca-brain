@@ -47,6 +47,7 @@ app.get("/api/llm/status", async (_req, res) => {
     res.json({
       ok: true,
       ollamaHost: OLLAMA_HOST,
+      remote: !OLLAMA_HOST.includes("127.0.0.1") && !OLLAMA_HOST.includes("localhost"),
       modelCount: models.length,
       models: models.map((m) => m.name),
       demoModel: DEMO_MODEL,

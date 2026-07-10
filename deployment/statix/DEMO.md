@@ -129,6 +129,7 @@ Never commit API keys. Orgo / Cloudflare / Sakana keys are for VM production onl
 
 ## After the demo
 
-- **Daytona VM** — same `npm run build && npm start` in a sandbox
+- **Windows Ornith node** — host Q4_K_M on a 32 GB+ Windows box over Tailscale → [ORNITH_INFERENCE_NODE.md](./ORNITH_INFERENCE_NODE.md)
+- **Daytona VM** — same `npm run build && npm start`; set `OLLAMA_HOST` to Tailscale IP
 - **Orgo VM** — `npm run deploy:orgo` (Super Agents Command: `333de3f8-0801-430b-a541-aad458e896b5`)
 - **studex-group.com** — Cloudflare tunnel + DNS (see CLOUDFLARE_WALKTHROUGH.md)

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 interface LlmStatus {
   ok: boolean;
   demoModel?: string;
+  remote?: boolean;
   modelCount?: number;
   models?: string[];
   ready?: boolean;
@@ -57,7 +58,7 @@ export default function DemoChatPanel() {
           <p style={{ fontSize: "13px", color: "var(--gold-dim)" }}>Checking Ollama…</p>
         ) : status.ok ? (
           <p style={{ fontSize: "12px", color: "var(--accent)", marginBottom: "10px" }}>
-            Ollama connected · {status.modelCount} model(s) · demo: {status.demoModel}
+            Ollama connected{status.remote ? " (Tailscale inference node)" : ""} · {status.modelCount} model(s) · demo: {status.demoModel}
             {!status.ready && " (pull model to enable chat)"}
           </p>
         ) : (
