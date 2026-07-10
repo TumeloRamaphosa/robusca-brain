@@ -5,6 +5,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# shellcheck disable=SC1091
+source "$ROOT/scripts/load-env.sh"
+
 echo "=== StudEx desktop demo ==="
 
 if ! command -v node &>/dev/null; then
@@ -40,4 +43,4 @@ echo "  http://localhost:5180/onboarding"
 echo "  http://localhost:5180/dashboard/demo"
 echo ""
 
-npm run dev
+exec npm run dev

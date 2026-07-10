@@ -1,19 +1,21 @@
 version: "3.9"
 
 services:
-  statix-web:
+  studex-web:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "5180:5180"
-      - "5181:5181"
     environment:
       - NODE_ENV=production
-      - PORT=5181
+      - PORT=5180
+      - SEO_OFFICE_URL=${SEO_OFFICE_URL:-http://host.docker.internal:3000}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - DEMO_MODEL=${DEMO_MODEL:-qwen2.5:3b}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5181/api/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:5180/api/health"]
       interval: 30s
       timeout: 5s
       retries: 3

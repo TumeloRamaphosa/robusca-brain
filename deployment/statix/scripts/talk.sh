@@ -6,6 +6,9 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
+# shellcheck disable=SC1091
+source "$ROOT/scripts/load-env.sh"
+
 echo "=== StudEx + Tailscale inference ==="
 
 # Prefer Mac mini, then MacBook, then any host with Ollama
@@ -66,4 +69,4 @@ echo "  http://localhost:5180/dashboard/demo"
 echo "  → scroll to 'Ask Soul (Ollama)'"
 echo ""
 
-npm run dev
+exec npm run dev

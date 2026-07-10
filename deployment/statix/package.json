@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k \"vite --host 0.0.0.0 --port 5180\" \"PORT=5181 tsx watch server/index.ts\"",
+    "dev": "bash scripts/dev.sh",
     "demo": "bash scripts/demo-desktop.sh",
     "talk": "bash scripts/talk.sh",
     "build": "vite build --outDir dist/client && esbuild server/index.ts --bundle --platform=node --format=esm --outfile=dist/server.js --packages=external",

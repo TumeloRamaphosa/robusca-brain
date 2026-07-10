@@ -30,7 +30,7 @@ echo ""
 
 MISSING=0
 check ORGO_API_KEY || MISSING=1
-check ORGO_COMPUTER_ID || echo "  (optional default: 946b3156-cab9-4187-a94b-056dfab35105)"
+check ORGO_COMPUTER_ID || echo "  (optional default: 333de3f8-0801-430b-a541-aad458e896b5)"
 check ORGO_VM_IP || echo "  (run: npm run orgo:info — or set from Orgo dashboard)"
 check CLOUDFLARE_API_TOKEN || echo "  (needed only for automated DNS — manual dashboard works too)"
 check CLOUDFLARE_ZONE_ID || echo "  (find in Cloudflare → studex-group.com → Overview → Zone ID)"

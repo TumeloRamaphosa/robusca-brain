@@ -13,7 +13,7 @@ if [[ -f "$ENV_FILE" ]]; then
 fi
 
 : "${ORGO_API_KEY:?Set ORGO_API_KEY in .env.local}"
-ORGO_COMPUTER_ID="${ORGO_COMPUTER_ID:-946b3156-cab9-4187-a94b-056dfab35105}"
+ORGO_COMPUTER_ID="${ORGO_COMPUTER_ID:-333de3f8-0801-430b-a541-aad458e896b5}"
 ORGO_API_BASE="${ORGO_API_BASE:-https://www.orgo.ai/api}"
 
 CADDY_SCRIPT=$(cat <<'REMOTE'
