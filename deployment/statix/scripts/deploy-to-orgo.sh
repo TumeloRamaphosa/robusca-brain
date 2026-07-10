@@ -19,6 +19,7 @@ fi
 ORGO_COMPUTER_ID="${ORGO_COMPUTER_ID:-333de3f8-0801-430b-a541-aad458e896b5}"
 OLLAMA_HOST="${OLLAMA_HOST:-http://127.0.0.1:11434}"
 DEMO_MODEL="${DEMO_MODEL:-qwen2.5:3b}"
+SEO_OFFICE_URL="${SEO_OFFICE_URL:-http://127.0.0.1:3000}"
 ORGO_API_BASE="${ORGO_API_BASE:-https://www.orgo.ai/api}"
 
 echo "=== StudEx → Orgo deploy ==="
@@ -64,8 +65,15 @@ sleep 1
 
 export NODE_ENV=production
 export PORT=5180
-export OLLAMA_HOST="__OLLAMA_HOST__"
-export DEMO_MODEL="__DEMO_MODEL__"
+
+cat > .env.local <<ENVEOF
+OLLAMA_HOST=__OLLAMA_HOST__
+DEMO_MODEL=__DEMO_MODEL__
+SEO_OFFICE_URL=__SEO_OFFICE_URL__
+PORT=5180
+NODE_ENV=production
+ENVEOF
+
 nohup node dist/server.js > /tmp/studex.log 2>&1 &
 disown
 sleep 1
@@ -86,6 +94,7 @@ SETUP_SCRIPT="${SETUP_SCRIPT//__REPO_URL__/$REPO_URL}"
 SETUP_SCRIPT="${SETUP_SCRIPT//__BRANCH__/$BRANCH}"
 SETUP_SCRIPT="${SETUP_SCRIPT//__OLLAMA_HOST__/$OLLAMA_HOST}"
 SETUP_SCRIPT="${SETUP_SCRIPT//__DEMO_MODEL__/$DEMO_MODEL}"
+SETUP_SCRIPT="${SETUP_SCRIPT//__SEO_OFFICE_URL__/$SEO_OFFICE_URL}"
 
 # Escape for JSON — use bash endpoint (exec runs Python only)
 JSON_CMD=$(python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' <<< "$SETUP_SCRIPT")

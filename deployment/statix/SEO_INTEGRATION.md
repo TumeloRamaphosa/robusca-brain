@@ -118,7 +118,7 @@ Open `http://localhost:5180/dashboard/demo` → **Companies** tab.
 ```yaml
 # docker-compose excerpt
 services:
-  statix:
+  studex-web:
     build: ./deployment/statix
     ports: ["5180:5180"]
     environment:

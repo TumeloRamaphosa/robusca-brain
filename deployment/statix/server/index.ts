@@ -2,6 +2,10 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
+import { loadEnvFile } from "./loadEnv.js";
+import { loadTenants, saveTenants, type TenantRecord } from "./tenants.js";
+
+loadEnvFile();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
@@ -21,17 +25,7 @@ async function fetchSeoOffice(path: string) {
 app.use(cors());
 app.use(express.json());
 
-const tenants = new Map<
-  string,
-  {
-    companyName: string;
-    goals: string;
-    whatsapp: string;
-    tier: string;
-    createdAt: string;
-    status: "provisioning" | "live";
-  }
->();
+const tenants = loadTenants();
 
 app.get("/api/health", (_req, res) => {
   res.json({ ok: true, service: "studex-nestvm", version: "0.1.0" });
@@ -113,6 +107,7 @@ app.post("/api/nestvm/provision", (req, res) => {
     createdAt: new Date().toISOString(),
     status: "live",
   });
+  saveTenants(tenants);
 
   res.json({
     success: true,
@@ -223,7 +218,7 @@ app.post("/api/polsia/webhook", (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-  const dist = path.join(__dirname, "../dist/client");
+  const dist = path.join(__dirname, "client");
   app.use(express.static(dist));
   app.use((_req, res) => {
     res.sendFile(path.join(dist, "index.html"));

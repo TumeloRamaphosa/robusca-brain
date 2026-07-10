@@ -111,7 +111,7 @@ npm run demo
 | `Ollama offline` on dashboard | Run `ollama serve` in a terminal |
 | Chat returns model not found | `ollama pull qwen2.5:3b` or set `DEMO_MODEL` in `.env.local` |
 | Voice doesn't work | Use Chrome/Edge; allow mic; needs `localhost` (HTTPS not required locally) |
-| Port 5180 in use | `PORT=5181 npm run demo` |
+| Port 5180 in use | Kill other process or change Vite port in `package.json` dev script |
 
 ---
 

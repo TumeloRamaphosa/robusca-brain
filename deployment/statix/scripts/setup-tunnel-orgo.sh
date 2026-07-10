@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Run cloudflared on Orgo VM with ingress for studex-group.com hostnames → StudEx :5180
+# Run cloudflared on Orgo VM — named tunnel (token) or quick tunnel (fallback)
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -15,6 +15,7 @@ fi
 : "${ORGO_API_KEY:?Set ORGO_API_KEY in .env.local}"
 ORGO_COMPUTER_ID="${ORGO_COMPUTER_ID:-333de3f8-0801-430b-a541-aad458e896b5}"
 ORGO_API_BASE="${ORGO_API_BASE:-https://www.orgo.ai/api}"
+TUNNEL_TOKEN="${CLOUDFLARE_TUNNEL_TOKEN:-}"
 
 TUNNEL_CONFIG_B64=$(python3 -c "
 import base64
@@ -33,7 +34,8 @@ ingress:
 print(base64.b64encode(cfg.encode()).decode())
 ")
 
-REMOTE="set -e
+if [[ -n "$TUNNEL_TOKEN" ]]; then
+  REMOTE="set -e
 mkdir -p /root/.cloudflared
 if ! command -v /tmp/cloudflared &>/dev/null; then
   curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /tmp/cloudflared
@@ -41,22 +43,36 @@ if ! command -v /tmp/cloudflared &>/dev/null; then
 fi
 echo '${TUNNEL_CONFIG_B64}' | base64 -d > /root/.cloudflared/config.yml
 pkill -f cloudflared 2>/dev/null || true
-# Quick tunnel for immediate testing (no CF token needed)
+nohup /tmp/cloudflared tunnel run --token '${TUNNEL_TOKEN}' > /root/cf-tunnel.log 2>&1 &
+sleep 8
+curl -sf http://127.0.0.1:5180/api/health
+echo NAMED_TUNNEL_READY
+"
+  echo "Starting named Cloudflare tunnel on Orgo VM..."
+else
+  REMOTE="set -e
+mkdir -p /root/.cloudflared
+if ! command -v /tmp/cloudflared &>/dev/null; then
+  curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o /tmp/cloudflared
+  chmod +x /tmp/cloudflared
+fi
+pkill -f cloudflared 2>/dev/null || true
 nohup /tmp/cloudflared tunnel --url http://127.0.0.1:5180 > /root/cf-quick.log 2>&1 &
 sleep 6
-grep -o 'https://[a-z0-9-]*\\.trycloudflare.com' /root/cf-quick.log | head -1 || true
+grep -oE 'https://[a-z0-9-]+\\.trycloudflare\\.com' /root/cf-quick.log | head -1 || true
 curl -sf http://127.0.0.1:5180/api/health
-echo TUNNEL_READY
+echo QUICK_TUNNEL_READY
 "
+  echo "No CLOUDFLARE_TUNNEL_TOKEN — starting quick tunnel (temporary URL)..."
+fi
 
 JSON_CMD=$(python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))' <<< "$REMOTE")
 
-echo "Setting up cloudflared on Orgo VM..."
 RESP=$(curl -sS -X POST \
   "${ORGO_API_BASE}/computers/${ORGO_COMPUTER_ID}/bash" \
   -H "Authorization: Bearer ${ORGO_API_KEY}" \
   -H "Content-Type: application/json" \
-  -d "{\"command\": ${JSON_CMD}}")
+  -d "{\"command\": ${JSON_CMD}, \"timeout\": 120}")
 
 echo "$RESP" | python3 -c "
 import json, sys

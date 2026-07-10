@@ -27,6 +27,15 @@ npm start
 docker compose up -d
 ```
 
+## Production go-live
+
+```bash
+cp .env.example .env.local
+# Add ORGO_API_KEY (+ CLOUDFLARE_TUNNEL_TOKEN for public HTTPS)
+npm run go-live
+npm run verify
+```
+
 ## Docs
 
 - [CLOUDFLARE_WALKTHROUGH.md](./CLOUDFLARE_WALKTHROUGH.md) — **start here** for Orgo + Cloudflare
