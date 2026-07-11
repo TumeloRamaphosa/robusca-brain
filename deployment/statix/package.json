@@ -16,6 +16,8 @@
     "caddy:orgo": "bash scripts/setup-caddy-orgo.sh",
     "tunnel:orgo": "bash scripts/setup-tunnel-orgo.sh",
     "deploy:orgo": "bash scripts/deploy-to-orgo.sh",
+    "deploy:vm": "bash scripts/install-on-vm.sh",
+    "orgo:info": "bash scripts/orgo-vm-info.sh",
     "go-live": "bash scripts/go-live.sh",
     "verify": "bash scripts/verify-live.sh",
     "preview": "vite preview --host 0.0.0.0 --port 5180"

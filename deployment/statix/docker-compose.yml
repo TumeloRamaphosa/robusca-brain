@@ -15,7 +15,7 @@ services:
       - DEMO_MODEL=${DEMO_MODEL:-qwen2.5:3b}
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5180/api/health"]
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:5180/api/health"]
       interval: 30s
       timeout: 5s
       retries: 3
