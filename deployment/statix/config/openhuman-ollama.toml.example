@@ -1,0 +1,23 @@
+# Merge these into ~/.openhuman/config.toml (or use Settings → Local AI in the app)
+# OpenHuman docs: https://tinyhumans.gitbook.io/openhuman/features/model-routing/local-ai
+
+[local_ai]
+runtime_enabled = true
+opt_in_confirmed = true
+provider = "ollama"
+base_url = "http://127.0.0.1:11434/v1"
+
+[local_ai.usage]
+embeddings = true
+heartbeat = true
+learning_reflection = true
+subconscious = true
+
+# Route chat + reasoning to local Ollama (adjust model to what you pulled)
+chat_provider = "ollama:qwen2.5:3b"
+reasoning_provider = "ollama:qwen2.5:3b"
+embeddings_provider = "ollama:all-minilm:latest"
+memory_provider = "ollama:qwen2.5:3b"
+
+# Optional: full privacy — no cloud inference
+# privacy_mode = true

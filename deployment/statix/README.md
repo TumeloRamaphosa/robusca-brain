@@ -44,6 +44,8 @@ npm run verify
 
 ## Run in a VM (Orgo, Daytona, EC2, any Linux)
 
+**Mac mini home server:** see **[MAC_MINI_SERVER.md](./MAC_MINI_SERVER.md)** — StudEx + Ollama + OpenHuman + [llm_wiki](https://github.com/nashsu/llm_wiki).
+
 **Yes — StudEx runs in a VM.** The app is a Node server on port **5180**. Ollama is optional (point at a Tailscale inference node if the VM is small).
 
 ### Option A — SSH into VM and run install script
