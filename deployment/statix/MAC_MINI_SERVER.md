@@ -96,6 +96,19 @@ For `studex.studex-group.com`, use Orgo VM + Cloudflare Tunnel — see [CLOUDFLA
 
 The Mac mini is best as a **private inference + dev server** on Tailscale, not a public web host.
 
+## Mac mini Sharing / remote access
+
+If you enabled **Remote Login**, **Remote Management**, or **Remote Application Scripting** in System Settings → Sharing:
+
+| Setting | Needed for server stack? |
+|---------|--------------------------|
+| **Remote Login (SSH)** | Yes — manage Mac mini from MacBook over Tailscale |
+| **Remote Management** | Optional — GUI screen control only |
+| **Remote Application Scripting** | No — skip unless you use AppleScript automation |
+| **Tailscale** | Yes — primary secure remote path (prefer over public SSH) |
+
+Full Riley + LLM Wiki + Obsidian wiring: **[RILEY_OBSIDIAN_WIKI.md](./RILEY_OBSIDIAN_WIKI.md)**
+
 ## Logs
 
 | Service | Log |

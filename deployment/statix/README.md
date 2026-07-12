@@ -38,7 +38,7 @@ npm run verify
 
 ## Docs
 
-- [CLOUDFLARE_WALKTHROUGH.md](./CLOUDFLARE_WALKTHROUGH.md) — **start here** for Orgo + Cloudflare
+- [RILEY_OBSIDIAN_WIKI.md](./RILEY_OBSIDIAN_WIKI.md) — Riley voice + LLM Wiki + Obsidian vault on Mac mini
 - [POLSIA_HANDOFF.md](./POLSIA_HANDOFF.md) — Polsia partnership + 3-hour launch
 - [CLOUDFLARE_STATIX_DNS.md](./CLOUDFLARE_STATIX_DNS.md) — DNS reference (legacy statix.com path)
 
