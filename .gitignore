@@ -1,6 +1,11 @@
 # Local agent clones / installs (not source of truth)
 .agents/
 
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
 # OS / editor
 .DS_Store
 *.swp

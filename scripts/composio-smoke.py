@@ -57,9 +57,18 @@ def main() -> int:
     print("  Composio = side-path tool executor (see COMPOSIO_MESH.md)")
     print()
     print("Next:")
-    print("  1. composio login / dashboard — connect GitHub Notion Slack Stripe Sheets")
-    print("  2. Mac Mini: bash scripts/mac-mini-tonight.sh --start-kokoro")
-    print("  3. VM robot@45.61.56.91 — still needs SSH pubkey authorized")
+    print("  1. NEVER paste COMPOSIO_API_KEY into chat — vault or .env.local only")
+    print("  2. If a key was exposed: rotate at app.composio.dev (KEY_ROTATION_CHECKLIST #8)")
+    print("  3. cp .env.example .env.local  # fill COMPOSIO_API_KEY locally")
+    print("  4. Mac Mini: bash scripts/mac-mini-tonight.sh --start-kokoro")
+    print("  5. VM: authorize pubkey then bash scripts/vm-composio-install.sh")
+    print("  6. Sent.dm demo: https://github.com/sonnysangha/sent-dm-demo (see SENT_COMPOSIO.md)")
+
+    if not __import__("os").environ.get("COMPOSIO_API_KEY"):
+        bad("COMPOSIO_API_KEY not set in this environment (expected — do not paste into chat)")
+        return 2
+
+    ok("COMPOSIO_API_KEY present in env (value not printed)")
     return 0
 
 

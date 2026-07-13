@@ -121,4 +121,10 @@ VM SSH unblock: **[deployment/CLOUD_AGENT_SSH_PUBKEY.md](deployment/CLOUD_AGENT_
 
 ---
 
+## Sent.dm
+
+Unified SMS/WhatsApp/RCS messaging — see **[SENT_COMPOSIO.md](SENT_COMPOSIO.md)**. Demo: https://github.com/sonnysangha/sent-dm-demo
+
+---
+
 *Cipher Tr@ce · Robusca · StudEx*
