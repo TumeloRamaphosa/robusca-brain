@@ -96,14 +96,25 @@ pip install composio
 
 ---
 
+## Mac Mini tonight (install order)
+
+Full corrected playbook: **[MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md)**
+
+1. RileyJarvis — `git clone https://github.com/rbrown101010/rileyjarvis.git && npm install`
+2. Kokoro TTS — use **Kokoro-FastAPI** (`remsky/Kokoro-FastAPI`, port **8880**). `remsky/Kokoro-ONNX` 404s.
+3. Whisper — `pip install openai-whisper` (+ `ffmpeg`)
+4. Discord CLI — `npm i -g @ibbybuilds/discli` then `discli init --token …` (bare `discli` npm package is unpublished)
+5. `cd rileyjarvis && npm run dev` → scan WhatsApp QR
+
 ## Wiring checklist (Tumelo)
 
-1. [ ] Authorize cloud-agent SSH pubkey on `robot@45.61.56.91` (or vault the VM key)
-2. [ ] Install Composio on the VM
-3. [ ] Connect Composio apps once: GitHub (`dark-factory`), Notion CRM, Slack `#sales`, Stripe, Google Sheets
-4. [ ] Confirm RileyJarvis → Ollama (Qwen3) path on Mac Mini
-5. [ ] Confirm N8N → Notion handoff matches this flow
-6. [ ] Map Cipher Tr@ce text channel + Discord/Telegram/voice to the same intent router
+1. [ ] Run [MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md) on the Mac Mini
+2. [ ] Authorize cloud-agent SSH pubkey on `robot@45.61.56.91` (or vault the VM key)
+3. [ ] Install Composio on the VM
+4. [ ] Connect Composio apps once: GitHub (`dark-factory`), Notion CRM, Slack `#sales`, Stripe, Google Sheets
+5. [ ] Confirm RileyJarvis → Ollama (Qwen3) path on Mac Mini
+6. [ ] Confirm N8N → Notion handoff matches this flow
+7. [ ] Map Cipher Tr@ce text channel + Discord/Telegram/voice to the same intent router
 
 ---
 

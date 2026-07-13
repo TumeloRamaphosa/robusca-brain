@@ -68,10 +68,12 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 | Channel | Surface |
 |---|---|
 | WhatsApp | RileyJarvis (Mac Mini, QR once) |
-| Discord | discli + Discord.js |
+| Discord | `@ibbybuilds/discli` + Discord.js |
 | Telegram | Bot API |
-| Voice in/out | Whisper → Kokoro/Voicebox |
+| Voice in/out | Whisper → Kokoro-FastAPI / Voicebox |
 | Text | Cipher Tr@ce |
+
+**Tonight install:** [MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md)
 
 ## Related
 
