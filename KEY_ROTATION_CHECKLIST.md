@@ -19,6 +19,7 @@ Open each link in a new tab. Revoke the listed key. Generate a fresh one. Keep t
 | 5 | **Affine MCP** | Revoke + regenerate | `...AukCY` | [app.affine.pro](https://app.affine.pro) → Settings → Tokens |
 | 6 | **Freepik** | Revoke + regenerate | `...3bef0b` | [freepik.com/api](https://www.freepik.com/api) |
 | 7 | **DeepSeek / Tencent LKE** | Revoke + regenerate | `...4a4e1` | [console.cloud.tencent.com/lkeap](https://console.cloud.tencent.com/lkeap) |
+| 8 | **Google / NotebookLM session token** | Revoke session + sign out other devices; do not reuse chat-pasted token | `AQ.…ONKLzbJJ` (last 8) | Google Account → Security → Your devices / 2FA sessions. **Never paste tokens in chat.** Vault only. |
 
 ---
 

@@ -142,6 +142,7 @@ Once you create each notebook on NotebookLM, paste the notebook URL here for qui
 | 04 — AfricaBiz | *(paste link after creating)* |
 | 05 — Partner Companies | *(paste link after creating)* |
 | 06 — Full Ecosystem | *(paste link after creating)* |
+| Linked notebook (owner-provided, topic TBD) | https://notebooklm.google.com/notebook/98636c01-c524-4ff8-a9f6-05770487a7ec |
 
 ---
 
