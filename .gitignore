@@ -1,0 +1,8 @@
+# Local agent clones / installs (not source of truth)
+.agents/
+
+# OS / editor
+.DS_Store
+*.swp
+.idea/
+.vscode/
