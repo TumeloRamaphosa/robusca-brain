@@ -172,6 +172,7 @@ Minimum:
 | Daily Routines | timeline, artifact cards, approval states, run history |
 | Finance/CashClaw | numeric precision, risk colors, source timestamps, privacy masking |
 | Mobile App | voice-first UX, approval cards, push alerts, simplified status |
+| Hybrid Voice RAG App | voice orb, source viewer, model selector, Tailscale service state, offline queue |
 | AI Town | visual metaphor, agent identity, non-critical simulation layer |
 | ClickClack Bridge | channel clarity, bot identity, safe action affordances |
 
@@ -193,6 +194,11 @@ RoutineRunCard
 MeetingCard
 FinanceSnapshotCard
 CommandGlassPanel
+VoiceOrb
+RagSourcePanel
+ModelRouteSelector
+TailscaleNodeBadge
+StoreVoiceMonitor
 DataTable
 AccessibleChart
 RightRail

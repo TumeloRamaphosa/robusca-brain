@@ -182,6 +182,36 @@ Decision:
 
 ---
 
+## nashsu/llm_wiki
+
+Observed:
+
+- cross-platform Tauri/React desktop app implementing the Karpathy LLM-wiki pattern
+- supports Obsidian-compatible wiki output, source traceability, graph insights, vector search, local HTTP API, MCP server, Chrome web clipper, and agent skills
+- includes optional vector search via LanceDB and OpenAI-compatible embedding endpoints
+
+Use:
+
+- architecture/reference for the Command OS superbrain
+- possible companion desktop app for knowledge graph, wiki ingest, and source review
+- inspiration for source-folder watch, two-step ingest, graph insights, review queues, local API/MCP, and Obsidian compatibility
+
+Risks:
+
+- desktop app has local file access and agent/workspace tooling
+- API/MCP endpoints could expose private wiki/source content if bound beyond localhost
+- web clipper and web search may bring untrusted content into the knowledge base
+- shell/workspace tools must remain approval-gated
+
+Decision:
+
+- evaluate as companion app/reference first
+- keep Command API as policy/approval layer
+- bind any local API/MCP to localhost or Tailscale with access controls
+- do not let it write into StudEx memory without namespace and approval rules
+
+---
+
 ## Unresolved memory/RAG tool aliases
 
 Observed:

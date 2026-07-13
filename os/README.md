@@ -41,6 +41,7 @@ It defines the plan for:
 - ClickClack self-hosted agent chat
 - VAPI voice squads
 - individual agent calls and live War Room meetings
+- hybrid mobile/desktop voice RAG app
 - Obsidian RAG with ChromaDB/LlamaIndex/Ollama
 - TencentDB-Agent-Memory and hybrid superbrain RAG
 - gstack engineering workflow layer
@@ -76,6 +77,8 @@ Frontend design skills live in [`command-os/FRONTEND_DESIGN_SKILLS.md`](command-
 ClickClack, VAPI, Obsidian RAG, and gstack integration details live in [`command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md`](command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md).
 
 Individual agent calls, War Room meetings, Tencent memory, and superbrain RAG details live in [`command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md`](command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md).
+
+The unified hybrid voice/RAG mobile and desktop app plan lives in [`command-os/HYBRID_VOICE_RAG_APP.md`](command-os/HYBRID_VOICE_RAG_APP.md).
 
 Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
 

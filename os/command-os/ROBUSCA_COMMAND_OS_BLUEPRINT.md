@@ -35,6 +35,7 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | TencentDB-Agent-Memory | agent conversation memory | Use as memory-service layer for agent call/session recall alongside Obsidian/RAG. |
+| nashsu/llm_wiki | cross-platform desktop LLM-wiki app | Use as architecture/reference or companion app for persistent wiki, graph, local API/MCP, and Obsidian-compatible knowledge. |
 | a16z AI Town | virtual AI character simulation starter kit | Use as optional visual agent office/town, not core business infrastructure. |
 | Crabfleet | SSH-first Codex/OpenClaw workspace fleet control plane | Useful for supervising agent workspaces across multiple businesses. |
 | Songsee | audio visualization CLI | Use for meeting/audio spectrogram assets and daily routine media artifacts. |
@@ -58,6 +59,7 @@ Robusca Command OS
 |   +-- Web War Room
 |   +-- UI/UX design system
 |   +-- Frontend design skills
+|   +-- Hybrid Voice RAG App
 |
 +-- Command Core
 |   +-- Command API
@@ -205,6 +207,7 @@ All ClickClack bot tokens must live in vault/env only.
 Voice should be a first-class interface, but not an uncontrolled microphone-to-agent pipe.
 
 Detailed voice-call and superbrain RAG spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
+Hybrid app spec: [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
 
 ### Voice sources
 
@@ -510,6 +513,7 @@ Refused actions:
 
 Detailed UI standard: [UI_UX_STANDARD.md](UI_UX_STANDARD.md)
 Frontend design skill layer: [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md)
+Hybrid mobile/desktop app spec: [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
 
 Robusca Command OS must use spacious, clear dashboards with information positioned intentionally. Transparent/glass surfaces are allowed, but readability is mandatory.
 
@@ -554,6 +558,7 @@ Frontend design capabilities that must exist in the OS:
 - finance dashboards
 - device mesh dashboards
 - ClickClack/VAPI/Obsidian RAG control surfaces
+- store voice and hybrid RAG app surfaces
 
 ### Desktop app
 
@@ -570,6 +575,8 @@ Best starting point:
 - meeting recorder
 - meeting library
 - Word/Notion/Calendar/Linear sync status
+- hybrid voice/RAG shell
+- store voice monitor
 
 ### Mobile app
 
@@ -584,6 +591,8 @@ Best starting point:
 - business dashboards
 - meeting recorder
 - meeting approval review
+- local small-model/offline mode
+- Tailscale service discovery
 
 ### Web app
 
@@ -597,6 +606,7 @@ Continue evolving the current War Room:
 - add Meeting Memory tab
 - add Integrations tab for Notion, Word, Calendar, and Linear
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to all new tabs
+- add Store Voice monitor and Hybrid RAG source viewer
 
 ---
 
@@ -830,6 +840,7 @@ NotebookLM handling:
 - add explicit meeting recording start/stop state
 - support one-on-one agent call sessions
 - support War Room multi-agent meeting sessions
+- prototype [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) desktop voice shell
 
 ### Phase 3 - LLM mesh
 
@@ -873,12 +884,15 @@ NotebookLM handling:
 
 - build Expo app
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md)
+- implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) mobile cockpit
 - approvals
 - voice command
 - Rocket.Chat
 - command brief
 - push notifications
 - meeting capture and review
+- offline capture and small-model mode
+- Tailscale connection to Mac Mini/Command VM
 
 ### Phase 8 - productivity integrations
 
@@ -917,6 +931,7 @@ NotebookLM handling:
 
 - implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
 - implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
+- implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
 - deploy ClickClack on Command VM
 - create Robusca/Naledi/Auto-Meat/Hermes/CashClaw bot accounts
 - index Obsidian and robusca-brain markdown into ChromaDB
@@ -924,6 +939,7 @@ NotebookLM handling:
 - add TencentDB-Agent-Memory capture/recall path
 - configure VAPI assistants and morning standup squad
 - configure VAPI one-on-one calls and War Room squad meetings
+- configure Auto-Meat store voice flow with draft cart/checkout-link only
 - route daily routines to ClickClack channels
 
 ### Phase 12 - AI Town, Crabfleet, and Songsee
@@ -970,6 +986,8 @@ MVP is complete when Tumelo can:
 20. produce a Songsee audio visualization from a meeting/audio artifact
 21. call each agent individually and save the session into Obsidian, Tencent memory, and approved RAG indexes
 22. run a live War Room meeting with multiple agents and store the meeting into the superbrain
+23. use one hybrid app on desktop/mobile for voice, RAG, approvals, ClickClack, store voice, local models, and Tailscale services
+24. let store customers talk to Auto-Meat and generate draft carts/checkout links without taking payment details by voice
 
 ---
 
@@ -990,10 +1008,11 @@ MVP is complete when Tumelo can:
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
 14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
 15. Implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md) as the live-call and memory-writeback layer.
-16. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-17. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
-18. Restore or install approved frontend design skills if the plugin cache is missing.
-19. Audit all third-party install scripts before running them.
+16. Implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) as the unified mobile/desktop voice RAG app plan.
+17. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+18. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+19. Restore or install approved frontend design skills if the plugin cache is missing.
+20. Audit all third-party install scripts before running them.
 
 ---
 
@@ -1015,4 +1034,5 @@ MVP is complete when Tumelo can:
 - No browser cookie import or gstack install/team-mode/hook change without explicit approval.
 - No Mac Mini service should be exposed publicly before Tailscale/auth/TLS/backups are configured.
 - No call recording or memory writeback may happen without explicit recording state and approved retention policy.
+- No voice store flow may take card/payment details; use secure checkout links or human handoff.
 
