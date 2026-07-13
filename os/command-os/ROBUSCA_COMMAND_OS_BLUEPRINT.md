@@ -31,6 +31,9 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | --- | --- | --- |
 | HyrveAI register page | Agent marketplace / external deployment surface | Treat as optional external marketplace integration. Do not make it core until account/API model is clear. |
 | UI UX Pro Max | UI/UX design intelligence and dashboard design-system reference | Use as a reference for Command OS design standards; install only after CLI/script review. |
+| garrytan/gstack | AI software-factory workflow for planning/review/QA/security/ship | Use as engineering process layer after skill/supply-chain vetting; not a business-agent runtime dependency. |
+| openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
+| VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | Karpathy LLM-wiki gist | Persistent memory pattern | Use the raw-sources -> synthesized wiki -> schema/log pattern for business memory. |
 | BasedHardware Omi | Voice, screen, wearable, mobile capture | Use as a voice/capture connector only after self-hosting or privacy-controlled integration. Default quick start connects to Omi cloud. |
 | AgriciDaniel claude-seo | SEO specialist skill library | Use as specialist-agent inspiration and optional Claude Code plugin. Audit before installing. |
@@ -61,7 +64,9 @@ Robusca Command OS
 |   +-- Daily routines scheduler
 |
 +-- Communication
+|   +-- ClickClack channels
 |   +-- Rocket.Chat rooms
+|   +-- Slack bridge
 |   +-- Agent bots
 |   +-- Approval queue
 |   +-- Daily command briefs
@@ -81,6 +86,7 @@ Robusca Command OS
 +-- Memory
 |   +-- Postgres
 |   +-- vector store
+|   +-- ChromaDB / LlamaIndex RAG
 |   +-- LLM-maintained wiki
 |   +-- raw sources vault
 |   +-- meeting recordings and transcripts
@@ -130,7 +136,9 @@ Every business VM must have:
 
 ## 5. Rocket.Chat command network
 
-Rocket.Chat is the internal radio network for humans and agents.
+ClickClack is the preferred primary internal radio network for humans and agents. Rocket.Chat can remain as an optional bridge or compatibility layer.
+
+Detailed ClickClack/VAPI/RAG spec: [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
 
 Recommended rooms:
 
@@ -139,6 +147,7 @@ Recommended rooms:
 #approval-queue
 #agent-alerts
 #daily-briefs
+#clickclack-bridge
 #studex-meat
 #studex-coffee
 #global-markets
@@ -165,6 +174,24 @@ Recommended bot pattern:
 
 All outbound actions triggered from Rocket.Chat must pass through the Command API approval engine.
 
+ClickClack channels should mirror the same operating structure:
+
+```text
+#general
+#strategy
+#content
+#devops
+#meat-store
+#finance
+#morning-briefs
+#meeting-memory
+#daily-closeout
+#device-mesh
+#approvals
+```
+
+All ClickClack bot tokens must live in vault/env only.
+
 ---
 
 ## 6. Voice and talk layer
@@ -178,6 +205,7 @@ Voice should be a first-class interface, but not an uncontrolled microphone-to-a
 | Desktop app microphone | primary command interface |
 | Mobile app microphone | pocket command interface |
 | Omi wearable/mobile | passive meeting/conversation capture, if privacy policy is accepted |
+| VAPI assistants/squads | phone/web voice interface and multi-agent standups |
 | RileyJarvis fork | initial desktop voice prototype |
 
 ### Voice flow
@@ -308,6 +336,8 @@ High-risk clicks, form submits, customer messages, purchases, settings changes, 
 
 Use the Karpathy LLM-wiki pattern plus structured databases.
 
+Detailed Obsidian/RAG flow: [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
+
 Layers:
 
 | Layer | Storage | Purpose |
@@ -317,6 +347,8 @@ Layers:
 | Index | markdown + SQLite | navigable map of memory |
 | Log | append-only markdown/table | ingests, queries, decisions |
 | Vector store | Qdrant/pgvector | semantic retrieval at scale |
+| ChromaDB | local vector store | Obsidian/repo markdown RAG index |
+| LlamaIndex | indexing/query layer | loaders, retrievers, per-agent query engines |
 | Operational DB | Postgres | tasks, approvals, device state, agent runs |
 | Meeting archive | encrypted file vault + Postgres | recordings, transcripts, summaries, decisions, action items |
 
@@ -560,7 +592,33 @@ License note:
 
 ---
 
-## 15. Finance subsystem
+## 15. gstack engineering factory layer
+
+Detailed integration spec: [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
+
+gstack is an optional engineering-process layer for building the Command OS itself. It should not be installed or required until reviewed and approved.
+
+Candidate use:
+
+- product scoping and founder pushback
+- architecture review
+- design review
+- QA and browser testing
+- security review
+- release/ship workflow
+- retrospectives
+- codebase/repo memory support
+
+Safety notes:
+
+- gstack setup modifies local AI-agent skill directories
+- team mode can add repo hooks/configuration
+- telemetry/checkpoint/browser/cookie features require explicit review
+- use only in development workspaces, never as a silent production dependency
+
+---
+
+## 16. Finance subsystem
 
 Detailed agent instruction file: [finance/CLAUDE.md](finance/CLAUDE.md)
 
@@ -604,7 +662,7 @@ Shopify / payment provider / accounting data
 
 ---
 
-## 16. Daily routines subsystem
+## 17. Daily routines subsystem
 
 Detailed routine file: [DAILY_ROUTINES.md](DAILY_ROUTINES.md)
 
@@ -635,7 +693,7 @@ Key integrations:
 | Ollama | private local drafting and summarization |
 | Google AI Studio / Gemini | approved API model route for higher-quality or multimodal drafting |
 | n8n | 10:00 trigger and workflow orchestration |
-| Rocket.Chat | internal completion summary and approval cards |
+| ClickClack / Rocket.Chat | internal completion summary and approval cards |
 | Obsidian / LLM-wiki | daily closeout memory and business knowledge updates |
 
 Secret handling:
@@ -653,7 +711,7 @@ NotebookLM handling:
 
 ---
 
-## 17. Build phases
+## 18. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -669,6 +727,7 @@ NotebookLM handling:
 - provision Command VM
 - deploy Postgres
 - deploy LiteLLM
+- deploy ClickClack private/Tailscale-first
 - deploy Rocket.Chat
 - deploy n8n
 - create Command API skeleton
@@ -703,6 +762,8 @@ NotebookLM handling:
 - post approval cards
 - add `/agent` command route
 - add #meeting-memory and meeting summary cards
+- create ClickClack bot tokens and channel map
+- configure Slack/Rocket.Chat bridges only for approved channels
 
 ### Phase 5 - business VM workers
 
@@ -764,7 +825,17 @@ NotebookLM handling:
 - add 10:00 PM closeout workflow
 - update Obsidian/LLM-wiki daily notes and business memory pages
 
-### Phase 11 - UI/UX design-system hardening
+### Phase 11 - ClickClack + VAPI + Obsidian RAG
+
+- implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
+- deploy ClickClack on Command VM
+- create Robusca/Naledi/Auto-Meat/Hermes/CashClaw bot accounts
+- index Obsidian and robusca-brain markdown into ChromaDB
+- create per-agent RAG query engines
+- configure VAPI assistants and morning standup squad
+- route daily routines to ClickClack channels
+
+### Phase 12 - UI/UX design-system hardening
 
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to the War Room
 - define semantic theme tokens for command glass
@@ -774,7 +845,7 @@ NotebookLM handling:
 
 ---
 
-## 18. First MVP definition
+## 19. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -793,10 +864,13 @@ MVP is complete when Tumelo can:
 13. run the 10:00 AM NotebookLM video routine and save its artifact package
 14. run the 10:00 PM closeout routine and update Obsidian/LLM-wiki memory
 15. view all major dashboards through the Command OS UI standard with clear, spaced, readable information placement
+16. post and receive agent updates through ClickClack channels
+17. ask Robusca a RAG-backed question sourced from Obsidian/repo memory
+18. join a VAPI-powered Robusca standup call
 
 ---
 
-## 19. Immediate next implementation tasks
+## 20. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -811,12 +885,13 @@ MVP is complete when Tumelo can:
 11. Define Notion, Word, Calendar, and Linear sync contracts.
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
-14. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
-15. Audit all third-party install scripts before running them.
+14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
+15. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
+16. Audit all third-party install scripts before running them.
 
 ---
 
-## 20. Non-negotiables
+## 21. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -830,4 +905,6 @@ MVP is complete when Tumelo can:
 - No finance write, refund, invoice send, accounting change, or payment action without approval.
 - No pasted API key should be considered safe for use until rotated.
 - No transparent dashboard surface may reduce readability or accessibility.
+- No ClickClack, Slack, VAPI, or bot token may be committed to docs or code.
+- No browser cookie import or gstack install/team-mode/hook change without explicit approval.
 

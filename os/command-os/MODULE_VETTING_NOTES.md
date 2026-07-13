@@ -39,6 +39,119 @@ Decision:
 
 ---
 
+## gstack
+
+Observed:
+
+- MIT-licensed AI software-factory skill stack for Claude Code and other coding agents
+- provides planning, CEO/engineering/design review, QA, security, ship, retro, browser, documentation, and memory workflows
+- setup modifies local AI-agent skill directories and can add team-mode repo hooks/configuration
+- includes telemetry/checkpoint/browser/cookie-related workflows that require explicit review before use
+
+Use:
+
+- engineering-process layer for building Robusca Command OS
+- planning, architecture review, design review, QA, security review, and release discipline
+- optional complement to Command OS memory and repo indexing
+
+Risks:
+
+- supply-chain risk from running setup scripts
+- can modify local/repo agent config
+- browser/cookie workflows are sensitive
+- telemetry/checkpoint behavior must be reviewed and configured intentionally
+
+Decision:
+
+- reference and vet first
+- do not install or enable team mode without explicit approval
+- use in development workspaces only until its behavior is approved
+
+---
+
+## ClickClack
+
+Observed:
+
+- MIT-licensed self-hostable realtime chat for OpenClaw agents and humans
+- Go binary with embedded Svelte SPA and SQLite migrations
+- supports SQLite/Postgres, WebSocket realtime, channels, threads, DMs, uploads, magic-link auth, GitHub OAuth, bot tokens, CLI, SDK, and webhooks
+
+Use:
+
+- primary internal StudEx agent/human command radio
+- channels for strategy, content, devops, meat-store, finance, meeting-memory, daily closeout
+- bot accounts for Robusca, Naledi, Auto-Meat, Hermes, CashClaw
+
+Risks:
+
+- bot/session tokens are sensitive
+- uploads and artifact previews need strong controls
+- public deployment requires auth, TLS, backups, moderation, and retention policy
+- bridges can leak internal messages externally
+
+Decision:
+
+- deploy private/Tailscale-first on Command VM
+- bridge only approved channels
+- store all bot/webhook tokens in vault/env
+
+---
+
+## VAPI
+
+Observed:
+
+- voice assistant/squad platform suitable for phone/web voice calls
+
+Use:
+
+- Robusca voice assistant
+- multi-agent morning standup
+- meeting participant and voice approvals
+- handoff to Naledi, Auto-Meat, Hermes, and CashClaw by topic
+
+Risks:
+
+- API keys and phone number IDs are sensitive
+- calls may be recorded/transcribed
+- voice assistants can trigger external actions if not policy-gated
+
+Decision:
+
+- integrate server-side only
+- route all tools through Command API approval/policy layer
+- meeting recording requires explicit consent/policy
+
+---
+
+## Obsidian RAG / ChromaDB / LlamaIndex
+
+Observed:
+
+- proposed local RAG layer over Obsidian vault and robusca-brain markdown
+
+Use:
+
+- per-agent knowledge retrieval
+- daily closeout indexing
+- meeting-summary retrieval
+- source-cited Robusca answers
+
+Risks:
+
+- raw transcripts and private notes may leak into retrieval if indexed indiscriminately
+- stale embeddings can return outdated business facts
+- file paths can reveal private structure if exposed externally
+
+Decision:
+
+- index approved summaries and business memory by default
+- keep raw transcripts out of default index
+- log index runs and include source citations
+
+---
+
 ## UI UX Pro Max
 
 Observed:

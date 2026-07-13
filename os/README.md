@@ -37,6 +37,10 @@ It defines the plan for:
 
 - desktop and mobile command apps
 - transparent, readable, well-spaced dashboard UI/UX standard
+- ClickClack self-hosted agent chat
+- VAPI voice squads
+- Obsidian RAG with ChromaDB/LlamaIndex/Ollama
+- gstack engineering workflow layer
 - voice control
 - Rocket.Chat command rooms
 - Tailscale device mesh
@@ -61,6 +65,8 @@ CashClaw finance-agent operating rules live in [`command-os/finance/CLAUDE.md`](
 Daily scheduled routines live in [`command-os/DAILY_ROUTINES.md`](command-os/DAILY_ROUTINES.md).
 
 Command OS dashboard UI/UX standards live in [`command-os/UI_UX_STANDARD.md`](command-os/UI_UX_STANDARD.md).
+
+ClickClack, VAPI, Obsidian RAG, and gstack integration details live in [`command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md`](command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md).
 
 ---
 
