@@ -266,6 +266,34 @@ Decision:
 
 ---
 
+## Frontend Design Skill
+
+Observed:
+
+- a `frontend-design` skill was listed in the environment metadata
+- the referenced local skill file was not present in this session's plugin cache
+- Command OS frontend design rules now live at `os/command-os/FRONTEND_DESIGN_SKILLS.md`
+
+Use:
+
+- professional frontend interface design
+- dashboard hierarchy
+- responsive app screens
+- design QA and accessibility checks
+- premium command-glass UI execution
+
+Risks:
+
+- if restored from a plugin/source, the skill must be reviewed before installation or execution
+- design guidance must be adapted to StudEx brand standards
+
+Decision:
+
+- treat `FRONTEND_DESIGN_SKILLS.md` as the active local design contract
+- restore/install external design skills only after supply-chain review and approval
+
+---
+
 ## Omi
 
 Observed:

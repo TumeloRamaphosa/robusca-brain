@@ -56,6 +56,7 @@ Robusca Command OS
 |   +-- Mobile command app
 |   +-- Web War Room
 |   +-- UI/UX design system
+|   +-- Frontend design skills
 |
 +-- Command Core
 |   +-- Command API
@@ -489,6 +490,7 @@ Refused actions:
 ## 13. UI/UX standard and app surfaces
 
 Detailed UI standard: [UI_UX_STANDARD.md](UI_UX_STANDARD.md)
+Frontend design skill layer: [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md)
 
 Robusca Command OS must use spacious, clear dashboards with information positioned intentionally. Transparent/glass surfaces are allowed, but readability is mandatory.
 
@@ -520,6 +522,19 @@ Use it for:
 - accessibility and spacing review
 
 Do not install it into production until its CLI/scripts are reviewed and approved.
+
+Frontend design capabilities that must exist in the OS:
+
+- dashboard architecture
+- command-glass panels
+- KPI/status/data cards
+- accessible charts and tables
+- mobile approval cockpit
+- desktop command shell
+- meeting-memory screens
+- finance dashboards
+- device mesh dashboards
+- ClickClack/VAPI/Obsidian RAG control surfaces
 
 ### Desktop app
 
@@ -897,6 +912,7 @@ NotebookLM handling:
 ### Phase 13 - UI/UX design-system hardening
 
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to the War Room
+- apply [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to all new UI work
 - define semantic theme tokens for command glass
 - create reusable KPI, command-card, table, chart, and approval-card components
 - review dashboard spacing and transparency
@@ -948,8 +964,9 @@ MVP is complete when Tumelo can:
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
 14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
 15. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-16. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
-17. Audit all third-party install scripts before running them.
+16. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+17. Restore or install approved frontend design skills if the plugin cache is missing.
+18. Audit all third-party install scripts before running them.
 
 ---
 
