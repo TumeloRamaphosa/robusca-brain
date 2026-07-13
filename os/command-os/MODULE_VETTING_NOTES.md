@@ -155,6 +155,88 @@ Decision:
 
 ---
 
+## Discord / Telegram / Slack voice and chat surfaces
+
+Observed:
+
+- user wants calls and chat without paid phone/VAPI dependency where possible
+- these platforms can provide low-cost entry points for messages, voice notes, and some live voice workflows
+
+Use:
+
+- Discord for internal live voice room experiments
+- Telegram for mobile voice notes, commands, and alerts
+- Slack for business messages, commands, huddle summaries, and team notifications
+- all surfaces normalized into Command API and ClickClack
+
+Risks:
+
+- platform tokens and bot permissions are sensitive
+- recording voice rooms requires consent
+- external platforms can leak private/customer/finance data if bridged carelessly
+- live audio bot behavior varies by platform capability and policy
+
+Decision:
+
+- use these as input/output surfaces, not the system of record
+- route through Command API before tools/memory writes
+- send summaries/pointers to ClickClack
+- raw transcripts stay private unless approved
+
+---
+
+## Kokoro TTS
+
+Observed:
+
+- Kokoro is an Apache-licensed open-weight text-to-speech model
+- it is TTS, not speech-to-text
+- can run locally and has Python/JS ecosystem options
+
+Use:
+
+- local TTS for Robusca/agent responses
+- low-cost narrated daily routines
+- offline/local voice output
+
+Risks:
+
+- voice consistency and language coverage need testing
+- generated audio should be labeled/approved before external publishing
+
+Decision:
+
+- evaluate as preferred free/local TTS option
+- pair with Whisper/faster-whisper/whisper.cpp for STT
+
+---
+
+## Google Speech-to-Text / Google voice services
+
+Observed:
+
+- Google can provide cloud STT and Gemini/AI Studio model routes
+
+Use:
+
+- optional cloud STT for higher accuracy
+- fallback for difficult audio
+- approved non-sensitive workflows
+
+Risks:
+
+- cloud processing of private meetings/customer calls
+- API keys/OAuth values are sensitive
+- cost can grow with usage
+
+Decision:
+
+- default sensitive material to local STT
+- use Google STT only through server-side Command API policy
+- never put keys in client apps or docs
+
+---
+
 ## Voicebox
 
 Observed:

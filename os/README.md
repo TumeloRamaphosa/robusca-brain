@@ -43,6 +43,7 @@ It defines the plan for:
 - individual agent calls and live War Room meetings
 - hybrid mobile/desktop voice RAG app
 - local-first voice provider options with Pipecat/LiveKit instead of paid VAPI by default
+- Discord, Telegram, Slack, ClickClack, desktop, mobile, and store voice routing
 - Obsidian RAG with ChromaDB/LlamaIndex/Ollama
 - Obsidian Skills for Markdown, Bases, Canvas, CLI, and clean web ingestion
 - TencentDB-Agent-Memory and hybrid superbrain RAG
@@ -84,6 +85,8 @@ Individual agent calls, War Room meetings, Tencent memory, and superbrain RAG de
 The unified hybrid voice/RAG mobile and desktop app plan lives in [`command-os/HYBRID_VOICE_RAG_APP.md`](command-os/HYBRID_VOICE_RAG_APP.md).
 
 Local-first voice provider options live in [`command-os/VOICE_PROVIDER_OPTIONS.md`](command-os/VOICE_PROVIDER_OPTIONS.md).
+
+Chat and voice surface routing lives in [`command-os/CHAT_VOICE_SURFACES.md`](command-os/CHAT_VOICE_SURFACES.md).
 
 Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
 

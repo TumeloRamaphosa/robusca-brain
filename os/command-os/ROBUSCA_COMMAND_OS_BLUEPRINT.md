@@ -35,6 +35,7 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | Pipecat + LiveKit | open-source/local-first voice stack | Preferred default for low-cost/self-hosted browser/mobile/War Room voice; VAPI remains optional. |
+| Discord / Telegram / Slack | external chat and voice surfaces | Feed normalized events into Command API and ClickClack; do not bypass policy/memory rules. |
 | TencentDB-Agent-Memory | agent conversation memory | Use as memory-service layer for agent call/session recall alongside Obsidian/RAG. |
 | nashsu/llm_wiki | cross-platform desktop LLM-wiki app | Use as architecture/reference or companion app for persistent wiki, graph, local API/MCP, and Obsidian-compatible knowledge. |
 | kepano/obsidian-skills | Obsidian agent skills | Use for Markdown, Bases, JSON Canvas, CLI vault workflows, and Defuddle ingestion after install review. |
@@ -214,6 +215,7 @@ Voice should be a first-class interface, but not an uncontrolled microphone-to-a
 Detailed voice-call and superbrain RAG spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
 Hybrid app spec: [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
 Voice provider options: [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md)
+Chat and voice surfaces: [CHAT_VOICE_SURFACES.md](CHAT_VOICE_SURFACES.md)
 
 ### Voice sources
 
@@ -224,6 +226,7 @@ Voice provider options: [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md)
 | Omi wearable/mobile | passive meeting/conversation capture, if privacy policy is accepted |
 | VAPI assistants/squads | phone/web voice interface and multi-agent standups |
 | Pipecat + LiveKit | local-first voice pipeline and WebRTC rooms |
+| Discord / Telegram / Slack | external chat/voice input surfaces |
 | RileyJarvis fork | initial desktop voice prototype |
 
 Call modes:
@@ -241,6 +244,7 @@ Provider policy:
 - default to Pipecat/LiveKit/local STT/local TTS where feasible
 - keep VAPI as managed fallback for fast phone-call experiments
 - use SIP/telephony only when real phone numbers are required
+- route Discord, Telegram, and Slack through Command API before memory/tool actions
 
 ### Voice flow
 
@@ -877,6 +881,7 @@ NotebookLM handling:
 - add #meeting-memory and meeting summary cards
 - create ClickClack bot tokens and channel map
 - configure Slack/Rocket.Chat bridges only for approved channels
+- add Discord/Telegram/Slack normalized event adapters
 
 ### Phase 5 - business VM workers
 
@@ -957,6 +962,7 @@ NotebookLM handling:
 - configure Pipecat/LiveKit as default local-first voice route
 - configure Auto-Meat store voice flow with draft cart/checkout-link only
 - route daily routines to ClickClack channels
+- connect Discord/Telegram/Slack/ClickClack voice and chat surfaces through [CHAT_VOICE_SURFACES.md](CHAT_VOICE_SURFACES.md)
 
 ### Phase 12 - AI Town, Crabfleet, and Songsee
 
@@ -1005,6 +1011,7 @@ MVP is complete when Tumelo can:
 23. use one hybrid app on desktop/mobile for voice, RAG, approvals, ClickClack, store voice, local models, and Tailscale services
 24. let store customers talk to Auto-Meat and generate draft carts/checkout links without taking payment details by voice
 25. run a local-first voice call path without VAPI for browser/mobile/desktop voice
+26. route Discord, Telegram, Slack, ClickClack, desktop, mobile, and store voice into one Command API/RAG/memory loop
 
 ---
 
@@ -1027,10 +1034,11 @@ MVP is complete when Tumelo can:
 15. Implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md) as the live-call and memory-writeback layer.
 16. Implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) as the unified mobile/desktop voice RAG app plan.
 17. Implement [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md) as the local-first voice provider plan.
-18. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-19. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
-20. Restore or install approved frontend design skills if the plugin cache is missing.
-21. Audit all third-party install scripts before running them.
+18. Implement [CHAT_VOICE_SURFACES.md](CHAT_VOICE_SURFACES.md) as the chat/voice surface routing plan.
+19. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+20. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+21. Restore or install approved frontend design skills if the plugin cache is missing.
+22. Audit all third-party install scripts before running them.
 
 ---
 
