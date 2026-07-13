@@ -108,6 +108,7 @@ Secret variable placeholders:
 ```env
 ELEVENLABS_API_KEY=<vault>
 GOOGLE_AI_STUDIO_API_KEY=<vault>
+NOTEBOOKLM_DAILY_VIDEO_URL=<vault>
 ```
 
 Never paste real API keys into chat or documentation.
@@ -282,6 +283,14 @@ NOTEBOOKLM_DAILY_CLOSEOUT_URL=<vault>
 ```
 
 Do not commit private NotebookLM URLs, Google account data, cookies, or browser session details into the repo.
+
+Additional NotebookLM notebooks can be mapped by purpose:
+
+```env
+NOTEBOOKLM_STORE_VOICE_URL=<vault>
+NOTEBOOKLM_SUPERBRAIN_URL=<vault>
+NOTEBOOKLM_AGENT_MEETINGS_URL=<vault>
+```
 
 ### Daily inputs
 

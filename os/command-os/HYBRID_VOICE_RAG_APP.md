@@ -54,11 +54,13 @@ Core components:
 | Riley-style desktop shell | local desktop voice orb and artifact panel |
 | ClickClack | internal agent/human chat and meeting summaries |
 | Obsidian | human-readable daily notes, decisions, meetings, wiki |
+| Obsidian Skills | Markdown, Bases, JSON Canvas, CLI, and Defuddle skill layer |
 | LLM Wiki | desktop/wiki app pattern, graph, source traceability, local API/MCP inspiration |
 | TencentDB-Agent-Memory | agent conversational memory |
 | ChromaDB / SQLite FTS | semantic + exact retrieval |
 | LlamaIndex | ingestion/query engines |
 | Ollama / MLX | local/private model route |
+| Gemini CLI / Google AI Studio | optional cloud/CLI route after installation and policy approval |
 | LiteLLM | unified API/local model router |
 | Shopify | store/product/order/cart operations |
 | Tailscale | private access to Mac Mini/local services |
@@ -305,6 +307,7 @@ Always return:
 ### Memory skills
 
 - Obsidian writeback
+- Obsidian Markdown, Bases, JSON Canvas, and CLI workflows
 - LLM-wiki update
 - Tencent memory capture
 - vector search
@@ -340,6 +343,12 @@ Always return:
 - offline drafts
 - private summarization
 - local embeddings
+
+### Optional cloud/CLI model skills
+
+- Gemini CLI route after separate installation
+- Google AI Studio/Gemini route through server-side Command API/LiteLLM
+- second-opinion model route for non-sensitive tasks
 
 ---
 

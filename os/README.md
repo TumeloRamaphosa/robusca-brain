@@ -43,7 +43,9 @@ It defines the plan for:
 - individual agent calls and live War Room meetings
 - hybrid mobile/desktop voice RAG app
 - Obsidian RAG with ChromaDB/LlamaIndex/Ollama
+- Obsidian Skills for Markdown, Bases, Canvas, CLI, and clean web ingestion
 - TencentDB-Agent-Memory and hybrid superbrain RAG
+- optional Gemini CLI / Google AI Studio model route
 - gstack engineering workflow layer
 - Mac Mini local anchor-node deployment
 - AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals

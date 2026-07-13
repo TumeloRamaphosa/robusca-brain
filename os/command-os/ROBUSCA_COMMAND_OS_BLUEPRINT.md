@@ -36,6 +36,8 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | TencentDB-Agent-Memory | agent conversation memory | Use as memory-service layer for agent call/session recall alongside Obsidian/RAG. |
 | nashsu/llm_wiki | cross-platform desktop LLM-wiki app | Use as architecture/reference or companion app for persistent wiki, graph, local API/MCP, and Obsidian-compatible knowledge. |
+| kepano/obsidian-skills | Obsidian agent skills | Use for Markdown, Bases, JSON Canvas, CLI vault workflows, and Defuddle ingestion after install review. |
+| Gemini CLI / Google AI Studio | optional model route | Install CLI separately if needed; prefer server-side Command API/LiteLLM route for production. |
 | a16z AI Town | virtual AI character simulation starter kit | Use as optional visual agent office/town, not core business infrastructure. |
 | Crabfleet | SSH-first Codex/OpenClaw workspace fleet control plane | Useful for supervising agent workspaces across multiple businesses. |
 | Songsee | audio visualization CLI | Use for meeting/audio spectrogram assets and daily routine media artifacts. |
@@ -82,6 +84,7 @@ Robusca Command OS
 +-- Model Mesh
 |   +-- LiteLLM gateway
 |   +-- local Ollama / MLX / llama.cpp models
+|   +-- Gemini / Google AI Studio route
 |   +-- Orgo-hosted models
 |   +-- external API fallback
 |
@@ -96,6 +99,7 @@ Robusca Command OS
 |   +-- ChromaDB / LlamaIndex RAG
 |   +-- TencentDB-Agent-Memory
 |   +-- LLM-maintained wiki
+|   +-- Obsidian Skills
 |   +-- raw sources vault
 |   +-- meeting recordings and transcripts
 |

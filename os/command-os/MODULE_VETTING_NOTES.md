@@ -212,6 +212,67 @@ Decision:
 
 ---
 
+## kepano/obsidian-skills
+
+Observed:
+
+- agent skills for Obsidian following the Agent Skills specification
+- includes `obsidian-markdown`, `obsidian-bases`, `json-canvas`, `obsidian-cli`, and `defuddle`
+- installation options include plugin marketplace, `npx skills add`, or manual skill copy
+- `obsidian-cli` requires a running Obsidian instance and can read/create/search/edit vault content
+
+Use:
+
+- create and edit Obsidian-flavored Markdown with wikilinks, properties, embeds, and callouts
+- create Obsidian Bases views for meetings, tasks, decisions, agents, and routines
+- create JSON Canvas maps for business/agent architecture
+- interact with a running Obsidian vault via CLI
+- cleanly ingest web pages via Defuddle where approved
+
+Risks:
+
+- Obsidian CLI can modify the vault directly
+- Defuddle/web ingestion brings untrusted external content into memory
+- plugin/skill install changes local agent environment
+- vault edits can affect the source of truth used by RAG
+
+Decision:
+
+- use as Obsidian integration skill layer after install review
+- prefer writes through Command API policy or reviewed agent workflows
+- never auto-ingest external content into the superbrain without source labeling and review policy
+
+---
+
+## Gemini CLI / Google AI Studio model route
+
+Observed:
+
+- local shell previously reported `gemini: command not found`
+- Gemini CLI therefore is not available until installed separately
+- Google AI Studio/Gemini can also be used as an API model route through server-side configuration
+
+Use:
+
+- optional CLI model route for developer workflows
+- optional LiteLLM/Command API model route for approved cloud reasoning
+- fallback or second-opinion route when local models are insufficient
+
+Risks:
+
+- CLI installation modifies local development environment
+- auth tokens and OAuth values are sensitive
+- cloud model routing can process private business or meeting data if policy is weak
+
+Decision:
+
+- do not store Gemini/OAuth tokens in docs or chat
+- install Gemini CLI only after explicit environment setup approval
+- prefer server-side LiteLLM/Command API route for production workflows
+- sensitive data defaults to local Ollama/MLX unless explicitly approved for Gemini
+
+---
+
 ## Unresolved memory/RAG tool aliases
 
 Observed:
