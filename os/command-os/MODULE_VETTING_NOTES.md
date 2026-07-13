@@ -125,6 +125,57 @@ Decision:
 
 ---
 
+## Pipecat + LiveKit
+
+Observed:
+
+- Pipecat is an open-source Python framework for real-time voice and multimodal conversational agents
+- LiveKit is an open-source WebRTC media server/framework for low-latency audio/video rooms
+- together they can replace managed VAPI for browser/mobile/War Room voice flows
+
+Use:
+
+- default local-first voice pipeline
+- one-on-one agent calls
+- War Room voice rooms
+- store voice widget
+- local/private RAG and model routing
+
+Risks:
+
+- more operational complexity than VAPI
+- production WebRTC requires networking, auth, TURN/STUN, monitoring, and abuse controls
+- real phone numbers still require SIP/PSTN providers, which usually cost money
+
+Decision:
+
+- use Pipecat WebSocket path for fastest no-VAPI MVP
+- use LiveKit when we need production WebRTC rooms
+- keep VAPI only as optional managed fallback
+
+---
+
+## Voicebox
+
+Observed:
+
+- Meta Voicebox is a research speech model, not publicly available as a business API or open-source deployable model
+
+Use:
+
+- conceptual reference only
+
+Risks:
+
+- cannot be used as a practical production component because the model/code is not available
+
+Decision:
+
+- do not plan around Voicebox
+- use Pipecat/LiveKit plus local STT/TTS instead
+
+---
+
 ## Obsidian RAG / ChromaDB / LlamaIndex
 
 Observed:

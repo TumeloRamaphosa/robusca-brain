@@ -50,7 +50,8 @@ Core components:
 
 | Component | Role |
 | --- | --- |
-| VAPI | live calls, one-on-one agent calls, War Room squad meetings, store phone calls |
+| Pipecat + LiveKit | preferred local-first voice pipeline and WebRTC rooms |
+| VAPI | optional managed route for fast phone-call experiments |
 | Riley-style desktop shell | local desktop voice orb and artifact panel |
 | ClickClack | internal agent/human chat and meeting summaries |
 | Obsidian | human-readable daily notes, decisions, meetings, wiki |
@@ -78,6 +79,14 @@ Core components:
 | Meeting Scribe | record, summarize, extract actions |
 | Local Private | sensitive prompts routed to local model only |
 | Offline Mobile | phone-local small model for notes/drafts when disconnected |
+
+Provider policy:
+
+```text
+Default: Pipecat + LiveKit + local STT/TTS
+Fallback: VAPI for fast managed phone-call experiments
+Phone numbers: SIP/telephony provider only when needed
+```
 
 ---
 
@@ -354,7 +363,16 @@ Always return:
 
 ## 11. Fastest path to “talking now”
 
-Fastest safe prototype:
+Fastest safe prototype without VAPI:
+
+1. Create Pipecat WebSocket voice pipeline.
+2. Use local STT on Mac Mini.
+3. Use local TTS.
+4. Route model calls through Command API.
+5. Add desktop/mobile push-to-talk.
+6. Save transcript and summary to Obsidian.
+
+Fastest managed-phone prototype:
 
 1. Create VAPI Robusca assistant.
 2. Point VAPI webhook to Command API.

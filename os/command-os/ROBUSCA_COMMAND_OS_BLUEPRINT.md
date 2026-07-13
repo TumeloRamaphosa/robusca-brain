@@ -34,6 +34,7 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | garrytan/gstack | AI software-factory workflow for planning/review/QA/security/ship | Use as engineering process layer after skill/supply-chain vetting; not a business-agent runtime dependency. |
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
+| Pipecat + LiveKit | open-source/local-first voice stack | Preferred default for low-cost/self-hosted browser/mobile/War Room voice; VAPI remains optional. |
 | TencentDB-Agent-Memory | agent conversation memory | Use as memory-service layer for agent call/session recall alongside Obsidian/RAG. |
 | nashsu/llm_wiki | cross-platform desktop LLM-wiki app | Use as architecture/reference or companion app for persistent wiki, graph, local API/MCP, and Obsidian-compatible knowledge. |
 | kepano/obsidian-skills | Obsidian agent skills | Use for Markdown, Bases, JSON Canvas, CLI vault workflows, and Defuddle ingestion after install review. |
@@ -212,6 +213,7 @@ Voice should be a first-class interface, but not an uncontrolled microphone-to-a
 
 Detailed voice-call and superbrain RAG spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
 Hybrid app spec: [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
+Voice provider options: [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md)
 
 ### Voice sources
 
@@ -221,6 +223,7 @@ Hybrid app spec: [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
 | Mobile app microphone | pocket command interface |
 | Omi wearable/mobile | passive meeting/conversation capture, if privacy policy is accepted |
 | VAPI assistants/squads | phone/web voice interface and multi-agent standups |
+| Pipecat + LiveKit | local-first voice pipeline and WebRTC rooms |
 | RileyJarvis fork | initial desktop voice prototype |
 
 Call modes:
@@ -232,6 +235,12 @@ Call modes:
 - one-on-one call with CashClaw
 - War Room multi-agent meeting
 - Meeting-Memory recall session
+
+Provider policy:
+
+- default to Pipecat/LiveKit/local STT/local TTS where feasible
+- keep VAPI as managed fallback for fast phone-call experiments
+- use SIP/telephony only when real phone numbers are required
 
 ### Voice flow
 
@@ -845,6 +854,7 @@ NotebookLM handling:
 - support one-on-one agent call sessions
 - support War Room multi-agent meeting sessions
 - prototype [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) desktop voice shell
+- prototype [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md) Pipecat WebSocket voice path
 
 ### Phase 3 - LLM mesh
 
@@ -936,6 +946,7 @@ NotebookLM handling:
 - implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
 - implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
 - implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md)
+- implement [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md) local-first provider strategy
 - deploy ClickClack on Command VM
 - create Robusca/Naledi/Auto-Meat/Hermes/CashClaw bot accounts
 - index Obsidian and robusca-brain markdown into ChromaDB
@@ -943,6 +954,7 @@ NotebookLM handling:
 - add TencentDB-Agent-Memory capture/recall path
 - configure VAPI assistants and morning standup squad
 - configure VAPI one-on-one calls and War Room squad meetings
+- configure Pipecat/LiveKit as default local-first voice route
 - configure Auto-Meat store voice flow with draft cart/checkout-link only
 - route daily routines to ClickClack channels
 
@@ -992,6 +1004,7 @@ MVP is complete when Tumelo can:
 22. run a live War Room meeting with multiple agents and store the meeting into the superbrain
 23. use one hybrid app on desktop/mobile for voice, RAG, approvals, ClickClack, store voice, local models, and Tailscale services
 24. let store customers talk to Auto-Meat and generate draft carts/checkout links without taking payment details by voice
+25. run a local-first voice call path without VAPI for browser/mobile/desktop voice
 
 ---
 
@@ -1013,10 +1026,11 @@ MVP is complete when Tumelo can:
 14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
 15. Implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md) as the live-call and memory-writeback layer.
 16. Implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) as the unified mobile/desktop voice RAG app plan.
-17. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-18. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
-19. Restore or install approved frontend design skills if the plugin cache is missing.
-20. Audit all third-party install scripts before running them.
+17. Implement [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md) as the local-first voice provider plan.
+18. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+19. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+20. Restore or install approved frontend design skills if the plugin cache is missing.
+21. Audit all third-party install scripts before running them.
 
 ---
 
