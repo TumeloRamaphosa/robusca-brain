@@ -99,15 +99,17 @@ pip install composio
 ## Mac Mini tonight (install order)
 
 Full corrected playbook: **[MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md)**  
+ClawX voice (Kokoro+Whisper): **[CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)**  
 One-shot installer: **`bash scripts/mac-mini-tonight.sh --start-kokoro`**  
 Smoke check: **`python3 scripts/composio-smoke.py`**  
 VM SSH unblock: **[deployment/CLOUD_AGENT_SSH_PUBKEY.md](deployment/CLOUD_AGENT_SSH_PUBKEY.md)**
 
 1. RileyJarvis — `git clone https://github.com/rbrown101010/rileyjarvis.git && npm install`
-2. Kokoro TTS — use **Kokoro-FastAPI** (`remsky/Kokoro-FastAPI`, port **8880**). `remsky/Kokoro-ONNX` 404s.
-3. Whisper — `pip install openai-whisper` (+ `ffmpeg`)
-4. Discord CLI — `npm i -g @ibbybuilds/discli` then `discli init --token …` (bare `discli` npm package is unpublished)
-5. `cd rileyjarvis && npm run dev` → scan WhatsApp QR
+2. Kokoro TTS — use **Kokoro-FastAPI** (`remsky/Kokoro-FastAPI`, port **8880**). `remsky/Kokoro-ONNX` + `:5002` 404s.
+3. Whisper — `uv pip install openai-whisper` (+ `ffmpeg`)
+4. ClawX → **Settings → Voice** → Kokoro (TTS) + Whisper (STT); URL `http://localhost:8880/v1` if asked
+5. Discord CLI — `npm i -g @ibbybuilds/discli` then `discli init --token …`
+6. `cd rileyjarvis && npm run dev` → scan WhatsApp QR
 
 ## Wiring checklist (Tumelo)
 

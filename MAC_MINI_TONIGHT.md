@@ -15,6 +15,15 @@ cd ~/Agents/rileyjarvis && npm run dev   # scan WhatsApp QR
 python3 scripts/composio-smoke.py       # verify Composio
 ```
 
+**ClawX voice only (Kokoro + Whisper):** see **[CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)**
+
+```bash
+docker run -d --name kokoro -p 8880:8880 ghcr.io/remsky/kokoro-fastapi-cpu:latest
+uv pip install openai-whisper   # brew install ffmpeg first
+# ClawX → Settings → Voice → Kokoro (TTS) + Whisper (STT)
+# Base URL if asked: http://localhost:8880/v1  (NOT :5002 — that paste is dead)
+```
+
 Manual steps below if you prefer copy-paste.
 
 ---
@@ -149,6 +158,7 @@ Composio = side-path tool executor. Full map: [COMPOSIO_MESH.md](COMPOSIO_MESH.m
 - [ ] RileyJarvis cloned + `npm install`
 - [ ] Kokoro running (`localhost:8880` via FastAPI **or** onnx lib wired)
 - [ ] Whisper installed + ffmpeg present
+- [ ] ClawX → Settings → Voice → Kokoro (TTS) + Whisper (STT) — see [CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)
 - [ ] `@ibbybuilds/discli` installed + bot token via `discli init` (token never in chat/repo)
 - [ ] `npm run dev` → WhatsApp QR scanned
 - [ ] Ollama Qwen3 reachable from RileyJarvis

@@ -88,6 +88,19 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 - `uv` is bundled with ClawX and on PATH. Do NOT use bare `python` or `pip`.
 - Run scripts: `uv run python <script>` | Install packages: `uv pip install <package>`
 
+### Voice (Kokoro TTS + Whisper STT)
+
+Full Mac Mini playbook: **[CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)**
+
+```bash
+# Kokoro — use FastAPI :8880 (remsky/Kokoro-ONNX + :5002 do NOT exist)
+docker run -d --name kokoro -p 8880:8880 ghcr.io/remsky/kokoro-fastapi-cpu:latest
+uv pip install openai-whisper   # + brew install ffmpeg
+```
+
+Then in ClawX: **Settings → Voice → Kokoro (TTS)** + **Whisper (STT)**.  
+Base URL if prompted: `http://localhost:8880/v1`.
+
 ### Browser
 
 - `browser` tool provides full automation (scraping, form filling, testing) via an isolated managed browser.
