@@ -5,7 +5,9 @@
 **Repo:** https://github.com/TumeloRamaphosa/robusca-brain  
 **Owner:** Tumelo Ramaphosa (t.ramaphosa@studex.dev)  
 **Timezone:** Africa/Johannesburg (SAST = UTC+2)  
-**Orchestrator:** Perplexity Computer
+**Orchestrator:** Perplexity Computer / Cipher Tr@ce  
+**Action layer:** Composio — see [COMPOSIO_MESH.md](COMPOSIO_MESH.md)  
+**Control flow:** `RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion`
 
 ---
 

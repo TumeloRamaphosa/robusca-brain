@@ -30,6 +30,7 @@
 - 2026-06-17: New stack pieces approved — BAASH! VM on Orgo.ai (Kate + Aurora world), n8n orchestrator, TencentDB Agent Memory, Freepik integration. Specs in `BAASH_VM.md`.
 - 2026-06-17: OpenCode (Claude Code on Tencent LKE DeepSeek) joining as sister agent. Onboarding pack: `CONNECTING_AGENTS.md` + `MEGAPROMPT_OPENCODE.md`.
 - 2026-06-17: Aurora identity protocol drafted (`AURORA_IDENTITY.md`), awaiting 9 reference photos.
+- 2026-07-13: **Composio** adopted as action layer (GitHub/Notion/Slack/Stripe/Sheets — no manual OAuth per call). Channel mesh = Cipher Tr@ce text + RileyJarvis WhatsApp/voice on Mac Mini. Canonical flow: `RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion`. Spec: `COMPOSIO_MESH.md`. VM install on `robot@45.61.56.91` still blocked on SSH auth.
 
 ## Preferences
 - Timezone: Africa/Johannesburg (SAST, GMT+2)

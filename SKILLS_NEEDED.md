@@ -22,6 +22,15 @@
 - Returns a single formatted brief
 - Trigger: "morning report" or "morning brief"
 
+## Priority 1.5 — Composio action layer (Cipher Tr@ce)
+
+### composio-tools
+- Invoke GitHub / Notion CRM / Slack `#sales` / Stripe / Google Sheets via Composio
+- No per-request OAuth — apps connected once
+- Triggers: "create GitHub issue on dark-factory", "add to Notion CRM", "Slack #sales", "Stripe invoice", "update Google Sheet"
+- Spec: [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
+- Blocked on: VM SSH auth + Composio app connections
+
 ## Priority 2 — Next Sprint
 
 ### 5. studex-ads-manager

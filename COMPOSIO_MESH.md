@@ -1,0 +1,110 @@
+# Composio Mesh — Cipher Tr@ce Channel Architecture
+
+**Owner:** Tumelo Ramaphosa  
+**Text surface:** Cipher Tr@ce  
+**Voice/WhatsApp surface:** RileyJarvis (Mac Mini)  
+**Last updated:** 2026-07-13
+
+---
+
+## Why Composio
+
+Composio is the **action layer** — natural-language tool use with no manual OAuth choreography per request.
+
+| Intent | Tool |
+|---|---|
+| Create a GitHub issue on `dark-factory` | GitHub via Composio |
+| Add this to Notion CRM | Notion via Composio |
+| Send a Slack message to `#sales` | Slack via Composio |
+| Create a Stripe invoice | Stripe via Composio |
+| Update a Google Sheet | Google Sheets via Composio |
+
+All through AI. Auth is connected once; agents invoke tools thereafter.
+
+---
+
+## You ↔ Agent channels
+
+```
+YOU ──────────────────────────────────────────────────────
+  │
+  ├─ WhatsApp ──────── RileyJarvis ──────── Voice AI agent
+  │  (scan QR once)   Lives on your Mac Mini
+  │
+  ├─ Discord ───────── discli ───────────── Terminal messages
+  │                   + Discord.js bot
+  │
+  ├─ Telegram ──────── Bot API ──────────── Agent notifications
+  │                   + Direct messages to you
+  │
+  ├─ Voice notes ──── Whisper STT ──────── transcribed → me
+  │
+  ├─ My voice replies ─ Kokoro/Voicebox ─── audio → you
+  │
+  └─ Text ──────────── me (Cipher Tr@ce) ── always here
+```
+
+| Channel | Runtime | Role |
+|---|---|---|
+| WhatsApp | RileyJarvis on Mac Mini | Voice AI agent; QR scan once |
+| Discord | `discli` + Discord.js bot | Terminal + bot messages |
+| Telegram | Bot API | Notifications + DMs to Tumelo |
+| Voice in | Whisper STT | Notes → text → agent |
+| Voice out | Kokoro / Voicebox | Agent audio replies |
+| Text | Cipher Tr@ce | Always-on typed interface |
+
+---
+
+## Canonical data / control flow
+
+```
+RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
+```
+
+| Hop | Component | Job |
+|---|---|---|
+| 1 | **RileyJarvis** | Ingest WhatsApp / voice; route intents |
+| 2 | **Ollama (Qwen3)** | Local inference on Mac Mini |
+| 3 | **robusca-brain** | Memory, specs, agent OS (this repo) |
+| 4 | **N8N** | Workflow orchestration |
+| 5 | **Notion** | CRM / durable records |
+| Side | **Composio** | Cross-app actions (GitHub, Slack, Stripe, Sheets, Notion) |
+
+Composio sits beside the flow as the **tool executor** when the agent needs to mutate external systems. N8N remains the long-running orchestrator; Composio is the short-path “do this now” toolkit.
+
+---
+
+## Install status (2026-07-13)
+
+| Target | Status |
+|---|---|
+| Cloud agent box (this env) | Python `composio 0.17.1` + Node `@composio/core@0.13.1` installed |
+| VM `robot@45.61.56.91` | **Blocked** — SSH needs authorized key (see `memory/2026-07-13.md`) |
+
+### Target packages (prefer modern)
+
+```bash
+# Node (preferred)
+npm install -g @composio/core
+
+# Legacy (deprecated — avoid on new hosts)
+npm install -g composio-core
+
+# Python
+pip install composio
+```
+
+---
+
+## Wiring checklist (Tumelo)
+
+1. [ ] Authorize cloud-agent SSH pubkey on `robot@45.61.56.91` (or vault the VM key)
+2. [ ] Install Composio on the VM
+3. [ ] Connect Composio apps once: GitHub (`dark-factory`), Notion CRM, Slack `#sales`, Stripe, Google Sheets
+4. [ ] Confirm RileyJarvis → Ollama (Qwen3) path on Mac Mini
+5. [ ] Confirm N8N → Notion handoff matches this flow
+6. [ ] Map Cipher Tr@ce text channel + Discord/Telegram/voice to the same intent router
+
+---
+
+*Cipher Tr@ce · Robusca · StudEx*

@@ -44,9 +44,39 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 Add whatever helps you do your job. This is your cheat sheet.
 
+## Composio (action layer)
+
+Natural-language tools — no per-request OAuth. Spec: [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
+
+| App | Example intent |
+|---|---|
+| GitHub | Create issue on `dark-factory` |
+| Notion | Add to CRM |
+| Slack | Message `#sales` |
+| Stripe | Create invoice |
+| Google Sheets | Update sheet |
+
+**Local install (this cloud box):** `composio` (Python 0.17.1), `@composio/core` (Node 0.13.1)  
+**VM `robot@45.61.56.91`:** pending SSH auth
+
+## Channel mesh (Cipher Tr@ce)
+
+```
+RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
+```
+
+| Channel | Surface |
+|---|---|
+| WhatsApp | RileyJarvis (Mac Mini, QR once) |
+| Discord | discli + Discord.js |
+| Telegram | Bot API |
+| Voice in/out | Whisper → Kokoro/Voicebox |
+| Text | Cipher Tr@ce |
+
 ## Related
 
 - [Agent workspace](/concepts/agent-workspace)
+- [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
 
 <!-- clawx:begin -->
 ## ClawX Tool Notes
