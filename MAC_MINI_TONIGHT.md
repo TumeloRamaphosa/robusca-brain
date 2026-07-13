@@ -4,7 +4,18 @@
 **When:** Tonight (2026-07-13)  
 **Spec companion:** [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
 
-Run these in order. Prefer **corrected** commands (broken upstream names called out).
+## Fast path (recommended)
+
+From this repo on the Mac Mini:
+
+```bash
+# Optional: export DISCORD_BOT_TOKEN=... first (never commit it)
+bash scripts/mac-mini-tonight.sh --start-kokoro
+cd ~/Agents/rileyjarvis && npm run dev   # scan WhatsApp QR
+python3 scripts/composio-smoke.py       # verify Composio
+```
+
+Manual steps below if you prefer copy-paste.
 
 ---
 

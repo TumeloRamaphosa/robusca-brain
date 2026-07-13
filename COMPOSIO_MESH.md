@@ -98,7 +98,10 @@ pip install composio
 
 ## Mac Mini tonight (install order)
 
-Full corrected playbook: **[MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md)**
+Full corrected playbook: **[MAC_MINI_TONIGHT.md](MAC_MINI_TONIGHT.md)**  
+One-shot installer: **`bash scripts/mac-mini-tonight.sh --start-kokoro`**  
+Smoke check: **`python3 scripts/composio-smoke.py`**  
+VM SSH unblock: **[deployment/CLOUD_AGENT_SSH_PUBKEY.md](deployment/CLOUD_AGENT_SSH_PUBKEY.md)**
 
 1. RileyJarvis — `git clone https://github.com/rbrown101010/rileyjarvis.git && npm install`
 2. Kokoro TTS — use **Kokoro-FastAPI** (`remsky/Kokoro-FastAPI`, port **8880**). `remsky/Kokoro-ONNX` 404s.
