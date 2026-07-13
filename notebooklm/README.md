@@ -93,6 +93,20 @@ Each notebook has a **"Research Questions"** section with 5–7 questions writte
 
 ---
 
+## Connect an AI Agent (MCP)
+
+To let Cursor / Robusca **query and generate from live NotebookLM** (not just local markdown):
+
+→ Follow **[AGENT_CONNECTION.md](./AGENT_CONNECTION.md)**
+
+Short version:
+1. `uv tool install notebooklm-mcp-cli`
+2. `nlm login` (browser once — a lone `AQ.*` token is not enough)
+3. Enable MCP server `notebooklm-mcp` (already in [`.cursor/mcp.json`](../.cursor/mcp.json))
+4. Use skill `studex-notebooklm` — default notebook `98636c01-c524-4ff8-a9f6-05770487a7ec`
+
+---
+
 ## How to Share Notebooks with Agents
 
 NotebookLM notebooks can be shared in two ways:
