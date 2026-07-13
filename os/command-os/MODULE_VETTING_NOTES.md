@@ -152,6 +152,56 @@ Decision:
 
 ---
 
+## TencentDB-Agent-Memory
+
+Observed:
+
+- existing StudEx OS plan references TencentDB-Agent-Memory as `apps/memory-svc`
+- intended API shape includes `/memory/recall`, `/memory/capture`, and `/memory/health`
+- described as self-hosted persistent memory with sqlite-vec backend
+
+Use:
+
+- agent conversation continuity
+- one-on-one call memory
+- War Room meeting memory
+- approved turn/summary capture per namespace
+
+Risks:
+
+- raw call transcripts may include private, customer, financial, or family information
+- memory can bleed between businesses if namespaces are weak
+- long-term memory may preserve stale or incorrect facts
+
+Decision:
+
+- use as conversational memory, not the sole source of truth
+- namespace every capture by business, agent, visibility, and source
+- default to curated summaries/turns, not raw transcripts
+- pair with Obsidian/LLM-wiki and RAG source citations
+
+---
+
+## Unresolved memory/RAG tool aliases
+
+Observed:
+
+- user mentioned “lung” and “headroom” as part of the desired tool stack
+- no matching repository references were found in the current workspace
+
+Current interpretation:
+
+- “lung” may refer to LangChain, LangGraph, or another memory/RAG orchestration tool
+- “headroom” is unknown and needs confirmation before implementation
+
+Decision:
+
+- do not build assumptions around these names yet
+- keep them as pending integrations until source links or exact names are provided
+- current best RAG recommendation remains Obsidian + LLM-wiki + ChromaDB + SQLite FTS/BM25 + TencentDB-Agent-Memory + LlamaIndex + Ollama
+
+---
+
 ## AI Town
 
 Observed:

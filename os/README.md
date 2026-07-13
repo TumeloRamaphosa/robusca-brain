@@ -40,7 +40,9 @@ It defines the plan for:
 - frontend design skill layer for dashboards, mobile, desktop, charts, and approvals
 - ClickClack self-hosted agent chat
 - VAPI voice squads
+- individual agent calls and live War Room meetings
 - Obsidian RAG with ChromaDB/LlamaIndex/Ollama
+- TencentDB-Agent-Memory and hybrid superbrain RAG
 - gstack engineering workflow layer
 - Mac Mini local anchor-node deployment
 - AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals
@@ -72,6 +74,8 @@ Command OS dashboard UI/UX standards live in [`command-os/UI_UX_STANDARD.md`](co
 Frontend design skills live in [`command-os/FRONTEND_DESIGN_SKILLS.md`](command-os/FRONTEND_DESIGN_SKILLS.md).
 
 ClickClack, VAPI, Obsidian RAG, and gstack integration details live in [`command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md`](command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md).
+
+Individual agent calls, War Room meetings, Tencent memory, and superbrain RAG details live in [`command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md`](command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md).
 
 Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
 

@@ -34,6 +34,7 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | garrytan/gstack | AI software-factory workflow for planning/review/QA/security/ship | Use as engineering process layer after skill/supply-chain vetting; not a business-agent runtime dependency. |
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
+| TencentDB-Agent-Memory | agent conversation memory | Use as memory-service layer for agent call/session recall alongside Obsidian/RAG. |
 | a16z AI Town | virtual AI character simulation starter kit | Use as optional visual agent office/town, not core business infrastructure. |
 | Crabfleet | SSH-first Codex/OpenClaw workspace fleet control plane | Useful for supervising agent workspaces across multiple businesses. |
 | Songsee | audio visualization CLI | Use for meeting/audio spectrogram assets and daily routine media artifacts. |
@@ -91,6 +92,7 @@ Robusca Command OS
 |   +-- Postgres
 |   +-- vector store
 |   +-- ChromaDB / LlamaIndex RAG
+|   +-- TencentDB-Agent-Memory
 |   +-- LLM-maintained wiki
 |   +-- raw sources vault
 |   +-- meeting recordings and transcripts
@@ -202,6 +204,8 @@ All ClickClack bot tokens must live in vault/env only.
 
 Voice should be a first-class interface, but not an uncontrolled microphone-to-agent pipe.
 
+Detailed voice-call and superbrain RAG spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
+
 ### Voice sources
 
 | Source | Use |
@@ -211,6 +215,16 @@ Voice should be a first-class interface, but not an uncontrolled microphone-to-a
 | Omi wearable/mobile | passive meeting/conversation capture, if privacy policy is accepted |
 | VAPI assistants/squads | phone/web voice interface and multi-agent standups |
 | RileyJarvis fork | initial desktop voice prototype |
+
+Call modes:
+
+- one-on-one call with Robusca
+- one-on-one call with Naledi
+- one-on-one call with Auto-Meat
+- one-on-one call with Hermes
+- one-on-one call with CashClaw
+- War Room multi-agent meeting
+- Meeting-Memory recall session
 
 ### Voice flow
 
@@ -356,6 +370,7 @@ Layers:
 | Vector store | Qdrant/pgvector | semantic retrieval at scale |
 | ChromaDB | local vector store | Obsidian/repo markdown RAG index |
 | LlamaIndex | indexing/query layer | loaders, retrievers, per-agent query engines |
+| TencentDB-Agent-Memory | conversational memory | agent session/call memory capture and recall |
 | Operational DB | Postgres | tasks, approvals, device state, agent runs |
 | Meeting archive | encrypted file vault + Postgres | recordings, transcripts, summaries, decisions, action items |
 
@@ -381,6 +396,7 @@ Human review rule:
 ## 11. Meeting memory and productivity integrations
 
 Detailed spec: [MEETING_MEMORY_INTEGRATIONS.md](MEETING_MEMORY_INTEGRATIONS.md)
+Voice calls and RAG writeback spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
 
 Meetings are first-class business records. The system must record, store, summarize, present, and sync approved meeting artifacts.
 
@@ -401,6 +417,7 @@ Meeting artifact outputs:
 - Linear issues for implementation tasks
 - Rocket.Chat summary post
 - searchable memory entry
+- TencentDB-Agent-Memory capture where approved
 
 Productivity sync pattern:
 
@@ -411,6 +428,7 @@ Meeting capture
 -> structured summary
 -> human review
 -> Notion / Word / Calendar / Linear / Rocket.Chat sync
+-> Tencent memory capture
 -> memory ingest
 -> audit log
 ```
@@ -424,6 +442,7 @@ Integration roles:
 | Calendar | agenda, attendee list, schedule, reminders, follow-up meetings |
 | Linear | engineering/product/project action items |
 | Rocket.Chat | internal summary posts, approval requests, daily rollups |
+| TencentDB-Agent-Memory | per-agent conversational continuity and recall |
 
 MCP status:
 
@@ -809,6 +828,8 @@ NotebookLM handling:
 - add safe local command mode
 - add approval-readout voice mode
 - add explicit meeting recording start/stop state
+- support one-on-one agent call sessions
+- support War Room multi-agent meeting sessions
 
 ### Phase 3 - LLM mesh
 
@@ -895,11 +916,14 @@ NotebookLM handling:
 ### Phase 11 - ClickClack + VAPI + Obsidian RAG
 
 - implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
+- implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
 - deploy ClickClack on Command VM
 - create Robusca/Naledi/Auto-Meat/Hermes/CashClaw bot accounts
 - index Obsidian and robusca-brain markdown into ChromaDB
 - create per-agent RAG query engines
+- add TencentDB-Agent-Memory capture/recall path
 - configure VAPI assistants and morning standup squad
+- configure VAPI one-on-one calls and War Room squad meetings
 - route daily routines to ClickClack channels
 
 ### Phase 12 - AI Town, Crabfleet, and Songsee
@@ -944,6 +968,8 @@ MVP is complete when Tumelo can:
 18. join a VAPI-powered Robusca standup call
 19. see the Mac Mini as a Tailscale-visible local anchor node
 20. produce a Songsee audio visualization from a meeting/audio artifact
+21. call each agent individually and save the session into Obsidian, Tencent memory, and approved RAG indexes
+22. run a live War Room meeting with multiple agents and store the meeting into the superbrain
 
 ---
 
@@ -963,10 +989,11 @@ MVP is complete when Tumelo can:
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
 14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
-15. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-16. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
-17. Restore or install approved frontend design skills if the plugin cache is missing.
-18. Audit all third-party install scripts before running them.
+15. Implement [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md) as the live-call and memory-writeback layer.
+16. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+17. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+18. Restore or install approved frontend design skills if the plugin cache is missing.
+19. Audit all third-party install scripts before running them.
 
 ---
 
@@ -987,4 +1014,5 @@ MVP is complete when Tumelo can:
 - No ClickClack, Slack, VAPI, or bot token may be committed to docs or code.
 - No browser cookie import or gstack install/team-mode/hook change without explicit approval.
 - No Mac Mini service should be exposed publicly before Tailscale/auth/TLS/backups are configured.
+- No call recording or memory writeback may happen without explicit recording state and approved retention policy.
 

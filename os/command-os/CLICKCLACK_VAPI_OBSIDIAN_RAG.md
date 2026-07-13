@@ -4,6 +4,8 @@ Status: planning artifact
 Parent system: Robusca Command OS  
 Purpose: connect StudEx agents through self-hosted chat, voice squads, and Obsidian-backed memory
 
+Related live-call and RAG writeback spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
+
 ---
 
 ## 1. Goal
@@ -60,6 +62,7 @@ ClickClack becomes the primary internal agent chat for StudEx OS. Slack or Rocke
 | VAPI | voice assistants and squads | Voice meeting/standup layer. Server-side integration only. |
 | Obsidian | human-readable second brain | Source of truth for daily notes, decisions, meetings, wiki pages. |
 | ChromaDB + LlamaIndex | RAG index | Search/query layer over Obsidian and repo docs. |
+| TencentDB-Agent-Memory | conversation memory | Agent call/session memory capture and recall. |
 | Ollama | local/private models and embeddings | Default private route for sensitive memory queries. |
 | gstack | AI software-factory process | Engineering workflow layer for specs, reviews, QA, security, shipping. |
 
@@ -254,6 +257,25 @@ The RAG layer indexes:
 - daily closeouts
 - business memory pages
 
+Recommended StudEx RAG stack:
+
+```text
+Obsidian markdown source of truth
+-> LLM-wiki synthesis
+-> ChromaDB semantic search
+-> SQLite FTS/BM25 exact search
+-> TencentDB-Agent-Memory conversation recall
+-> LlamaIndex per-agent query engines
+-> Ollama/private model synthesis
+```
+
+Upgrade path:
+
+```text
+Qdrant replaces ChromaDB when scale/filtering/multi-node access demands it.
+LangGraph/LangChain can be added when workflows need complex state machines.
+```
+
 Storage:
 
 ```text
@@ -268,6 +290,8 @@ Recommended stack:
 | --- | --- |
 | ChromaDB | persistent vector store |
 | LlamaIndex | loaders, index/query abstraction |
+| SQLite FTS/BM25 | exact matching for names, dates, SKUs, and decisions |
+| TencentDB-Agent-Memory | conversational memory and recall |
 | Ollama embeddings | local embedding route |
 | Ollama/Qwen local model | private answer synthesis |
 | LiteLLM | optional gateway for model routing |
@@ -285,6 +309,7 @@ OLLAMA_BASE_URL=<vault-or-config>
 
 - raw private transcripts are not indexed by default
 - meeting summaries and approved extracts are indexed
+- approved call/session memories can be captured into TencentDB-Agent-Memory
 - source citations should reference file paths and headings
 - index rebuilds should be logged
 - daily closeout should trigger incremental reindex

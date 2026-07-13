@@ -4,6 +4,8 @@ Status: planning artifact
 Parent system: Robusca Command OS  
 Purpose: record, store, summarize, present, and sync meetings across Word, Notion, Calendar, Linear, Rocket.Chat, and the Command OS apps
 
+Related spec: [VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md](VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md)
+
 ---
 
 ## 1. Goal
@@ -25,6 +27,7 @@ Every approved meeting should become a complete business artifact:
 - Linear issues where required
 - Rocket.Chat summary post
 - searchable memory entry
+- TencentDB-Agent-Memory capture where approved
 
 The user experience should be simple:
 
@@ -65,6 +68,7 @@ Capture
 -> structured extraction
 -> human review
 -> destination sync
+-> Tencent memory capture
 -> memory ingest
 -> audit log
 ```
@@ -276,6 +280,30 @@ Meeting summary
 -> #daily-briefs rollup
 ```
 
+### TencentDB-Agent-Memory
+
+Use:
+
+- agent conversational memory
+- one-on-one agent call recall
+- War Room meeting continuity
+- cross-session agent context
+
+Sync pattern:
+
+```text
+Approved call/meeting turns
+-> namespace by business and agent
+-> Tencent memory capture endpoint
+-> recall available to the same agent or approved cross-agent contexts
+```
+
+Rules:
+
+- raw transcripts are not captured by default
+- save curated turns/summaries unless explicit full-transcript memory is approved
+- namespace every memory by business, agent, and visibility
+
 ---
 
 ## 6. Presentation layer
@@ -343,10 +371,11 @@ MVP should support:
 6. extract action items
 7. save markdown meeting artifact
 8. post internal Rocket.Chat summary
-9. create Notion page after approval
-10. create Linear issues after approval
-11. export DOCX after approval
-12. link to the calendar event manually or through first connector
+9. capture approved summary/turns into TencentDB-Agent-Memory
+10. create Notion page after approval
+11. create Linear issues after approval
+12. export DOCX after approval
+13. link to the calendar event manually or through first connector
 
 ---
 
