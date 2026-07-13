@@ -152,6 +152,91 @@ Decision:
 
 ---
 
+## AI Town
+
+Observed:
+
+- MIT-licensed virtual town starter kit where AI characters live, chat, and socialize
+- stack includes Convex, PixiJS, optional Clerk auth, optional Replicate, and Ollama/local inference support
+- Docker Compose/self-hosted Convex option exists
+
+Use:
+
+- visual agent office/town prototype
+- demo surface for agent interactions
+- possible executive command display with Robusca, Naledi, Auto-Meat, Hermes, and CashClaw characters
+
+Risks:
+
+- not designed as the core business command bus
+- Convex/admin keys and optional provider keys are sensitive
+- simulation chat should not ingest real customer/finance/private meeting data until auth/privacy is configured
+
+Decision:
+
+- test locally with dummy agents first
+- use as visualization layer only
+- keep ClickClack as chat, Command API as policy, and Obsidian/RAG as memory
+
+---
+
+## Crabfleet
+
+Observed:
+
+- MIT-licensed SSH-first Codex/OpenClaw crabbox fleet control plane
+- provides GitHub OAuth, repo-gated cards, runtime policy, live terminal/WebVNC, run attempts, session supervision, archives, allowlists, and recurring cards
+- current docs explicitly say cards store scheduling intent and policy; they do not launch a fully autonomous executor by themselves
+
+Use:
+
+- supervise agent workspaces across multiple businesses
+- per-business repo/task cards
+- runtime/capacity visibility
+- attach to live sessions
+- recurring operational cards
+
+Risks:
+
+- SSH keys, GitHub OAuth, repo permissions, VNC links, runtime tokens, and session logs are sensitive
+- public links/control grants require strict expiry and role controls
+- does not replace business-specific memory or approvals
+
+Decision:
+
+- useful for multiple StudEx businesses when each business has isolated repos/workspaces/cards
+- evaluate first as a fleet visibility/control layer
+- keep human approval for merge/deploy/customer-facing actions
+
+---
+
+## Songsee
+
+Observed:
+
+- MIT-licensed Go CLI for audio visualizations
+- renders spectrogram, mel, chroma, hpss, selfsim, loudness, tempogram, mfcc, and flux views
+- native WAV/MP3 decode; ffmpeg fallback for other formats
+
+Use:
+
+- meeting/audio artifact visualization
+- NotebookLM video support visuals
+- daily routine media assets
+- audio QA thumbnails/previews
+
+Risks:
+
+- audio files may contain private meeting content
+- generated images can leak timing/content patterns if shared externally
+
+Decision:
+
+- safe as local CLI after install review
+- output stays private unless approved for publishing
+
+---
+
 ## UI UX Pro Max
 
 Observed:

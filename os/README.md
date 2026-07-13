@@ -41,6 +41,8 @@ It defines the plan for:
 - VAPI voice squads
 - Obsidian RAG with ChromaDB/LlamaIndex/Ollama
 - gstack engineering workflow layer
+- Mac Mini local anchor-node deployment
+- AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals
 - voice control
 - Rocket.Chat command rooms
 - Tailscale device mesh
@@ -67,6 +69,8 @@ Daily scheduled routines live in [`command-os/DAILY_ROUTINES.md`](command-os/DAI
 Command OS dashboard UI/UX standards live in [`command-os/UI_UX_STANDARD.md`](command-os/UI_UX_STANDARD.md).
 
 ClickClack, VAPI, Obsidian RAG, and gstack integration details live in [`command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md`](command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md).
+
+Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
 
 ---
 

@@ -34,6 +34,9 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | garrytan/gstack | AI software-factory workflow for planning/review/QA/security/ship | Use as engineering process layer after skill/supply-chain vetting; not a business-agent runtime dependency. |
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
+| a16z AI Town | virtual AI character simulation starter kit | Use as optional visual agent office/town, not core business infrastructure. |
+| Crabfleet | SSH-first Codex/OpenClaw workspace fleet control plane | Useful for supervising agent workspaces across multiple businesses. |
+| Songsee | audio visualization CLI | Use for meeting/audio spectrogram assets and daily routine media artifacts. |
 | Karpathy LLM-wiki gist | Persistent memory pattern | Use the raw-sources -> synthesized wiki -> schema/log pattern for business memory. |
 | BasedHardware Omi | Voice, screen, wearable, mobile capture | Use as a voice/capture connector only after self-hosting or privacy-controlled integration. Default quick start connects to Omi cloud. |
 | AgriciDaniel claude-seo | SEO specialist skill library | Use as specialist-agent inspiration and optional Claude Code plugin. Audit before installing. |
@@ -279,6 +282,8 @@ Node registration fields:
 
 Tailscale connects the command system privately.
 
+Mac Mini local deployment plan: [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md)
+
 Required nodes:
 
 | Node | Role |
@@ -300,6 +305,7 @@ Rules:
 - access n8n, Rocket.Chat, databases, model endpoints over Tailscale first
 - expose public HTTPS only for deliberate customer-facing apps
 - every node runs a small health reporter
+- Mac Mini services should bind to localhost or Tailscale first, not public interfaces
 
 ---
 
@@ -618,7 +624,52 @@ Safety notes:
 
 ---
 
-## 16. Finance subsystem
+## 16. AI Town, Crabfleet, and media artifact layer
+
+Detailed Mac Mini integration plan: [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md)
+
+### AI Town
+
+AI Town is useful as a visual simulation/agent-office layer. It can show Robusca, Naledi, Auto-Meat, Hermes, and CashClaw as characters in a living workspace.
+
+Use it for:
+
+- demonstrations
+- internal agent-office visualization
+- simulated agent conversations
+- executive display surfaces
+
+Do not make AI Town the core command bus. ClickClack remains chat, Obsidian/RAG remains memory, and Command API remains policy/approval.
+
+### Crabfleet
+
+Crabfleet can help with multiple businesses because it gives visibility and control over many agent workspaces/runs.
+
+Best use:
+
+- per-business repo/workspace cards
+- live terminal/WebVNC attach
+- runtime policies
+- user/team/repo allowlists
+- recurring operational cards
+- session supervision and summaries
+
+It complements Orgo VMs; it does not replace business ownership, memory namespaces, or approvals.
+
+### Songsee
+
+Songsee can turn audio files into spectrogram and audio-feature visuals for meeting archives, NotebookLM video packages, and daily routine media.
+
+Use it for:
+
+- meeting recording QA
+- daily routine audio visuals
+- audio artifact previews
+- NotebookLM/video support assets
+
+---
+
+## 17. Finance subsystem
 
 Detailed agent instruction file: [finance/CLAUDE.md](finance/CLAUDE.md)
 
@@ -662,7 +713,7 @@ Shopify / payment provider / accounting data
 
 ---
 
-## 17. Daily routines subsystem
+## 18. Daily routines subsystem
 
 Detailed routine file: [DAILY_ROUTINES.md](DAILY_ROUTINES.md)
 
@@ -711,7 +762,7 @@ NotebookLM handling:
 
 ---
 
-## 18. Build phases
+## 19. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -752,6 +803,7 @@ NotebookLM handling:
 - configure LiteLLM aliases
 - enforce local-only route for sensitive data
 - define local/private transcription route for sensitive meetings
+- implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) on the Mac Mini anchor node
 
 ### Phase 4 - Rocket.Chat command network
 
@@ -835,7 +887,14 @@ NotebookLM handling:
 - configure VAPI assistants and morning standup squad
 - route daily routines to ClickClack channels
 
-### Phase 12 - UI/UX design-system hardening
+### Phase 12 - AI Town, Crabfleet, and Songsee
+
+- test AI Town locally with dummy agents
+- evaluate Crabfleet for per-business workspace supervision
+- add Songsee to meeting/audio artifact pipeline
+- decide which pieces belong on Mac Mini vs Orgo
+
+### Phase 13 - UI/UX design-system hardening
 
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to the War Room
 - define semantic theme tokens for command glass
@@ -845,7 +904,7 @@ NotebookLM handling:
 
 ---
 
-## 19. First MVP definition
+## 20. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -867,10 +926,12 @@ MVP is complete when Tumelo can:
 16. post and receive agent updates through ClickClack channels
 17. ask Robusca a RAG-backed question sourced from Obsidian/repo memory
 18. join a VAPI-powered Robusca standup call
+19. see the Mac Mini as a Tailscale-visible local anchor node
+20. produce a Songsee audio visualization from a meeting/audio artifact
 
 ---
 
-## 20. Immediate next implementation tasks
+## 21. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -886,12 +947,13 @@ MVP is complete when Tumelo can:
 12. Wire [finance/CLAUDE.md](finance/CLAUDE.md) into the finance/CashClaw module.
 13. Implement [DAILY_ROUTINES.md](DAILY_ROUTINES.md) as the first scheduled routine set.
 14. Implement [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md) as the chat/voice/RAG layer.
-15. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
-16. Audit all third-party install scripts before running them.
+15. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+16. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to new Command OS dashboards.
+17. Audit all third-party install scripts before running them.
 
 ---
 
-## 21. Non-negotiables
+## 22. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -907,4 +969,5 @@ MVP is complete when Tumelo can:
 - No transparent dashboard surface may reduce readability or accessibility.
 - No ClickClack, Slack, VAPI, or bot token may be committed to docs or code.
 - No browser cookie import or gstack install/team-mode/hook change without explicit approval.
+- No Mac Mini service should be exposed publicly before Tailscale/auth/TLS/backups are configured.
 
