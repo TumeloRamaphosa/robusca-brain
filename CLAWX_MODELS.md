@@ -53,6 +53,10 @@ ClawX
 
 ---
 
+## Finish pack
+
+**Use this:** [CLAWX_FINISH.md](CLAWX_FINISH.md) + `bash scripts/clawx-finish.sh`
+
 ## ClawX setup (Mac Mini — after download finishes)
 
 ### A. Local Ollama

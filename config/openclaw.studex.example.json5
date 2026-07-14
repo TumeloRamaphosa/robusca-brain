@@ -1,0 +1,82 @@
+// StudEx / Cipher Tr@ce — OpenClaw / ClawX example config
+// Copy to ~/.openclaw/openclaw.json (or paste via ClawX Advanced settings).
+// NEVER put real API keys in git. Use env vars or ClawX Secrets UI.
+// Docs: CLAWX_FINISH.md · CLAWX_MODELS.md · CLAWX_VOICE_MAC_MINI.md
+
+{
+  agents: {
+    defaults: {
+      // Prefer local for routine; switch model in UI for MiMo when needed
+      model: {
+        primary: "ollama/qwen3:8b",
+      },
+    },
+  },
+
+  models: {
+    providers: {
+      ollama: {
+        // Native Ollama API — do NOT append /v1
+        baseUrl: "http://127.0.0.1:11434",
+        apiKey: "ollama-local",
+        api: "ollama",
+        models: [
+          {
+            id: "qwen3:8b",
+            name: "qwen3:8b",
+            reasoning: false,
+            input: ["text"],
+            contextWindow: 32768,
+            maxTokens: 8192,
+          },
+        ],
+      },
+
+      // Xiaomi MiMo — OpenAI-compatible cloud
+      // Pay-as-you-go base: https://api.xiaomimimo.com/v1
+      // Token Plan may use a different host from the MiMo console
+      "xiaomi-mimo": {
+        baseUrl: "https://api.xiaomimimo.com/v1",
+        apiKey: "$XIAOMI_MIMO_API_KEY",
+        api: "openai-completions",
+        models: [
+          {
+            id: "mimo-v2.5-pro",
+            name: "mimo-v2.5-pro",
+            reasoning: true,
+            input: ["text"],
+            contextWindow: 128000,
+            maxTokens: 8192,
+          },
+          {
+            id: "mimo-v2.5",
+            name: "mimo-v2.5",
+            reasoning: true,
+            input: ["text"],
+            contextWindow: 128000,
+            maxTokens: 8192,
+          },
+        ],
+      },
+    },
+  },
+
+  messages: {
+    tts: {
+      auto: "always",
+      // Prefer dedicated kokoro provider if ClawX lists it;
+      // otherwise OpenAI-compatible against Kokoro-FastAPI
+      provider: "openai",
+      openai: {
+        baseUrl: "http://127.0.0.1:8880/v1",
+        apiKey: "not-needed",
+        model: "kokoro",
+        voice: "af_bella",
+      },
+    },
+  },
+
+  // If your ClawX build exposes STT under voice / transcription:
+  // set provider to local whisper (exact key names vary by ClawX version —
+  // prefer Settings → Voice → Whisper in the UI).
+}

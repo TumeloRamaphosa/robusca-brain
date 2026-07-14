@@ -43,19 +43,15 @@
 
 Console: [Composio](https://app.composio.dev) · [MiMo](https://platform.xiaomimimo.com/console/api-keys)
 
-### 2. Mac Mini — ClawX + voice + local LLM
+### 2. Mac Mini — finish ClawX (primary path)
+
+Follow **[CLAWX_FINISH.md](CLAWX_FINISH.md)**:
 
 ```bash
-# After ClawX finishes downloading:
-bash scripts/mac-mini-tonight.sh --start-kokoro   # or follow CLAWX_VOICE_MAC_MINI.md
-brew install ffmpeg && uv pip install openai-whisper
-ollama serve && ollama pull qwen3:8b
+bash scripts/clawx-finish.sh
+# Then ClawX UI: Models (Ollama + MiMo) + Voice (Kokoro + Whisper)
+# Optional config: config/openclaw.studex.example.json5
 ```
-
-Then in ClawX:
-
-- **Settings → Models** → Ollama `http://localhost:11434` + MiMo (new key)
-- **Settings → Voice** → Kokoro TTS + Whisper STT (`http://localhost:8880/v1`)
 
 ### 3. VM Composio (optional remote)
 
