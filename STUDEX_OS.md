@@ -10,7 +10,8 @@
 **ClawX models/voice:** [CLAWX_MODELS.md](CLAWX_MODELS.md) · [CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)  
 **Finish checklist:** [SETUP_STATUS.md](SETUP_STATUS.md)  
 **Voice assistant OS (MiniMax + Ollama + Notion/Linear):** [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)  
-**Control flow:** `Speak → Whisper → Ollama → Agents act (Notion/Linear) → MiniMax TTS`
+**Obsidian conversations:** [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md) — this repo is the vault  
+**Control flow:** `Speak/Ask → Vault context → Ollama → Agents act → MiniMax / notes`
 
 
 ---
