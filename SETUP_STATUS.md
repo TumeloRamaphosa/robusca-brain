@@ -3,7 +3,10 @@
 **Repo:** https://github.com/TumeloRamaphosa/robusca-brain  
 **Branch:** `cursor/composio-vm-install-1bc1`  
 **Updated:** 2026-07-14  
-**Verdict:** Docs + local installs **done**. Live wiring needs Tumelo (keys + Mac Mini + SSH).
+## Verdict
+Docs + local installs **done**. Live wiring needs Tumelo (keys + Mac Mini + SSH).
+
+**Product target locked:** MiniMax speak + Ollama think + agents act on Notion/Linear — mobile & desktop. Spec: **[VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)**.
 
 ---
 

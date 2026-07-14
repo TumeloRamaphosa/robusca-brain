@@ -64,8 +64,8 @@
   messages: {
     tts: {
       auto: "always",
-      // Prefer dedicated kokoro provider if ClawX lists it;
-      // otherwise OpenAI-compatible against Kokoro-FastAPI
+      // Primary: MiniMax (set provider to minimax / custom in ClawX UI if available).
+      // Fallback below: Kokoro-FastAPI OpenAI-compatible local TTS.
       provider: "openai",
       openai: {
         baseUrl: "http://127.0.0.1:8880/v1",
@@ -73,9 +73,13 @@
         model: "kokoro",
         voice: "af_bella",
       },
+      // When ClawX supports MiniMax natively, prefer:
+      // provider: "minimax",
+      // minimax: { apiKey: "$MINIMAX_API_KEY", voiceId: "<from MiniMax console>" },
     },
   },
 
+  // Tools: Notion + Linear via MCP / Composio (auth in ClawX / Cursor — see VOICE_ASSISTANT_OS.md)
   // If your ClawX build exposes STT under voice / transcription:
   // set provider to local whisper (exact key names vary by ClawX version —
   // prefer Settings → Voice → Whisper in the UI).

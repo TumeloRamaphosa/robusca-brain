@@ -33,6 +33,7 @@
 - 2026-07-13: **Composio** adopted as action layer (GitHub/Notion/Slack/Stripe/Sheets — no manual OAuth per call). Channel mesh = Cipher Tr@ce text + RileyJarvis WhatsApp/voice on Mac Mini. Canonical flow: `RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion`. Spec: `COMPOSIO_MESH.md`. VM install on `robot@45.61.56.91` still blocked on SSH auth.
 - 2026-07-13: Mac Mini tonight playbook in `MAC_MINI_TONIGHT.md`. Corrections: Kokoro via FastAPI (`remsky/Kokoro-FastAPI`, :8880) not dead `Kokoro-ONNX`; Discord via `@ibbybuilds/discli` not unpublished bare `discli`.
 - 2026-07-13: 🚨 Composio API key pasted in chat (ends `...RPEo7f`) — **not saved to disk**. Burned → rotate (KEY_ROTATION #8). Sent.dm demo linked (`sonnysangha/sent-dm-demo`); scaffold in `SENT_COMPOSIO.md` + `.env.example`.
+- 2026-07-14: **Voice Assistant OS** — MiniMax TTS + Ollama brain + Notion/Linear actions on mobile & desktop. Spec: `VOICE_ASSISTANT_OS.md`.
 - 2026-07-14: ClawX downloading — models = **Xiaomi MiMo** (cloud) + **Ollama local**. Spec: `CLAWX_MODELS.md`. 🚨 MiMo key pasted in chat (ends `...of01dk3d`) — not saved. Rotate KEY_ROTATION #9. Sister agents join via cloning this repo + `CONNECTING_AGENTS.md`.
 
 ## Preferences

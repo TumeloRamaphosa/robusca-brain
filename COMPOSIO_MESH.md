@@ -68,7 +68,8 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 | 3 | **robusca-brain** | Memory, specs, agent OS (this repo) |
 | 4 | **N8N** | Workflow orchestration |
 | 5 | **Notion** | CRM / durable records |
-| Side | **Composio** | Cross-app actions (GitHub, Slack, Stripe, Sheets, Notion) |
+| Side | **Composio** | Cross-app actions (GitHub, Slack, Stripe, Sheets, Notion, Linear) |
+| Speak | **MiniMax TTS** | Voice replies (Kokoro offline fallback) — see [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md) |
 
 Composio sits beside the flow as the **tool executor** when the agent needs to mutate external systems. N8N remains the long-running orchestrator; Composio is the short-path “do this now” toolkit.
 

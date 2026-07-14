@@ -54,10 +54,16 @@ Prefer Ollama for routine; MiMo for hard reasoning.
 
 | Setting | Value |
 |---|---|
-| TTS | **Kokoro** (or OpenAI-compatible → `http://localhost:8880/v1`, model `kokoro`, voice `af_bella`) |
+| TTS **primary** | **MiniMax** (vault / ClawX secrets — never chat). Spec: [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md) |
+| TTS fallback | **Kokoro** → `http://localhost:8880/v1`, model `kokoro`, voice `af_bella` |
 | STT | **Whisper** (local) |
 
-ClawX path: **Settings → Voice → TTS = Kokoro · STT = Whisper**
+ClawX path: **Settings → Voice → TTS = MiniMax (or Kokoro) · STT = Whisper**
+
+### Actions (Notion / Linear)
+
+Authenticate Notion + Linear MCP, then speak workflows from [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)  
+(“create Linear issue…”, “add to Notion CRM…”).
 
 ### Brain (this repo)
 
@@ -116,7 +122,8 @@ In ClawX chat:
 - [ ] Workspace points at `robusca-brain`  
 - [ ] Burned MiMo key revoked; new key only in ClawX/vault  
 
-Then you’re live. Optional next: Composio apps + VM SSH ([SETUP_STATUS.md](SETUP_STATUS.md)).
+Then you’re live on voice. Product target (MiniMax speak + Ollama + Notion/Linear + mobile): **[VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)**.  
+Optional next: Composio apps + VM SSH ([SETUP_STATUS.md](SETUP_STATUS.md)).
 
 ---
 

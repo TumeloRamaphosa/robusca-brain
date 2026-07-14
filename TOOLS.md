@@ -82,6 +82,7 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 - [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
 - [CLAWX_MODELS.md](CLAWX_MODELS.md)
 - [SETUP_STATUS.md](SETUP_STATUS.md) — finish checklist
+- [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md) — MiniMax speak + Ollama + Notion/Linear
 
 <!-- clawx:begin -->
 ## ClawX Tool Notes
