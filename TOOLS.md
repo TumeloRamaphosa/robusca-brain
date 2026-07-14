@@ -6,8 +6,8 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 
 | Provider | ID | Models | Notes |
 |----------|-----|--------|-------|
-| Ollama | `ollama` | glm-5.1:cloud | Local, free, current primary |
-| MiMo | `mimo` | mimo-v2.5-pro, mimo-v2.5 | Xiaomi reasoning model |
+| Ollama | `ollama` | Qwen3 (local Mac Mini) + glm-5.1:cloud | Local primary for ClawX / RileyJarvis |
+| MiMo | `mimo` | mimo-v2.5-pro, mimo-v2.5 | Xiaomi cloud — [console](https://platform.xiaomimimo.com/console/api-keys). Key via vault / ClawX local only. Spec: [CLAWX_MODELS.md](CLAWX_MODELS.md) |
 | Anthropic | `claude` | Claude Sonnet 4, Claude Opus 4 | Multimodal (text+image) |
 | OpenAI | `gpt` | GPT-4.1, GPT-4.1 Mini, o3 | Multimodal |
 | OpenRouter | `orouter` | Claude/GPT via router | Aggregator, 100+ models |
@@ -18,7 +18,8 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **OpenRouter**: `[REDACTED — stored in local env]`
 - **Perplexity**: `[REDACTED — stored in local env]`
 - **Mistral**: `[REDACTED — stored in local env]`
-
+- **Xiaomi MiMo**: `[REDACTED — vault / ClawX local only]` — never commit. Rotate if pasted in chat.
+- **Composio**: `[REDACTED — vault only]`
 ### Spawn CLI
 - Installed at `/Users/tumeloramaphosa/.local/bin/spawn`
 - Version: v1.0.44

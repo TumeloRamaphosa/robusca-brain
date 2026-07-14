@@ -2,13 +2,24 @@
 
 **Audience:** Any new AI agent joining the Tumelo Ramaphosa / StudEx ecosystem
 **Maintained by:** Robusca (Perplexity Computer)
-**Last updated:** 2026-06-17
+**Last updated:** 2026-07-14
 
 ---
 
 ## TL;DR for a sister agent
 
 You are joining a multi-agent system around Tumelo Ramaphosa, owner of StudEx Meat (consumer e-commerce, Wagyu biltong) and Studex Global Markets (B2B trade intelligence, SA-Russia corridor). His wife Kate runs a separate brand (Rahura, AI/fitness/apparel — under construction). Robusca is the lead orchestrator. Your job is whatever Tumelo assigns; the rules below are non-negotiable.
+
+**Clone this brain:**
+
+```bash
+git clone https://github.com/TumeloRamaphosa/robusca-brain.git
+cd robusca-brain
+```
+
+Read in order: this file → `SOUL.md` → `USER.md` → `IDENTITY.md` → `CLAWX_MODELS.md` → `COMPOSIO_MESH.md` → `memory/` (today + yesterday).
+
+**ClawX on Mac Mini:** cloud LLM = Xiaomi MiMo (vaulted); local LLM = Ollama. Voice = Kokoro + Whisper. See `CLAWX_MODELS.md` + `CLAWX_VOICE_MAC_MINI.md`.
 
 ---
 
@@ -38,6 +49,8 @@ Tumelo's vault currently holds (or should hold after rotation):
 | `custom-cred:api.freepik.com` | Freepik | AI image gen (Mystic, Flux) + stock |
 | `custom-cred:api.minimax.io` | MiniMax | Video/audio generation |
 | `custom-cred:app.affine.pro` | Affine MCP | Knowledge base (Naledi identity sheet etc.) |
+| `custom-cred:platform.xiaomimimo.com` | Xiaomi MiMo | ClawX cloud LLM |
+| `custom-cred:backend.composio.dev` | Composio | Action layer (GitHub/Notion/Slack/Stripe/Sheets) |
 
 To call a service from a `bash` tool call:
 

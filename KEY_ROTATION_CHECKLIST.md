@@ -20,6 +20,7 @@ Open each link in a new tab. Revoke the listed key. Generate a fresh one. Keep t
 | 6 | **Freepik** | Revoke + regenerate | `...3bef0b` | [freepik.com/api](https://www.freepik.com/api) |
 | 7 | **DeepSeek / Tencent LKE** | Revoke + regenerate | `...4a4e1` | [console.cloud.tencent.com/lkeap](https://console.cloud.tencent.com/lkeap) |
 | 8 | **Composio** | Revoke + regenerate | `...RPEo7f` | [app.composio.dev](https://app.composio.dev) → API Keys — **pasted in Cursor chat 2026-07-13; treat as burned** |
+| 9 | **Xiaomi MiMo** | Revoke + regenerate | `...of01dk3d` | [platform.xiaomimimo.com/console/api-keys](https://platform.xiaomimimo.com/console/api-keys) — **pasted in Cursor chat 2026-07-14; treat as burned** |
 
 ---
 
@@ -39,6 +40,7 @@ Vault handles (what Robusca uses to call each service after vaulting):
 | DeepSeek/LKE | `custom-cred:api.lkeap.cloud.tencent.com` (already exists, needs new value) |
 | Composio | `custom-cred:backend.composio.dev` (or `app.composio.dev` — confirm host) |
 | Sent.dm | `custom-cred:api.sent.dm` (when key issued) |
+| Xiaomi MiMo | `custom-cred:platform.xiaomimimo.com` |
 
 ---
 
