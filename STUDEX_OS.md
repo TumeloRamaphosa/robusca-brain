@@ -7,6 +7,8 @@
 **Timezone:** Africa/Johannesburg (SAST = UTC+2)  
 **Orchestrator:** Perplexity Computer / Cipher Tr@ce  
 **Action layer:** Composio — see [COMPOSIO_MESH.md](COMPOSIO_MESH.md)  
+**ClawX models/voice:** [CLAWX_MODELS.md](CLAWX_MODELS.md) · [CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)  
+**Finish checklist:** [SETUP_STATUS.md](SETUP_STATUS.md)  
 **Control flow:** `RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion`
 
 ---

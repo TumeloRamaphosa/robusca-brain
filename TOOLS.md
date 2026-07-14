@@ -80,6 +80,8 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 
 - [Agent workspace](/concepts/agent-workspace)
 - [COMPOSIO_MESH.md](COMPOSIO_MESH.md)
+- [CLAWX_MODELS.md](CLAWX_MODELS.md)
+- [SETUP_STATUS.md](SETUP_STATUS.md) — finish checklist
 
 <!-- clawx:begin -->
 ## ClawX Tool Notes
