@@ -1,6 +1,8 @@
 # Finish ClawX Setup — Mac Mini
 
-**One page. Run this after ClawX finishes downloading.**  
+**One page. Run this after OpenClaw / ClawX is installed.**  
+**Download first:** [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md) · `bash scripts/download-openclaw-mac.sh`
+
 **No secrets in git.** MiMo key goes only in ClawX UI / local env.
 
 Companion files:
@@ -20,7 +22,16 @@ Chat-pasted MiMo key is **burned**.
 
 ---
 
-## 1. One command on Mac Mini
+## 0. Download OpenClaw (ClawX desktop)
+
+```bash
+bash scripts/download-openclaw-mac.sh
+# or: curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
+Details: [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md)
+
+## 1. One command on Mac Mini (deps)
 
 ```bash
 cd ~/path/to/robusca-brain   # or: git clone https://github.com/TumeloRamaphosa/robusca-brain.git
