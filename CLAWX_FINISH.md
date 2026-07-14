@@ -1,7 +1,9 @@
 # Finish ClawX Setup — Mac Mini
 
 **One page. Run this after OpenClaw / ClawX is installed.**  
-**Download first:** [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md) · `bash scripts/download-openclaw-mac.sh`
+**Download first:** [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md) · **ValueCell ClawX** `bash scripts/download-clawx.sh`
+
+Source: https://github.com/ValueCell-ai/ClawX
 
 **No secrets in git.** MiMo key goes only in ClawX UI / local env.
 
@@ -22,14 +24,16 @@ Chat-pasted MiMo key is **burned**.
 
 ---
 
-## 0. Download OpenClaw (ClawX desktop)
+## 0. Download ValueCell ClawX
 
 ```bash
-bash scripts/download-openclaw-mac.sh
-# or: curl -fsSL https://openclaw.ai/install.sh | bash
+bash scripts/download-clawx.sh
+# Mac Mini arm64 direct:
+# https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-mac-arm64.dmg
+open -a ClawX
 ```
 
-Details: [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md)
+Details: [CLAWX_DOWNLOAD.md](CLAWX_DOWNLOAD.md) · Repo: https://github.com/ValueCell-ai/ClawX
 
 ## 1. One command on Mac Mini (deps)
 

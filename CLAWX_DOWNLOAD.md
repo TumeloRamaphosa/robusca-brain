@@ -1,66 +1,69 @@
-# Download ClawX / OpenClaw (Mac Mini + mobile)
+# Download ClawX (ValueCell) — correct product
 
-**What you want:** the desktop/mobile assistant we’ve been wiring (Ollama, voice, vault).  
-**Official product name:** **OpenClaw** (https://openclaw.ai)  
-**Note:** https://clawx.ai is a separate “X for agents” social site — **not** the Mac app.
+**Repo:** https://github.com/ValueCell-ai/ClawX  
+**What it is:** Desktop GUI for OpenClaw agents (Electron) — Mac / Windows / Linux  
+**Latest:** `v0.4.16`  
+**Releases:** https://github.com/ValueCell-ai/ClawX/releases/tag/v0.4.16  
 
-**Latest release:** `v2026.7.1` (2026-07)  
-**Release page:** https://github.com/openclaw/openclaw/releases/tag/v2026.7.1
+> Not to be confused with https://clawx.ai (social) or raw OpenClaw CLI-only installs.
 
 ---
 
-## Mac Mini / Mac (desktop) — do this
-
-### Option A — one-liner installer (CLI + tooling)
+## Mac Mini (Apple Silicon) — start here
 
 ```bash
-curl -fsSL --proto '=https' --tlsv1.2 https://openclaw.ai/install.sh | bash
+# Download
+curl -fL -o ~/Downloads/ClawX-0.4.16-mac-arm64.dmg \
+  https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-mac-arm64.dmg
+
+# Or from this repo:
+bash scripts/download-clawx.sh   # picks arm64 on Apple Silicon
+
+# Install + launch
+open ~/Downloads/ClawX-0.4.16-mac-arm64.dmg
+# Drag ClawX → Applications, then:
+open -a ClawX
 ```
 
-### Option B — Mac app (.dmg)
+Intel Mac: use `ClawX-0.4.16-mac-x64.dmg` from the same release.
+
+If Gatekeeper blocks:
 
 ```bash
-# From this repo on the Mac:
-bash scripts/download-openclaw-mac.sh
-# Opens ~/Downloads/OpenClaw-*.dmg — drag to Applications
-```
-
-Direct link:
-
-https://github.com/openclaw/openclaw/releases/download/v2026.7.1/OpenClaw-2026.7.1.dmg
-
-Or: https://openclaw.ai → **macOS** download card.
-
-**Requires:** macOS 15+ · Universal Binary (Apple Silicon + Intel)
-
-After install → run [CLAWX_FINISH.md](CLAWX_FINISH.md):
-
-```bash
-bash scripts/clawx-finish.sh
+xattr -cr /Applications/ClawX.app
+open -a ClawX
 ```
 
 ---
 
-## Mobile
+## After launch
 
-| Platform | Download |
+1. Complete the setup wizard  
+2. **Settings → Models** → Ollama `http://127.0.0.1:11434` + optional Xiaomi MiMo  
+3. **Settings → Voice** → MiniMax (or Kokoro) + Whisper  
+4. Workspace → point at `robusca-brain` vault  
+5. Run deps: `bash scripts/clawx-finish.sh`  
+
+Guides: [CLAWX_FINISH.md](CLAWX_FINISH.md) · [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md) · [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)
+
+---
+
+## All platforms (v0.4.16)
+
+| Platform | File |
 |---|---|
-| **Android** | https://github.com/openclaw/openclaw/releases/download/v2026.7.1/OpenClaw-Android.apk |
-| **iOS** | Check https://openclaw.ai / App Store listing on the release notes (companion apps ship with each release) |
-| **Windows companion** | `OpenClawCompanion-Setup-arm64.exe` / `x64` on the same [releases](https://github.com/openclaw/openclaw/releases/tag/v2026.7.1) page |
+| macOS arm64 (M1/M2/M4 Mini) | [ClawX-0.4.16-mac-arm64.dmg](https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-mac-arm64.dmg) |
+| macOS x64 | [ClawX-0.4.16-mac-x64.dmg](https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-mac-x64.dmg) |
+| Windows | [ClawX-0.4.16-win-x64.exe](https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-win-x64.exe) |
+| Linux AppImage | [ClawX-0.4.16-linux-x86_64.AppImage](https://github.com/ValueCell-ai/ClawX/releases/download/v0.4.16/ClawX-0.4.16-linux-x86_64.AppImage) |
+
+Source (dev):
+
+```bash
+git clone https://github.com/ValueCell-ai/ClawX.git
+cd ClawX && pnpm init && pnpm dev
+```
 
 ---
 
-## After download
-
-1. Open OpenClaw / ClawX  
-2. Workspace → this vault (`robusca-brain`)  
-3. Models → Ollama + optional MiMo  
-4. Voice → MiniMax (or Kokoro) + Whisper  
-5. Obsidian conversations → [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md)  
-
-Full product: [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)
-
----
-
-*This cloud agent cannot install a .dmg on your Mac Mini — run the script there.*
+*Cipher Tr@ce · Robusca · StudEx*
