@@ -1,6 +1,8 @@
 # Talk to Agents from Your Phone (Desktop later)
 
-**Yes — skip ClawX desktop for now.** Phone-first is the faster path.  
+**Yes — skip ClawX desktop for now.** Phone-first is the faster path.
+
+**Full map (Discord, OpenFang, Paperclip, Voicebox, Vapi):** [APP_NOW.md](APP_NOW.md)  
 **Rule:** Phone = thin client. Brain stays on Mac Mini (Ollama + vault + tools).  
 **Updated:** 2026-07-15
 

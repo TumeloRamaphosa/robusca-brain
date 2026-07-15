@@ -85,6 +85,7 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 - [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md) — MiniMax speak + Ollama + Notion/Linear
 - [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md) — chat with agents on this vault
 - [MOBILE_AGENTS.md](MOBILE_AGENTS.md) — phone-first (WhatsApp / Telegram / Android)
+- [APP_NOW.md](APP_NOW.md) — Discord + OpenFang/Paperclip/Voicebox vs Vapi
 
 <!-- clawx:begin -->
 ## ClawX Tool Notes
