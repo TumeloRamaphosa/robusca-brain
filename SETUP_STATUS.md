@@ -8,6 +8,8 @@ Docs + local installs **done**. Live wiring needs Tumelo (keys + Mac Mini + SSH)
 
 **Product target locked:** MiniMax speak + Ollama think + agents act on Notion/Linear — mobile & desktop. Spec: **[VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)**.
 
+**Mobile-first (desktop ClawX can wait):** **[MOBILE_AGENTS.md](MOBILE_AGENTS.md)** — WhatsApp / Telegram / OpenClaw Android.
+
 ---
 
 ## Done (in this repo / cloud agent)

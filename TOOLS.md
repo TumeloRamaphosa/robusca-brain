@@ -84,6 +84,7 @@ RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 - [SETUP_STATUS.md](SETUP_STATUS.md) — finish checklist
 - [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md) — MiniMax speak + Ollama + Notion/Linear
 - [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md) — chat with agents on this vault
+- [MOBILE_AGENTS.md](MOBILE_AGENTS.md) — phone-first (WhatsApp / Telegram / Android)
 
 <!-- clawx:begin -->
 ## ClawX Tool Notes
