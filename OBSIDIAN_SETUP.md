@@ -29,6 +29,20 @@ This repo IS the Obsidian vault. Open it directly in Obsidian Desktop or Mobile.
 | `deployment/brand_assets/` | Canonical logos + packaging |
 | `studex/` | Strategy docs, approval logs |
 
+## Agent Skills (kepano/obsidian-skills)
+
+Installed under [`skills/`](skills/) for agent use with this vault:
+
+| Skill | Purpose |
+|---|---|
+| `obsidian-markdown` | Wikilinks, embeds, callouts, properties |
+| `obsidian-bases` | `.base` views, filters, formulas |
+| `json-canvas` | `.canvas` nodes and edges |
+| `obsidian-cli` | Local Obsidian CLI (requires Obsidian app open) |
+| `defuddle` | Clean markdown extraction from web pages |
+
+Source: https://github.com/kepano/obsidian-skills
+
 ## Agent Reporting
 
 Every agent writes to `memory/YYYY-MM-DD.md`  

@@ -1,0 +1,17 @@
+# Secrets / auth — never commit
+.env
+.env.*
+!.env.example
+**/*auth.json
+**/master_token.json
+**/storage_state.json
+**/cookies.txt
+**/.notebooklm*/
+**/.notebooklm-mcp-cli/
+
+# Local tool caches
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+node_modules/

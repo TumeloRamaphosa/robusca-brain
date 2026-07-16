@@ -18,6 +18,7 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 - **OpenRouter**: `[REDACTED — stored in local env]`
 - **Perplexity**: `[REDACTED — stored in local env]`
 - **Mistral**: `[REDACTED — stored in local env]`
+- **NotebookLM**: No official API key. Auth = Google session via `nlm login` (cookies under `~/.notebooklm-mcp-cli/`). Never store cookies in git. See [`notebooklm/AGENT_CONNECTION.md`](notebooklm/AGENT_CONNECTION.md). Default notebook: `98636c01-c524-4ff8-a9f6-05770487a7ec`.
 
 ### Spawn CLI
 - Installed at `/Users/tumeloramaphosa/.local/bin/spawn`
