@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  studex-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5180:5180"
+    environment:
+      - NODE_ENV=production
+      - PORT=5180
+      - SEO_OFFICE_URL=${SEO_OFFICE_URL:-http://host.docker.internal:3000}
+      - OLLAMA_HOST=${OLLAMA_HOST:-http://host.docker.internal:11434}
+      - DEMO_MODEL=${DEMO_MODEL:-qwen2.5:3b}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:5180/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Future: nestvm agent stack per tenant
+  # n8n:
+  #   image: n8nio/n8n
+  #   ports: ["5678:5678"]
+  # agent-memory:
+  #   image: tencent/agent-memory:latest
+  #   ports: ["8420:8420"]
