@@ -29,6 +29,69 @@ A fullstack dashboard — Express + Vite + React + Tailwind + SQLite — deploye
 
 ---
 
+## Command OS Expansion
+
+The next layer is tracked in [`command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md`](command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md).
+
+It defines the plan for:
+
+- desktop and mobile command apps
+- transparent, readable, well-spaced dashboard UI/UX standard
+- frontend design skill layer for dashboards, mobile, desktop, charts, and approvals
+- ClickClack self-hosted agent chat
+- VAPI voice squads
+- individual agent calls and live War Room meetings
+- hybrid mobile/desktop voice RAG app
+- local-first voice provider options with Pipecat/LiveKit instead of paid VAPI by default
+- Discord, Telegram, Slack, ClickClack, desktop, mobile, and store voice routing
+- Obsidian RAG with ChromaDB/LlamaIndex/Ollama
+- Obsidian Skills for Markdown, Bases, Canvas, CLI, and clean web ingestion
+- TencentDB-Agent-Memory and hybrid superbrain RAG
+- optional Gemini CLI / Google AI Studio model route
+- gstack engineering workflow layer
+- Mac Mini local anchor-node deployment
+- AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals
+- voice control
+- Rocket.Chat command rooms
+- Tailscale device mesh
+- local/API LLM routing
+- Orgo business VM agents
+- CashClaw finance agent
+- 10:00 AM NotebookLM video routine and 10:00 PM Obsidian closeout
+- Page-Agent browser control
+- Omi/RileyJarvis voice capture
+- meeting recording, transcription, and productivity sync
+- Notion, Word, Calendar, and Linear integrations
+- SEO specialist agents
+- persistent LLM-maintained business memory
+- approval, audit, and security gates
+
+Preliminary third-party module notes live in [`command-os/MODULE_VETTING_NOTES.md`](command-os/MODULE_VETTING_NOTES.md).
+
+Meeting memory and productivity integration details live in [`command-os/MEETING_MEMORY_INTEGRATIONS.md`](command-os/MEETING_MEMORY_INTEGRATIONS.md).
+
+CashClaw finance-agent operating rules live in [`command-os/finance/CLAUDE.md`](command-os/finance/CLAUDE.md).
+
+Daily scheduled routines live in [`command-os/DAILY_ROUTINES.md`](command-os/DAILY_ROUTINES.md).
+
+Command OS dashboard UI/UX standards live in [`command-os/UI_UX_STANDARD.md`](command-os/UI_UX_STANDARD.md).
+
+Frontend design skills live in [`command-os/FRONTEND_DESIGN_SKILLS.md`](command-os/FRONTEND_DESIGN_SKILLS.md).
+
+ClickClack, VAPI, Obsidian RAG, and gstack integration details live in [`command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md`](command-os/CLICKCLACK_VAPI_OBSIDIAN_RAG.md).
+
+Individual agent calls, War Room meetings, Tencent memory, and superbrain RAG details live in [`command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md`](command-os/VOICE_AGENT_CALLS_AND_SUPERBRAIN_RAG.md).
+
+The unified hybrid voice/RAG mobile and desktop app plan lives in [`command-os/HYBRID_VOICE_RAG_APP.md`](command-os/HYBRID_VOICE_RAG_APP.md).
+
+Local-first voice provider options live in [`command-os/VOICE_PROVIDER_OPTIONS.md`](command-os/VOICE_PROVIDER_OPTIONS.md).
+
+Chat and voice surface routing lives in [`command-os/CHAT_VOICE_SURFACES.md`](command-os/CHAT_VOICE_SURFACES.md).
+
+Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
+
+---
+
 ## Stack
 
 ```
