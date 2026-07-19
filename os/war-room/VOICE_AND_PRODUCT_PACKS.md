@@ -1,17 +1,18 @@
 # Talking Agent + Client Product Packs
 
-## Talking agent (RileyJarvis pattern)
+## Talking agent (OpenJarvis — primary)
 
-Reference: [rbrown101010/rileyjarvis](https://github.com/rbrown101010/rileyjarvis)
-
-RileyJarvis is a local Electron companion with **OpenAI Realtime** speech-to-speech, animated face states, and an artifact panel. StudEx uses this as the **voice UX pattern** for NestVM — not a wholesale replace of Super Agents.
+**Primary stack:** [OpenJarvis](https://github.com/open-jarvis/OpenJarvis) on the Mac Mini NestVM.  
+Setup guide: [`os/openjarvis/VOICE_SETUP.md`](../openjarvis/VOICE_SETUP.md)
 
 | Layer | StudEx mapping |
 |-------|----------------|
-| Realtime STT/TTS | OpenAI Realtime (RileyJarvis) or ElevenLabs + STT |
-| Companion UI | Soul / talking agent face in client portal |
-| Brain | NestVM Super Agents (private per client) |
-| Presence | Pixel boardroom character lights up while speaking |
+| Brain | Local Ollama via OpenJarvis |
+| TTS | Cartesia (Sterling) or OpenAI TTS — API key required for speech only |
+| Companion UI | OpenJarvis desktop / `jarvis serve` audio API |
+| Presence (later) | Pixel boardroom character lights up while speaking |
+
+**Legacy reference:** [RileyJarvis](https://github.com/rbrown101010/rileyjarvis) = OpenAI Realtime face demo. Use OpenJarvis for NestVM product voice.
 
 **Tier voice entitlements**
 - Meat OS — chat + limited voice minutes  
