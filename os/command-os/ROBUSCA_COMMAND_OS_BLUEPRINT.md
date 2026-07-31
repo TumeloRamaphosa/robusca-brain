@@ -32,6 +32,8 @@ The goal is to let Tumelo talk to the system, command business agents, approve r
 | HyrveAI register page | Agent marketplace / external deployment surface | Treat as optional external marketplace integration. Do not make it core until account/API model is clear. |
 | UI UX Pro Max | UI/UX design intelligence and dashboard design-system reference | Use as a reference for Command OS design standards; install only after CLI/script review. |
 | garrytan/gstack | AI software-factory workflow for planning/review/QA/security/ship | Use as engineering process layer after skill/supply-chain vetting; not a business-agent runtime dependency. |
+| OpenClaw / Cursor / Goose / OpenHands / Agent OS | coding-agent operating loop | Use through MCP/API/ACP and Command API to build, review, QA, ship, and write back memory. |
+| Octopoda | local-first memory kernel and MCP server | Evaluate as local agent memory/loop detection complement to TencentDB-Agent-Memory. |
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | Pipecat + LiveKit | open-source/local-first voice stack | Preferred default for low-cost/self-hosted browser/mobile/War Room voice; VAPI remains optional. |
@@ -94,12 +96,14 @@ Robusca Command OS
 |   +-- n8n workflows
 |   +-- Page-Agent web control
 |   +-- business VM workers
+|   +-- OpenClaw / Cursor / Goose / OpenHands agent loop
 |
 +-- Memory
 |   +-- Postgres
 |   +-- vector store
 |   +-- ChromaDB / LlamaIndex RAG
 |   +-- TencentDB-Agent-Memory
+|   +-- Octopoda memory kernel
 |   +-- LLM-maintained wiki
 |   +-- Obsidian Skills
 |   +-- raw sources vault
@@ -662,6 +666,7 @@ License note:
 ## 15. gstack engineering factory layer
 
 Detailed integration spec: [CLICKCLACK_VAPI_OBSIDIAN_RAG.md](CLICKCLACK_VAPI_OBSIDIAN_RAG.md)
+OpenClaw/Cursor/agent loop spec: [OPENCLAW_CURSOR_AGENT_OS_LOOP.md](OPENCLAW_CURSOR_AGENT_OS_LOOP.md)
 
 gstack is an optional engineering-process layer for building the Command OS itself. It should not be installed or required until reviewed and approved.
 
@@ -685,7 +690,43 @@ Safety notes:
 
 ---
 
-## 16. AI Town, Crabfleet, and media artifact layer
+## 16. OpenClaw, Cursor, Goose, OpenHands, and Agent OS loop
+
+Detailed spec: [OPENCLAW_CURSOR_AGENT_OS_LOOP.md](OPENCLAW_CURSOR_AGENT_OS_LOOP.md)
+
+This is the coding-agent operating loop for building the Command OS itself.
+
+It connects:
+
+- OpenClaw
+- Cursor MCP/API
+- Goose
+- OpenHands / Dark Factory
+- Agent Orchestrator
+- BuilderMethods Agent OS / Design OS
+- Octopoda memory
+- ClickClack / Discord
+- Nemotron model route
+
+Core loop:
+
+```text
+spec
+-> plan
+-> spawn agent
+-> build
+-> review
+-> QA
+-> CI fix loop
+-> ship
+-> memory writeback
+```
+
+Nemotron keys must be stored only as vault/env values.
+
+---
+
+## 17. AI Town, Crabfleet, and media artifact layer
 
 Detailed Mac Mini integration plan: [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md)
 
@@ -730,7 +771,7 @@ Use it for:
 
 ---
 
-## 17. Finance subsystem
+## 18. Finance subsystem
 
 Detailed agent instruction file: [finance/CLAUDE.md](finance/CLAUDE.md)
 
@@ -774,7 +815,7 @@ Shopify / payment provider / accounting data
 
 ---
 
-## 18. Daily routines subsystem
+## 19. Daily routines subsystem
 
 Detailed routine file: [DAILY_ROUTINES.md](DAILY_ROUTINES.md)
 
@@ -823,7 +864,7 @@ NotebookLM handling:
 
 ---
 
-## 19. Build phases
+## 20. Build phases
 
 ### Phase 0 - safety and inventory
 
@@ -964,14 +1005,25 @@ NotebookLM handling:
 - route daily routines to ClickClack channels
 - connect Discord/Telegram/Slack/ClickClack voice and chat surfaces through [CHAT_VOICE_SURFACES.md](CHAT_VOICE_SURFACES.md)
 
-### Phase 12 - AI Town, Crabfleet, and Songsee
+### Phase 12 - OpenClaw/Cursor/Agent OS loop
+
+- implement [OPENCLAW_CURSOR_AGENT_OS_LOOP.md](OPENCLAW_CURSOR_AGENT_OS_LOOP.md)
+- configure Cursor MCP registry
+- connect OpenClaw through Command API or ACP bridge
+- configure Goose with Command API and MCP tools
+- evaluate OpenHands / Dark Factory as coding runtime
+- evaluate Agent Orchestrator for parallel coding sessions
+- evaluate Octopoda as local MCP memory kernel
+- route Nemotron through Command API / LiteLLM
+
+### Phase 13 - AI Town, Crabfleet, and Songsee
 
 - test AI Town locally with dummy agents
 - evaluate Crabfleet for per-business workspace supervision
 - add Songsee to meeting/audio artifact pipeline
 - decide which pieces belong on Mac Mini vs Orgo
 
-### Phase 13 - UI/UX design-system hardening
+### Phase 14 - UI/UX design-system hardening
 
 - apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) to the War Room
 - apply [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to all new UI work
@@ -982,7 +1034,7 @@ NotebookLM handling:
 
 ---
 
-## 20. First MVP definition
+## 21. First MVP definition
 
 MVP is complete when Tumelo can:
 
@@ -1012,10 +1064,11 @@ MVP is complete when Tumelo can:
 24. let store customers talk to Auto-Meat and generate draft carts/checkout links without taking payment details by voice
 25. run a local-first voice call path without VAPI for browser/mobile/desktop voice
 26. route Discord, Telegram, Slack, ClickClack, desktop, mobile, and store voice into one Command API/RAG/memory loop
+27. dispatch a coding task through OpenClaw/Cursor/Goose/OpenHands and capture the result into ClickClack and memory
 
 ---
 
-## 21. Immediate next implementation tasks
+## 22. Immediate next implementation tasks
 
 1. Create Command VM inventory file.
 2. Add Command Center tab to War Room.
@@ -1035,14 +1088,15 @@ MVP is complete when Tumelo can:
 16. Implement [HYBRID_VOICE_RAG_APP.md](HYBRID_VOICE_RAG_APP.md) as the unified mobile/desktop voice RAG app plan.
 17. Implement [VOICE_PROVIDER_OPTIONS.md](VOICE_PROVIDER_OPTIONS.md) as the local-first voice provider plan.
 18. Implement [CHAT_VOICE_SURFACES.md](CHAT_VOICE_SURFACES.md) as the chat/voice surface routing plan.
-19. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
-20. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
-21. Restore or install approved frontend design skills if the plugin cache is missing.
-22. Audit all third-party install scripts before running them.
+19. Implement [OPENCLAW_CURSOR_AGENT_OS_LOOP.md](OPENCLAW_CURSOR_AGENT_OS_LOOP.md) as the coding-agent loop.
+20. Implement [MAC_MINI_LOCAL_DEPLOYMENT.md](MAC_MINI_LOCAL_DEPLOYMENT.md) as the local anchor-node runbook.
+21. Apply [UI_UX_STANDARD.md](UI_UX_STANDARD.md) and [FRONTEND_DESIGN_SKILLS.md](FRONTEND_DESIGN_SKILLS.md) to new Command OS dashboards.
+22. Restore or install approved frontend design skills if the plugin cache is missing.
+23. Audit all third-party install scripts before running them.
 
 ---
 
-## 22. Non-negotiables
+## 23. Non-negotiables
 
 - No secrets in repo files.
 - No raw API keys in browser/mobile bundles.
@@ -1061,4 +1115,5 @@ MVP is complete when Tumelo can:
 - No Mac Mini service should be exposed publicly before Tailscale/auth/TLS/backups are configured.
 - No call recording or memory writeback may happen without explicit recording state and approved retention policy.
 - No voice store flow may take card/payment details; use secure checkout links or human handoff.
+- No Nemotron/model key may be pasted into chat, committed to docs, or shipped in client apps.
 

@@ -51,6 +51,7 @@ It defines the plan for:
 - gstack engineering workflow layer
 - Mac Mini local anchor-node deployment
 - AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals
+- OpenClaw/Cursor/Goose/OpenHands/Agent OS coding-agent loop
 - voice control
 - Rocket.Chat command rooms
 - Tailscale device mesh
@@ -89,6 +90,8 @@ Local-first voice provider options live in [`command-os/VOICE_PROVIDER_OPTIONS.m
 Chat and voice surface routing lives in [`command-os/CHAT_VOICE_SURFACES.md`](command-os/CHAT_VOICE_SURFACES.md).
 
 Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
+
+OpenClaw, Cursor, Goose, OpenHands, Agent OS, Octopoda, Agent Orchestrator, and Nemotron loop details live in [`command-os/OPENCLAW_CURSOR_AGENT_OS_LOOP.md`](command-os/OPENCLAW_CURSOR_AGENT_OS_LOOP.md).
 
 ---
 

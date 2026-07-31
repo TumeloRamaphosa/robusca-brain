@@ -39,6 +39,188 @@ Decision:
 
 ---
 
+## Buzz
+
+Observed:
+
+- public site positions Buzz as “your people, your agents, your project — all in one place”
+- product/API/auth model was not available from the public page fetched in this session
+
+Use:
+
+- inspiration for the people + agents + project surface
+
+Decision:
+
+- do not make Buzz a dependency until API/auth/data model is clear
+- implement StudEx-owned equivalent through Command OS + ClickClack first
+
+---
+
+## OpenHands / Dark Factory
+
+Observed:
+
+- OpenHands Software Agent SDK is an open-source framework for coding agents
+- supports local/cloud agents, tools, workspaces, REST APIs, MCP, and sandboxed execution patterns
+- user reports OpenHands is installed in “Dark Factory”
+
+Use:
+
+- coding-agent runtime
+- sandboxed repository tasks
+- integration with Command API and ClickClack summaries
+- alternative or complement to OpenClaw/Goose/Cursor agent sessions
+
+Risks:
+
+- coding agents can execute shell and edit files
+- workspaces may accidentally receive secrets
+- deploy/merge/customer-facing changes must remain approval-gated
+
+Decision:
+
+- connect through Command API with scoped workspaces
+- no unrestricted shell access to secrets
+- use isolated workspaces for risky tasks
+
+---
+
+## Octopoda
+
+Observed:
+
+- MIT-licensed Python package described as a persistent memory kernel for AI agents
+- features local SQLite memory, semantic search, loop detection, agent messaging, crash recovery, knowledge graph, observability, and MCP server
+- optional integrations include LangChain, CrewAI, AutoGen, OpenAI Agents, server mode, FAISS, spaCy, and local embeddings
+
+Use:
+
+- local agent memory kernel
+- loop detection
+- agent-to-agent messaging
+- MCP memory server for Cursor/Goose/OpenClaw
+- complement to TencentDB-Agent-Memory
+
+Risks:
+
+- memory can duplicate/conflict with Tencent memory and Obsidian if not namespaced
+- hosted/cloud API option may introduce cost and data exposure
+- local MCP memory tools can write persistent data
+
+Decision:
+
+- evaluate local-only mode first
+- namespace by business/agent/source
+- keep Obsidian/LLM-wiki as human-readable source of truth
+- do not enable cloud sync/API without approval
+
+---
+
+## BuilderMethods Agent OS / Design OS
+
+Observed:
+
+- `buildermethods/agent-os` provides spec-driven development and codebase standards patterns
+- `buildermethods/design-os` provides product/design process before code
+
+Use:
+
+- `/agent-os` style spec loop
+- design-before-build discipline
+- codebase standards for Command OS implementation
+- complement to gstack and our frontend design docs
+
+Risks:
+
+- installing external process/skills can alter project instructions
+- standards can conflict with existing StudEx conventions if copied blindly
+
+Decision:
+
+- use as reference/optional process layer after review
+- adapt into StudEx-specific Command OS standards
+
+---
+
+## Agent Orchestrator
+
+Observed:
+
+- open-source agent IDE/harness for supervising parallel coding agents
+- supports isolated git worktrees, session state, terminal access, PR awareness, and CI/review/merge-conflict feedback loops
+
+Use:
+
+- manage multiple coding agents building Command OS
+- route CI failures/review comments back to the right session
+- keep agent branches/worktrees separated
+
+Risks:
+
+- overlaps with Crabfleet and gstack
+- parallel agents can collide without strict branch/workspace policy
+- CI feedback automation must not merge/deploy without approval
+
+Decision:
+
+- evaluate against Crabfleet and gstack before standardizing
+- use only with branch isolation and PR approval rules
+
+---
+
+## Goose
+
+Observed:
+
+- open-source local AI agent with desktop app, CLI, API, MCP extensions, ACP, recipes, subagents, sandbox mode, and multiple model providers
+
+Use:
+
+- local general-purpose agent
+- MCP tool operator
+- subagent runner
+- recipe executor
+- bridge to Nemotron/Ollama/API model routes
+
+Risks:
+
+- broad MCP/tool access can become dangerous if permissions are loose
+- recipes can encode write/deploy actions
+- model/API keys must stay in vault/env
+
+Decision:
+
+- connect through Command API and scoped MCP tools
+- use sandbox/permission controls
+- route Nemotron through server-side model router
+
+---
+
+## Nemotron API
+
+Observed:
+
+- user intends to provide a Nemotron API key later
+
+Use:
+
+- optional model route for Goose/OpenClaw/Cursor/Command API
+- reasoning/coding/research tasks after policy approval
+
+Risks:
+
+- model API keys are sensitive
+- cloud model route may process private business data if used without policy
+
+Decision:
+
+- store `NEMOTRON_API_KEY`, `NEMOTRON_BASE_URL`, and `NEMOTRON_MODEL` only in vault/env
+- never paste key into chat or docs
+- route through LiteLLM/Command API with per-namespace policy
+
+---
+
 ## gstack
 
 Observed:
