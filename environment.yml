@@ -1,0 +1,8 @@
+# Minimal Conda env for the GitHub Actions "Python Package using Conda" workflow.
+name: base
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - flake8
+  - pytest
