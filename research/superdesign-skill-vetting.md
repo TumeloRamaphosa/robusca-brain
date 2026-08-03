@@ -3,7 +3,7 @@
 **Date:** 2026-08-03  
 **Source:** X — [Dan Kornas @DanKornas](https://x.com/DanKornas/status/2084181464812261829)  
 **Share link:** https://share.google/F3zHpct2TucBUq5hm  
-**Status:** AWAITING OWNER APPROVAL (not installed)  
+**Status:** APPROVED + INSTALLED (2026-08-03) — login still required  
 **Vetted by:** Robusca (cloud agent)
 
 ---
@@ -99,22 +99,30 @@ Audited: `skills/superdesign/SKILL.md`, `references/INIT.md`, `references/SUPERD
 | Maintained skill + CLI | **Approve for trial** on one StudEx frontend (e.g. War Room or Meat storefront), Black & Gold design-system first |
 | Web app only | Fine as no-install fallback for quick mocks |
 
-**Do not install until Tumelo explicitly approves.**
+### Install completed (2026-08-03)
 
-### Proposed install (after approval)
+| Location | Path |
+|----------|------|
+| Global Cursor skill | `~/.agents/skills/superdesign` |
+| Project Cursor skill | [`.agents/skills/superdesign`](../.agents/skills/superdesign) |
+| Workspace skills mirror | [`skills/superdesign`](../skills/superdesign) |
+| CLI | `~/.local/bin/superdesign` v0.9.0 (`PATH` needs `~/.local/bin`) |
 
 ```bash
 npx skills add superdesigndev/superdesign-skill -g -a cursor -y
-npm install -g @superdesign/cli@latest
-superdesign login
+npm install -g @superdesign/cli@latest --prefix "$HOME/.local"
+export PATH="$HOME/.local/bin:$PATH"
 ```
 
-Then in Cursor: Settings → Rules and Commands → command `superdesign` (per their Cursor setup docs), invoke with `/superdesign`.
+**Still required on Owner machine:** `superdesign login` (browser OAuth). Cloud preflight shows `auth: not authenticated`.
+
+Optional Cursor setup: Settings → Rules and Commands → command `superdesign`, invoke with `/superdesign`.
+
+Telemetry opt-out if wanted: `export DO_NOT_TRACK=1`.
 
 ---
 
-## Open questions for Owner
+## Remaining Owner steps
 
-1. Approve skill install for Cursor (and/or Claude Code / OpenCode)?
-2. Which first project — War Room, Meat Shopify theme/app, Global Markets, or Rahura?
-3. Accept PostHog telemetry on the CLI, or prefer web-app-only until reviewed further?
+1. Run `superdesign login` locally (browser).
+2. Pick first project — War Room, Meat, Global Markets, or Rahura.

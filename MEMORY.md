@@ -20,7 +20,7 @@
 - **Future:** Wildlife/FPV drones, blockchain, trade logistics, AI-powered marketing.
 
 ## Key Decisions & Notes
-- 2026-08-03: Evaluated Superdesign from X share (@DanKornas). Legacy IDE extension = dead. Maintained path = `superdesigndev/superdesign-skill` + `@superdesign/cli`. High fit for StudEx Black & Gold UI + campaign graphics. **Not installed — awaiting Owner approval.** Full report: `research/superdesign-skill-vetting.md`.
+- 2026-08-03: Evaluated + installed Superdesign from X share (@DanKornas). Legacy IDE extension = dead. Installed maintained skill (`superdesigndev/superdesign-skill`) + CLI v0.9.0. Paths: `~/.agents/skills/superdesign`, `.agents/skills/superdesign`, `skills/superdesign`, CLI at `~/.local/bin/superdesign`. **Owner still needs `superdesign login`.** Report: `research/superdesign-skill-vetting.md`.
 - 2026-05-16: Tumelo confirmed identity as "Robusca Romanov" (not Robucsa). Updated IDENTITY.md and SOUL.md.
 - 2026-05-16: Tumelo shared skill/repos list for evaluation and installation. All 11 repos cloned.
 - 2026-05-16: Added API keys — Anthropic (claude), OpenAI (gpt), OpenRouter (orouter), Perplexity (perplexity), ElevenLabs, Mistral
