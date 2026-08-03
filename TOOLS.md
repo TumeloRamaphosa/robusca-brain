@@ -29,6 +29,10 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 All cloned to `/Users/tumeloramaphosa/.openclaw/workspace/skills/`:
 - 1code, skills (remotion), ui-ux-pro-max-skill, superpowers, graphify, gstack, claude-goal, OpenMythos, openclaw-supermemory, StudExHermes-Command, agents-dr.fixit
 
+## Skills Evaluated (pending approval)
+
+- **Superdesign** (2026-08-03) — agent design skill + CLI for UI mockups / design systems / marketing graphics. Legacy IDE extension from the X post is unmaintained; use skill path only if approved. Vetting: [`research/superdesign-skill-vetting.md`](research/superdesign-skill-vetting.md)
+
 ## StudEx Projects
 - **StudExHermes-Command** — Cyberpunk 9-agent swarm dashboard with Kanban, memory log, social metrics, RALF loop. Next.js app.
 - **agents-dr.fixit** — MacMini Gang Dr.Fixit Edition. Automated health monitoring & auto-recovery for AI agents. MLX-native Hermes 3 server + launchd services.
