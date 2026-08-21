@@ -33,6 +33,8 @@ A fullstack dashboard — Express + Vite + React + Tailwind + SQLite — deploye
 
 The next layer is tracked in [`command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md`](command-os/ROBUSCA_COMMAND_OS_BLUEPRINT.md).
 
+The simple local MacOne hub lives in [`macone/README.md`](macone/README.md).
+
 It defines the plan for:
 
 - desktop and mobile command apps
