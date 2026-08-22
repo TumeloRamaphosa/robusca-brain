@@ -54,6 +54,7 @@ It defines the plan for:
 - Mac Mini local anchor-node deployment
 - AI Town visual agent office, Crabfleet workspace fleet, and Songsee audio visuals
 - OpenClaw/Cursor/Goose/OpenHands/Agent OS coding-agent loop
+- StudEx Global Agentic Ecosystem strategy
 - voice control
 - Rocket.Chat command rooms
 - Tailscale device mesh
@@ -94,6 +95,8 @@ Chat and voice surface routing lives in [`command-os/CHAT_VOICE_SURFACES.md`](co
 Mac Mini local deployment details live in [`command-os/MAC_MINI_LOCAL_DEPLOYMENT.md`](command-os/MAC_MINI_LOCAL_DEPLOYMENT.md).
 
 OpenClaw, Cursor, Goose, OpenHands, Agent OS, Octopoda, Agent Orchestrator, and Nemotron loop details live in [`command-os/OPENCLAW_CURSOR_AGENT_OS_LOOP.md`](command-os/OPENCLAW_CURSOR_AGENT_OS_LOOP.md).
+
+The global StudEx ecosystem strategy lives in [`command-os/STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md`](command-os/STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md).
 
 ---
 
