@@ -98,6 +98,8 @@ OpenClaw, Cursor, Goose, OpenHands, Agent OS, Octopoda, Agent Orchestrator, and 
 
 The global StudEx ecosystem strategy lives in [`command-os/STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md`](command-os/STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md).
 
+Requested external modules and visual references are tracked in [`command-os/EXTERNAL_MODULES_INTAKE.md`](command-os/EXTERNAL_MODULES_INTAKE.md).
+
 ---
 
 ## Stack

@@ -5,6 +5,24 @@ Scope: public repository/docs inspection only; no third-party installers execute
 
 ---
 
+## External module intake backlog
+
+Detailed backlog:
+
+```text
+EXTERNAL_MODULES_INTAKE.md
+```
+
+This tracks additional requested modules and visual references, including Agent-Reach, Ponytail, RedPlanet Core, last30days-skill, COG Second Brain, Remotion Skills, Startup Skill, external CashClaw, and dashboard screenshots.
+
+Decision:
+
+- keep uninstalled by default
+- use read-only inspection first
+- install only after explicit approval and supply-chain review
+
+---
+
 ## Summary
 
 These tools are useful, but none should be connected directly to production business agents without a controlled integration path. The safe pattern is:

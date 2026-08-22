@@ -24,6 +24,7 @@ Robusca Command OS is not a normal Linux distribution at the first stage. It is 
 The goal is to let Tumelo talk to the system, command business agents, approve risky actions, and route work to the best model or machine available.
 
 Global ecosystem strategy: [STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md](STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md)
+External modules intake: [EXTERNAL_MODULES_INTAKE.md](EXTERNAL_MODULES_INTAKE.md)
 
 ---
 
@@ -37,6 +38,7 @@ Global ecosystem strategy: [STUDEX_GLOBAL_AGENTIC_ECOSYSTEM.md](STUDEX_GLOBAL_AG
 | OpenClaw / Cursor / Goose / OpenHands / Agent OS | coding-agent operating loop | Use through MCP/API/ACP and Command API to build, review, QA, ship, and write back memory. |
 | Octopoda | local-first memory kernel and MCP server | Evaluate as local agent memory/loop detection complement to TencentDB-Agent-Memory. |
 | StudEx Global Agentic Ecosystem | business ecosystem architecture | Use as strategy map for Global Markets, Super Agents, Agentic Rise, Arcade, Midnight Founders Club, and payment/compliance planning. |
+| External Modules Intake | requested skills/repos/backlog | Track Agent-Reach, Ponytail, RedPlanet, last30days, COG, Remotion, Startup Skill, CashClaw, and visual references before install. |
 | openclaw/clickclack | self-hosted API-first agent/human chat | Primary internal chat candidate for StudEx agent radio; deploy private/Tailscale-first. |
 | VAPI | voice assistants and squads | Voice/meeting layer for Robusca/Naledi/Auto-Meat/Hermes/CashClaw via server-side integration. |
 | Pipecat + LiveKit | open-source/local-first voice stack | Preferred default for low-cost/self-hosted browser/mobile/War Room voice; VAPI remains optional. |
