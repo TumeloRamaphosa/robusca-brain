@@ -2,6 +2,36 @@
 
 This folder is home. Treat it that way.
 
+## 📍 Start here for anything code-related
+
+Read **[ARCHITECTURE.md](ARCHITECTURE.md)** before touching code, describing the
+stack, or planning a deployment. It is the single source of truth and it
+supersedes the older planning documents.
+
+For Super Agents / Nest VM work, also read
+**[SUPER_AGENTS_CONSOLIDATION.md](SUPER_AGENTS_CONSOLIDATION.md)**. It maps the
+supplied repositories, quarantines unsafe prototypes, defines the canonical
+Gitea boundary, and specifies the smallest credible per-client VM architecture.
+
+Four things it will save you from getting wrong:
+
+1. **This repo contains exactly one runnable app: [`os/war-room/`](os/war-room/).**
+   Charlie OS and Meta-CLI are **plans with no code here**, however detailed
+   their specs look.
+2. **`studex-group.com` is live** — four hostnames (`www`, `factory`,
+   `markets`, `superagents`), all hosted on **Vercel** with **Cloudflare** as the
+   DNS zone only. The Super Agents site's canonical source is a one-file Gitea
+   repo on Mac1; the public GitHub copy is stale. Source for the other three
+   sites is still unknown. Inventory and repository evidence are in
+   `ARCHITECTURE.md` §8. Do not claim the domain is unused or that Base44 built
+   the marketing site.
+3. **Several documents contradict each other** on who orchestrates, where things
+   are hosted, and what Hermes does. `ARCHITECTURE.md` §7 lists the conflicts and
+   the resolved answer. Do not re-litigate them from the older files.
+4. **The War Room has no authentication and its Shopify/Ads numbers are
+   hardcoded fakes.** Never expose it on a public hostname. Deployment guidance
+   lives in [`os/war-room/DEPLOY.md`](os/war-room/DEPLOY.md).
+
 ## Because of special formatting requirements.
 
 For local file paths, please output them using standard Markdown links.

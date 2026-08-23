@@ -1,5 +1,29 @@
 # AGENTS.md — StudEx War Room OS Completion
 
+> ## ⚠️ ARCHIVE — DO NOT EXECUTE AS-IS
+>
+> This is a **historical build spec**, not a description of the current code.
+> Read [`/ARCHITECTURE.md`](../../ARCHITECTURE.md) first; it is authoritative and
+> takes precedence over everything below.
+>
+> Specific claims in this file that are **wrong** as of 23 Aug 2026:
+>
+> - **"Repo: `studex-content-hub/`"** — no such directory. The app is at `os/war-room/`.
+> - **"`ShopifyStore.tsx` — live Shopify data via `/api/shopify/*`"** — false. All
+>   four `/api/shopify/*` and `/api/facebook/ads` endpoints return **hardcoded
+>   constants**. There is no Shopify or Facebook integration in this repo.
+> - **"`GenerateContent.tsx` — Higgsfield image/video generation"** — the route
+>   exists but requires `HIGGSFIELD_KEY_ID` / `HIGGSFIELD_KEY_SECRET`.
+> - The task list below describes work that was **never completed**. The
+>   Approvals tab still renders a "Coming Soon" placeholder, and `DeliveryTeam.tsx`
+>   still uses static mock orders.
+>
+> Treat the colour palette, typography rules and coding conventions in §1 as
+> **still valid and useful**. Treat §2 ("current state") and §3–§9 (task list,
+> checklists, commit templates) as an unexecuted proposal.
+>
+> Original instructions follow, unchanged, for reference:
+
 > Drop this file into the root of `studex-content-hub/` and run:
 > ```
 > claude --dangerously-skip-permissions
