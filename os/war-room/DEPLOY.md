@@ -8,30 +8,52 @@ documentation on 23 Aug 2026.** They change; re-check before acting.
 
 ---
 
-## The short answer
+## The estate as it actually exists
+
+`studex-group.com` is **already live on Vercel**, with Cloudflare holding the DNS
+zone. Verified by direct probe on 23 Aug 2026 — full detail and the Base44
+constraint are in [`ARCHITECTURE.md §8`](../../ARCHITECTURE.md#8-the-live-studex-groupcom-estate).
+
+| Hostname | Serves | Build | Status |
+|---|---|---|---|
+| `www.` + apex | "The Ecosystem" hub | Next.js | **Live.** Cache ~14 days old — the least-maintained property. |
+| `factory.` | Dark Factory v3 | Next.js | Live |
+| `markets.` | 307 redirect → `globalmarkets.pplx.app` | shim | Live, but hosted off-estate on Perplexity |
+| `superagents.` | Super Agents marketing site | Base44, one 780 KB inlined file | Live |
+
+**Nameservers are Cloudflare, but every record is grey-cloud (DNS-only)** and
+resolves directly to Vercel IPs with no `cf-ray` on any response. So Cloudflare
+is the DNS zone only; Vercel is the whole hosting layer. Nothing is currently
+proxied, cached or protected by Cloudflare.
+
+## The short answer for the War Room
 
 **Do not put the War Room on `www.studex-group.com`.**
-
-Two independent reasons:
 
 1. **It has no authentication.** Not "weak auth" — none. Any visitor could read
    three real business inboxes through `GET /api/agentmail/messages` and spend
    the account's paid OpenAI and Higgsfield credits through the two generate
    endpoints. Details in [`ARCHITECTURE.md §4`](../../ARCHITECTURE.md#4-security-read-before-exposing-this-on-a-public-domain).
-2. **It is the wrong thing to put at a company apex domain.** The War Room is an
-   internal marketing-ops dashboard whose Shopify and Facebook Ads numbers are
-   currently hardcoded fake values. `www.studex-group.com` is a public front
-   door for a group holding company. These are different products.
+2. **`www` is already taken by the group hub**, and overwriting a live front door
+   with an internal dashboard whose revenue figures are hardcoded fakes would be
+   a bad trade.
 
 The recommended shape:
 
-| Hostname | What lives there | Exists today? |
+| Hostname | What lives there | Status |
 |---|---|---|
-| `www.studex-group.com` | Public marketing site for the group | **No code exists.** Needs to be built or pointed at an existing site. |
-| `warroom.studex-group.com` | The War Room dashboard, behind Cloudflare Access | Code exists, needs auth + a stateful host |
+| `www.studex-group.com` | The existing "Ecosystem" hub — **leave it**, but fix the gap below | Live |
+| `warroom.studex-group.com` | The War Room dashboard, access-controlled | New subdomain needed |
 
-That split lets you ship the domain without blocking on the dashboard, and
-without exposing the dashboard.
+### The quickest win on the estate has nothing to do with the War Room
+
+**The `www` hub does not link Super Agents at all.** It offers only Dark Factory
+and Global Markets, while `superagents.` — the newest and most commercially
+developed property, with full pricing — is orphaned from the front door. Adding
+that third card to the hub is a small change to one Next.js page and is almost
+certainly the highest-value edit available on this domain right now.
+
+That change belongs in whichever repo holds the hub, which **is not this one.**
 
 ---
 
@@ -165,22 +187,20 @@ public.
 
 ---
 
-## Option C — ship the domain now, decouple the dashboard
+## Option C — leave the public estate alone, subdomain the dashboard
 
-Probably the right first move, because it unblocks
-`www.studex-group.com` today without touching the dashboard:
+Lowest risk, and it decouples the two timelines:
 
-1. Build (or point at) a **static marketing site** for
-   `www.studex-group.com` and deploy that to Vercel. Static sites are what
-   Vercel is genuinely best at, and the existing docs already assign "Vercel =
-   marketing / web apps".
-2. Keep DNS on Cloudflare, proxied.
-3. Do Option A for `warroom.studex-group.com` separately, on its own timeline.
+1. **Do not touch** `www`, `factory.` or `superagents.` — they are live and
+   working. Fix only the missing Super Agents link on the hub, in the hub's own
+   repo.
+2. Add `warroom.studex-group.com` as a **new** Cloudflare DNS record and do
+   Option A for it.
+3. Decide separately whether `markets.` should stop being a redirect to
+   `globalmarkets.pplx.app` and become a real deployment on the estate.
 
-No such marketing site exists in this repo. `deployment/approval_page/index.html`
-is a single unrelated static page, and the brand assets referenced by
-`STUDEX_OS.md` under `deployment/brand_assets/` are **missing from the working
-tree** — they would need to be recovered before a brand site can be built.
+This is the recommended sequencing: it needs no coordination with whoever owns
+the four existing Vercel projects.
 
 ---
 
@@ -188,20 +208,33 @@ tree** — they would need to be recovered before a brand site can be built.
 
 Both accounts already exist under separate owners (a Cloudflare owner and a
 Vercel owner — recorded in the owner's own notes, deliberately not duplicated
-here). The division of labour that works:
+here). The division of labour, matching what is **already** in place:
 
-| Concern | Platform |
-|---|---|
-| Domain registration / nameservers / DNS records | **Cloudflare** |
-| TLS at the edge, WAF, DDoS, caching | **Cloudflare** (proxied records) |
-| Login wall for internal tools | **Cloudflare Access** |
-| Static marketing site hosting | **Vercel** |
-| The stateful dashboard | **Container host** (Fly.io / Railway / Render / Cloudflare Containers) |
+| Concern | Platform | In place today? |
+|---|---|---|
+| Nameservers / DNS zone | **Cloudflare** | **Yes** |
+| Hosting for all four public sites | **Vercel** | **Yes** |
+| TLS at the edge, WAF, DDoS, caching | Cloudflare, requires **proxied** records | **No** — all records are grey-cloud |
+| Login wall for internal tools | Cloudflare Access | No |
+| The stateful dashboard | Container host (Fly.io / Railway / Render / Cloudflare Containers) | No |
 
-One caution when combining them: if you point a **Cloudflare-proxied** record at
-a **Vercel** project, use Vercel's recommended record and be careful with SSL
-mode — Cloudflare's "Flexible" SSL in front of Vercel causes redirect loops.
-Use "Full (strict)".
+### Important caveat on Cloudflare Access
+
+**Cloudflare Access only protects traffic that is proxied through Cloudflare.**
+Every `studex-group.com` record is currently DNS-only, so Access would do nothing
+for the existing Vercel sites without first orange-clouding them — and proxying
+Cloudflare in front of Vercel adds its own problems (double CDN, cache
+invalidation confusion, and redirect loops unless SSL mode is **Full (strict)**;
+never "Flexible").
+
+Two consequences:
+
+- **For the existing Vercel sites**, prefer Vercel's own protection (Deployment
+  Protection / password protection / SSO) over Cloudflare Access. It sits
+  natively in front of the deployment and needs no DNS change.
+- **For `warroom.` on a container host**, Cloudflare Access is genuinely the
+  right answer — you create that record fresh, so you can orange-cloud it from
+  the start without disturbing anything already live.
 
 ---
 
@@ -223,19 +256,40 @@ Use "Full (strict)".
 
 ---
 
+## Answered by probing the live estate
+
+- **Where does `www.studex-group.com` point?** A live Next.js "Ecosystem" hub on
+  Vercel. There is an existing site to preserve.
+- **Is the Super Agents site real?** Yes, at
+  `superagents.studex-group.com` — not `superagents.studex.dev` as the
+  `notebooklm/` docs claim. That domain reference is stale.
+- **Vercel or Cloudflare?** Cloudflare holds the DNS zone; Vercel hosts
+  everything. All records are DNS-only.
+
 ## Open questions only the owner can answer
 
-These block further consolidation work, and no amount of reading this repo
-resolves them:
+These block consolidation, and nothing in this repo resolves them:
 
-1. **Where does `www.studex-group.com` point today**, and is there an existing
-   site to preserve? Nothing in this repo references that domain at all.
-2. **Which repos hold the "Buzz" WhatsApp agents and "Cypher Trace"?** Neither
-   name appears anywhere in this repository. If they are separate deployments,
-   consolidation needs their repo URLs.
-3. **Is the superagents site (`superagents.studex.dev`) a real deployment?** It
-   is described in `notebooklm/notebook-03-super-agents.md` but has no code here.
-4. **Which Vercel projects and Cloudflare zones already exist?** Read access to
-   both accounts would let this be answered directly instead of inferred.
-5. **Should the War Room stay on Perplexity Computer** (its only host to date)
+1. **Which repos or Vercel projects hold the four live sites?** None of their
+   source is here. Consolidation cannot start without repo URLs or Vercel
+   project names. This is the top blocker.
+2. **Is the Super Agents product staying on Base44?** Base44 export is
+   frontend-only — the database and managed auth stay on their platform, and
+   exported code keeps calling the Base44 SDK. So "put all the code in one repo"
+   is **not fully achievable** for that product without rebuilding its backend.
+   This is a commercial decision, not a technical one, and it determines whether
+   a monorepo is even the right target.
+3. **Where do the "Buzz" WhatsApp agents actually run?** No mention in this repo
+   or on any of the four sites. Given the description of them having "their own
+   operating system", Base44 is the most likely home — worth checking there
+   first.
+4. **Who is "Cypher Trace"?** No mention anywhere. If this is a person or agent
+   with account access, they may be the only route to the four repos.
+5. **Should `markets.` stop being a redirect** to `globalmarkets.pplx.app` and
+   become a real deployment on the estate?
+6. **Should the War Room stay on Perplexity Computer** (its only host to date)
    until the auth work is done?
+
+Read access to the Vercel and Cloudflare accounts would answer 1, 5 and much of
+3 directly. Credentials can be added as Cloud Agent secrets in the Cursor
+dashboard.

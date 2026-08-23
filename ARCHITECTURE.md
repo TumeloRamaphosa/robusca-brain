@@ -285,25 +285,80 @@ Do not chase these; they do not exist:
 
 ---
 
-## 8. Things asked about that are not in this repo
+## 8. The live `studex-group.com` estate
 
-Recorded so the next agent does not spend a session searching:
+**This section is the important one for consolidation.** The domain is live and
+carries four hostnames. **None of their source code is in this repository.**
+Probed directly on 23 Aug 2026:
 
-- **"Buzz" agents (WhatsApp).** No file in this repo mentions Buzz. WhatsApp is
-  variously attributed to Hermes, Robusca, Charlie and Auto-Meat, always over
-  the **Meta Cloud API** (Twilio named as backup), and **no WhatsApp code exists
-  anywhere here** — only `skills/studex-meta-whatsapp/SKILL.md` instructions and
-  the `deployment/META_CLI_HANDOFF.md` plan. If Buzz is real, it is in a
-  different repo or on a different VM.
-- **"Cypher Trace" (CTO of the superagents site).** No file mentions Cypher or
-  Trace. The CTO-ish role in these docs is assigned to Hermes. The
-  superagents site itself (`superagents.studex.dev`) has no code here.
-- **`studex-group.com`.** Appears nowhere in the repo. The documented domains
-  are `studexmeat.com`, `studex.dev`, `superagents.studex.dev`,
-  `studexglobalmarkets.com` and `studex.cloud`. **Nothing has ever been
-  deployed to `studex-group.com` from this repository.**
+| Hostname | What it serves | Build system | Host |
+|---|---|---|---|
+| `studex-group.com` + `www.` | "The Ecosystem" hub page, ~11 KB. Links to Dark Factory and Global Markets. | **Next.js** | Vercel |
+| `factory.studex-group.com` | "Dark Factory v3 — Agentic Build Factory", ~16 KB | **Next.js** | Vercel |
+| `markets.studex-group.com` | HTTP 307 redirect only, 15-byte body | **Redirect shim** | Vercel → `globalmarkets.pplx.app` (which is behind Cloudflare) |
+| `superagents.studex-group.com` | Super Agents marketing site, **780 KB single HTML file** — 1 `<script>`, 1 `<style>`, zero external JS, no framework directories | **Base44**, published as one inlined file | Vercel |
 
-Because those three things are outside this repo, no amount of work here can
-"put the code together" with them. Consolidating them needs either their repo
-URLs or read access to the Vercel and Cloudflare accounts. See the open
-questions at the end of `DEPLOY.md`.
+### DNS and the "Vercel and Cloudflare" question, resolved
+
+- **Nameservers are Cloudflare** (`javon.ns.cloudflare.com`,
+  `suzanne.ns.cloudflare.com`), so Cloudflare holds the zone.
+- **Every record is DNS-only ("grey cloud").** They resolve straight to Vercel
+  anycast IPs (`76.76.21.x`, `66.33.60.x`) and **no response carries a `cf-ray`
+  header**, so no traffic is proxied through Cloudflare.
+
+So: **Cloudflare is the DNS zone, Vercel is the entire hosting layer.** Cloudflare
+is not providing WAF, caching or access control for any of it today. That has a
+direct consequence for security options — see
+[`DEPLOY.md`](os/war-room/DEPLOY.md).
+
+### Why the estate feels "confused"
+
+Four concrete, verifiable problems:
+
+1. **Four hostnames, three different build systems, no shared repository.** Two
+   Next.js apps, one Base44 single-file export, one redirect shim. No monorepo,
+   no shared component library, no shared design tokens.
+2. **The front door does not link the newest product.** The `www` hub links only
+   Dark Factory and Global Markets. **Super Agents is orphaned** — nothing on
+   `www` points to it.
+3. **The hub is stale.** Its Vercel cache age was ~14 days at probe time, versus
+   ~16 hours for Super Agents. The front page is the least-maintained property.
+4. **Global Markets is not really on this estate.** `markets.` is a redirect to
+   `globalmarkets.pplx.app`, a Perplexity-hosted app. The subdomain is a
+   signpost, not a deployment.
+
+### The Base44 constraint — read before planning consolidation
+
+`superagents.` is built on **Base44**, an AI app-builder with a managed backend.
+Its marketing page is a static single file on Vercel, but the actual product sits
+in Base44 — the "Talk to Elara" call-to-action points at
+`app.base44.com/superagent/<id>`.
+
+Base44 export is **frontend-only**. You can export the React frontend, backend
+function sources and a schema description, but **the database and the managed
+auth/hosting stay on Base44**, and exported code keeps calling the Base44 SDK.
+Practically: **the Super Agents product cannot be fully pulled into a shared
+repo.** Any "put all the code together" plan has to either treat Base44 as an
+external service behind an API boundary, or accept a real rebuild of that
+backend. This is the single biggest constraint on consolidation, and it is a
+commercial decision rather than a technical one.
+
+## 8b. Still genuinely absent
+
+- **"Buzz" agents (WhatsApp).** No file in this repo mentions Buzz, and none of
+  the four live sites reference it. WhatsApp is variously attributed to Hermes,
+  Robusca, Charlie and Auto-Meat, always over the **Meta Cloud API** (Twilio as
+  backup), and **no WhatsApp code exists anywhere here** — only
+  `skills/studex-meta-whatsapp/SKILL.md` and the
+  `deployment/META_CLI_HANDOFF.md` plan. Most likely it lives inside Base44,
+  which would explain the "they have their own operating system" description.
+- **"Cypher Trace".** No mention in this repo or on any of the four sites. The
+  CTO-ish role in these docs is assigned to Hermes.
+- **Source for any of the four live sites.** This repo holds the War Room and
+  documentation only. The `cursor/dark-factory-pr10-launch-prep-1355` branch
+  suggests Dark Factory work has touched this repo, but the deployed Next.js app
+  is not here.
+
+Consolidating the estate therefore needs the **repo URLs or Vercel project
+names** for those four sites — nothing in this repository can reach them. See
+the open questions at the end of `DEPLOY.md`.
