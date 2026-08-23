@@ -2,6 +2,24 @@
 
 This folder is home. Treat it that way.
 
+## 📍 Start here for anything code-related
+
+Read **[ARCHITECTURE.md](ARCHITECTURE.md)** before touching code, describing the
+stack, or planning a deployment. It is the single source of truth and it
+supersedes the older planning documents.
+
+Three things it will save you from getting wrong:
+
+1. **This repo contains exactly one runnable app: [`os/war-room/`](os/war-room/).**
+   Charlie OS, the Super Agents site, Global Markets and Meta-CLI are **plans
+   with no code here**, however detailed their specs look.
+2. **Several documents contradict each other** on who orchestrates, where things
+   are hosted, and what Hermes does. `ARCHITECTURE.md` §7 lists the conflicts and
+   the resolved answer. Do not re-litigate them from the older files.
+3. **The War Room has no authentication and its Shopify/Ads numbers are
+   hardcoded fakes.** Never expose it on a public hostname. Deployment guidance
+   lives in [`os/war-room/DEPLOY.md`](os/war-room/DEPLOY.md).
+
 ## Because of special formatting requirements.
 
 For local file paths, please output them using standard Markdown links.
