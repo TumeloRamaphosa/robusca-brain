@@ -313,3 +313,19 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
 
+## Cursor Cloud specific instructions
+
+The only runnable application in this repo is the **War Room** dashboard at [`os/war-room`](os/war-room) (Express + Vite + React + Tailwind + SQLite via Drizzle/better-sqlite3). Everything else in the repo is Markdown docs, content, and agent-OS notes with nothing to build/run. The two `.github/workflows/python-package*.yml` files are default GitHub templates; there is no `requirements.txt` and no Python product to set up.
+
+All commands below run from `os/war-room`. Standard scripts are in [`os/war-room/package.json`](os/war-room/package.json); deploy notes are in [`os/README.md`](os/README.md).
+
+- Run dev (single server for API + client on one port): `npm run dev` — serves on `PORT` (defaults to `5000`, bound to `0.0.0.0`). Vite runs in middleware mode inside the Express process; there is no separate frontend dev server.
+- Lint / type-check: `npm run check` (runs `tsc`). NOTE: this currently reports **pre-existing** type errors in `client/src/pages/GenerateContent.tsx` and `client/src/pages/SuperAgents.tsx` on a clean checkout. Those are not environment problems — do not "fix" them as part of setup.
+- Production build: `npm run build` (Vite client build + esbuild server bundle → `dist/`). Run with `npm start` (`NODE_ENV=production node dist/index.cjs`).
+- Tests: there is no test runner/framework configured.
+
+Non-obvious gotchas:
+- SQLite is zero-config: `server/storage.ts` creates the `data.db` file, creates tables, and seeds demo content/calendar rows on first startup. No migration/`db:push` step is needed to run. `data.db*` is gitignored — deleting it just re-seeds on next boot.
+- All third-party API keys are **optional**. `OPENAI_API_KEY`, `HIGGSFIELD_KEY_ID`/`HIGGSFIELD_KEY_SECRET`, and `AGENTMAIL_TOKEN` only enable the AI-generation and live-inbox features; without them the core dashboard (content queue/approvals, calendar, analytics, Shopify/Ads panels) runs fully on seeded/mock data. No secrets are required to run or demo the app.
+- `better-sqlite3` is a native module compiled during `npm ci`. Reinstalling deps while the dev server is running is fine, but restart `npm run dev` afterward to be safe.
+
