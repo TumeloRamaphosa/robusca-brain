@@ -288,15 +288,14 @@ Do not chase these; they do not exist:
 ## 8. The live `studex-group.com` estate
 
 **This section is the important one for consolidation.** The domain is live and
-carries four hostnames. **None of their source code is in this repository.**
-Probed directly on 23 Aug 2026:
+carries four hostnames. Probed directly on 23 Aug 2026:
 
 | Hostname | What it serves | Build system | Host |
 |---|---|---|---|
 | `studex-group.com` + `www.` | "The Ecosystem" hub page, ~11 KB. Links to Dark Factory and Global Markets. | **Next.js** | Vercel |
 | `factory.studex-group.com` | "Dark Factory v3 — Agentic Build Factory", ~16 KB | **Next.js** | Vercel |
 | `markets.studex-group.com` | HTTP 307 redirect only, 15-byte body | **Redirect shim** | Vercel → `globalmarkets.pplx.app` (which is behind Cloudflare) |
-| `superagents.studex-group.com` | Super Agents marketing site, **780 KB single HTML file** — 1 `<script>`, 1 `<style>`, zero external JS, no framework directories | **Base44**, published as one inlined file | Vercel |
+| `superagents.studex-group.com` | Super Agents marketing site, **780 KB single HTML file** — 1 `<script>`, 1 `<style>`, zero external JS, no framework directories | **Hand-authored static HTML** | Vercel |
 
 ### DNS and the "Vercel and Cloudflare" question, resolved
 
@@ -315,9 +314,9 @@ direct consequence for security options — see
 
 Four concrete, verifiable problems:
 
-1. **Four hostnames, three different build systems, no shared repository.** Two
-   Next.js apps, one Base44 single-file export, one redirect shim. No monorepo,
-   no shared component library, no shared design tokens.
+1. **Four hostnames, three different build systems and no shared repository.**
+   Two Next.js apps, one hand-authored single-file site and one redirect shim.
+   No monorepo, shared component library or shared design tokens.
 2. **The front door does not link the newest product.** The `www` hub links only
    Dark Factory and Global Markets. **Super Agents is orphaned** — nothing on
    `www` points to it.
@@ -327,38 +326,57 @@ Four concrete, verifiable problems:
    `globalmarkets.pplx.app`, a Perplexity-hosted app. The subdomain is a
    signpost, not a deployment.
 
-### The Base44 constraint — read before planning consolidation
+### Canonical Super Agents source and Base44 boundary
 
-`superagents.` is built on **Base44**, an AI app-builder with a managed backend.
-Its marketing page is a static single file on Vercel, but the actual product sits
-in Base44 — the "Talk to Elara" call-to-action points at
-`app.base44.com/superagent/<id>`.
+The canonical source for `superagents.` is **not GitHub and not Base44**. It is
+the Gitea repository at `localhost:3000/tumelo/superagents-site.git` on Mac1.
+Only `index.html` is maintained there, and Vercel deploys that repository.
+Cursor Cloud cannot reach a localhost-only service, so it must not change the
+site until a secure network path or mirror exists.
 
-Base44 export is **frontend-only**. You can export the React frontend, backend
-function sources and a schema description, but **the database and the managed
-auth/hosting stay on Base44**, and exported code keeps calling the Base44 SDK.
-Practically: **the Super Agents product cannot be fully pulled into a shared
-repo.** Any "put all the code together" plan has to either treat Base44 as an
-external service behind an API boundary, or accept a real rebuild of that
-backend. This is the single biggest constraint on consolidation, and it is a
-commercial decision rather than a technical one.
+The public GitHub `superagents-site` repository is a stale snapshot:
 
-## 8b. Still genuinely absent
+- GitHub: 770,723-byte file with the old “Eight Masterworks” title.
+- Live: 780,219-byte file with the “Governed AI operations” title.
 
-- **"Buzz" agents (WhatsApp).** No file in this repo mentions Buzz, and none of
-  the four live sites reference it. WhatsApp is variously attributed to Hermes,
+The stale file stores lead PII in `localStorage` and passes it in payment URL
+parameters. The current live revision removed that flow, added explicit demo
+disclosures and links “Talk to Elara” to a **separate Base44 application**.
+Base44 is customer care/onboarding behind the CTA; it did not generate or host
+the marketing page.
+
+The full repository disposition and target Nest VM architecture are in
+[`SUPER_AGENTS_CONSOLIDATION.md`](SUPER_AGENTS_CONSOLIDATION.md).
+
+## 8b. Repository evidence
+
+Three supplied repositories were inspected:
+
+- `studex-agents-nest` is two static dashboard mockups. It has no VM, agent,
+  model, API, database, Discord or persistence implementation.
+- `agentic-lab-v3` is an internal Developer Factory CLI scaffold. Its real
+  capabilities are local diagnostics, filesystem scaffolding and Docker/GitHub
+  wrappers. It does not provision VMs or run agents, and it is not the source
+  for `factory.studex-group.com`.
+- `studex-agent-ecosystem` returns 404. The closest public repository,
+  `agents-studex`, is a static Next.js marketing prototype with no product
+  backend. Its public `main` also contains credential-capture automation that
+  must be removed before the repository is used again.
+
+## 8c. Still genuinely absent
+
+- **StudEx's own Buzz/OpenMaus-style runtime.** Buzz and OpenMausBot are
+  upstream product references, not existing StudEx agents. No client VM
+  provisioner or unattended agent runtime exists in the supplied code.
+- **WhatsApp runtime code.** WhatsApp is variously attributed to Hermes,
   Robusca, Charlie and Auto-Meat, always over the **Meta Cloud API** (Twilio as
-  backup), and **no WhatsApp code exists anywhere here** — only
+  backup), but this repo still contains only
   `skills/studex-meta-whatsapp/SKILL.md` and the
-  `deployment/META_CLI_HANDOFF.md` plan. Most likely it lives inside Base44,
-  which would explain the "they have their own operating system" description.
+  `deployment/META_CLI_HANDOFF.md` plan.
 - **"Cypher Trace".** No mention in this repo or on any of the four sites. The
   CTO-ish role in these docs is assigned to Hermes.
-- **Source for any of the four live sites.** This repo holds the War Room and
-  documentation only. The `cursor/dark-factory-pr10-launch-prep-1355` branch
-  suggests Dark Factory work has touched this repo, but the deployed Next.js app
-  is not here.
+- **Source for `www`, `factory` and `markets`.** The deployed Next.js apps and
+  redirect shim are not in the supplied repositories.
 
-Consolidating the estate therefore needs the **repo URLs or Vercel project
-names** for those four sites — nothing in this repository can reach them. See
-the open questions at the end of `DEPLOY.md`.
+Consolidating the estate needs the missing repo/Vercel mappings plus a decision
+on the first VM provider and the repository for the new control plane/runtime.

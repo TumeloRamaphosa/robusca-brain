@@ -8,6 +8,11 @@ Read **[ARCHITECTURE.md](ARCHITECTURE.md)** before touching code, describing the
 stack, or planning a deployment. It is the single source of truth and it
 supersedes the older planning documents.
 
+For Super Agents / Nest VM work, also read
+**[SUPER_AGENTS_CONSOLIDATION.md](SUPER_AGENTS_CONSOLIDATION.md)**. It maps the
+supplied repositories, quarantines unsafe prototypes, defines the canonical
+Gitea boundary, and specifies the smallest credible per-client VM architecture.
+
 Four things it will save you from getting wrong:
 
 1. **This repo contains exactly one runnable app: [`os/war-room/`](os/war-room/).**
@@ -15,9 +20,11 @@ Four things it will save you from getting wrong:
    their specs look.
 2. **`studex-group.com` is live** — four hostnames (`www`, `factory`,
    `markets`, `superagents`), all hosted on **Vercel** with **Cloudflare** as the
-   DNS zone only. **None of their source code is in this repo.** Inventory and
-   the Base44 lock-in constraint are in `ARCHITECTURE.md` §8. Do not claim the
-   domain is unused.
+   DNS zone only. The Super Agents site's canonical source is a one-file Gitea
+   repo on Mac1; the public GitHub copy is stale. Source for the other three
+   sites is still unknown. Inventory and repository evidence are in
+   `ARCHITECTURE.md` §8. Do not claim the domain is unused or that Base44 built
+   the marketing site.
 3. **Several documents contradict each other** on who orchestrates, where things
    are hosted, and what Hermes does. `ARCHITECTURE.md` §7 lists the conflicts and
    the resolved answer. Do not re-litigate them from the older files.

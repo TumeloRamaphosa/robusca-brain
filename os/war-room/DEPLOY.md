@@ -11,15 +11,16 @@ documentation on 23 Aug 2026.** They change; re-check before acting.
 ## The estate as it actually exists
 
 `studex-group.com` is **already live on Vercel**, with Cloudflare holding the DNS
-zone. Verified by direct probe on 23 Aug 2026 — full detail and the Base44
-constraint are in [`ARCHITECTURE.md §8`](../../ARCHITECTURE.md#8-the-live-studex-groupcom-estate).
+zone. Verified by direct probe on 23 Aug 2026 — full detail and the canonical
+Gitea boundary are in
+[`ARCHITECTURE.md §8`](../../ARCHITECTURE.md#8-the-live-studex-groupcom-estate).
 
 | Hostname | Serves | Build | Status |
 |---|---|---|---|
 | `www.` + apex | "The Ecosystem" hub | Next.js | **Live.** Cache ~14 days old — the least-maintained property. |
 | `factory.` | Dark Factory v3 | Next.js | Live |
 | `markets.` | 307 redirect → `globalmarkets.pplx.app` | shim | Live, but hosted off-estate on Perplexity |
-| `superagents.` | Super Agents marketing site | Base44, one 780 KB inlined file | Live |
+| `superagents.` | Super Agents marketing site | Hand-authored static HTML, one 780 KB inlined file | Live |
 
 **Nameservers are Cloudflare, but every record is grey-cloud (DNS-only)** and
 resolves directly to Vercel IPs with no `cf-ray` on any response. So Cloudflare
@@ -273,16 +274,13 @@ These block consolidation, and nothing in this repo resolves them:
 1. **Which repos or Vercel projects hold the four live sites?** None of their
    source is here. Consolidation cannot start without repo URLs or Vercel
    project names. This is the top blocker.
-2. **Is the Super Agents product staying on Base44?** Base44 export is
-   frontend-only — the database and managed auth stay on their platform, and
-   exported code keeps calling the Base44 SDK. So "put all the code in one repo"
-   is **not fully achievable** for that product without rebuilding its backend.
-   This is a commercial decision, not a technical one, and it determines whether
-   a monorepo is even the right target.
-3. **Where do the "Buzz" WhatsApp agents actually run?** No mention in this repo
-   or on any of the four sites. Given the description of them having "their own
-   operating system", Base44 is the most likely home — worth checking there
-   first.
+2. **How will agents reach the canonical Gitea site?** The owner confirmed that
+   `localhost:3000/tumelo/superagents-site.git` on Mac1 is the single source of
+   truth. Cursor Cloud cannot reach another machine's `localhost`; it needs a
+   secure network route or read-only mirror.
+3. **Which provider should host the first client VM?** The supplied Nest and
+   Factory repositories do not provision VMs. Choose one provider before
+   implementing an adapter.
 4. **Who is "Cypher Trace"?** No mention anywhere. If this is a person or agent
    with account access, they may be the only route to the four repos.
 5. **Should `markets.` stop being a redirect** to `globalmarkets.pplx.app` and
@@ -291,5 +289,5 @@ These block consolidation, and nothing in this repo resolves them:
    until the auth work is done?
 
 Read access to the Vercel and Cloudflare accounts would answer 1, 5 and much of
-3 directly. Credentials can be added as Cloud Agent secrets in the Cursor
-dashboard.
+the domain mapping directly. Credentials can be added as Cloud Agent secrets in
+the Cursor dashboard.
