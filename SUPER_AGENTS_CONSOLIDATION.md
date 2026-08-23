@@ -13,6 +13,9 @@ http://localhost:3000/tumelo/superagents-site.git
 That address is local to Mac1 and is not reachable from Cursor Cloud. **Agents
 must not edit or deploy the stale GitHub copy.**
 
+Truthful product, homepage and campaign copy is maintained in
+[`content/2026-08-23/super-agents-launch-pack.md`](content/2026-08-23/super-agents-launch-pack.md).
+
 ---
 
 ## 1. One product, several technical layers
