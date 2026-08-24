@@ -1,0 +1,384 @@
+{
+  "name": "StudEx — Managed Agents Client Onboarding (Stages 1-4)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "studex-client-onboarding",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "Signed Order Received",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-1120, 300],
+      "webhookId": "a1000000-0000-4000-8000-000000000001",
+      "notes": "POST the signed order here. Expected body: client_name, client_slug, tier, workflows[], approver_name, approver_email, alternate_approver_name, operator_name, dpa_signed, forbidden_actions[], data_boundary."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Validate the signed order and evaluate the Stage 1 gates.\n// Gate policy lives in studex/managed-agents/03-CLIENT-FLOW.md.\n\nconst REQUIRED = [\n  'client_name',\n  'client_slug',\n  'tier',\n  'approver_name',\n  'approver_email',\n  'alternate_approver_name',\n  'operator_name',\n  'data_boundary'\n];\n\nconst VALID_TIERS = ['managed_pilot', 'managed_operations', 'managed_team'];\n\nconst out = [];\n\nfor (const item of $input.all()) {\n  const body = item.json.body || item.json;\n  const missing = REQUIRED.filter((f) => !body[f]);\n\n  const workflows = Array.isArray(body.workflows) ? body.workflows : [];\n  const forbidden = Array.isArray(body.forbidden_actions) ? body.forbidden_actions : [];\n\n  const failures = [];\n  if (missing.length) failures.push('missing fields: ' + missing.join(', '));\n  if (!VALID_TIERS.includes(body.tier)) failures.push('tier must be one of ' + VALID_TIERS.join(', '));\n  if (body.dpa_signed !== true) failures.push('data processing agreement is not signed');\n  if (!workflows.length) failures.push('no agreed workflows supplied');\n  if (!forbidden.length) failures.push('forbidden_actions is empty - the never-do list is mandatory');\n  if (body.approver_name && body.approver_name === body.alternate_approver_name) {\n    failures.push('approver and alternate approver must be different people');\n  }\n\n  // Tier drives how many agent identities get provisioned.\n  const agentCountByTier = { managed_pilot: 1, managed_operations: 2, managed_team: 4 };\n\n  out.push({\n    json: {\n      gates_passed: failures.length === 0,\n      failures,\n      client_name: body.client_name || null,\n      client_slug: body.client_slug || null,\n      tier: body.tier || null,\n      agent_count: agentCountByTier[body.tier] || 1,\n      workflows,\n      forbidden_actions: forbidden,\n      approver_name: body.approver_name || null,\n      approver_email: body.approver_email || null,\n      alternate_approver_name: body.alternate_approver_name || null,\n      operator_name: body.operator_name || null,\n      data_boundary: body.data_boundary || null,\n      received_at: new Date().toISOString()\n    }\n  });\n}\n\nreturn out;\n"
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "Validate Order And Gates",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-900, 300]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "gate-check-1",
+              "leftValue": "={{ $json.gates_passed }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "Stage 1 Gates Passed?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-680, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.STUDEX_OPS_NOTIFY_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ event: 'onboarding_blocked', client: $json.client_name, tier: $json.tier, failures: $json.failures, message: 'Onboarding halted before provisioning. No workspace was created.' }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "Halt And Notify Ops",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-460, 480],
+      "notes": "Deliberate dead end. An unqualified or unpapered client must never get a provisioned workspace."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.BUZZ_ADMIN_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ name: $json.client_name, slug: $json.client_slug, visibility: 'private' }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000005",
+      "name": "Create Client Community",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-460, 180],
+      "notes": "Placeholder endpoint. Replace with the buzz-cli invocation or relay admin API for the chosen deployment."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Expand the order into one identity per agent and the standard channel set.\n// One keypair per agent. Never share an identity between agents.\n\nconst order = $('Validate Order And Gates').first().json;\nconst community = $input.first().json;\nconst communityId = community.id || community.community_id || 'PENDING';\n\nconst ROLE_POOL = [\n  { role: 'customer_care', persona: 'Answers approved product and policy questions.' },\n  { role: 'sales_followup', persona: 'Drafts follow-up for review. Never sends unaided.' },\n  { role: 'administration', persona: 'Prepares documents and tracks outstanding items.' },\n  { role: 'reporting', persona: 'Assembles the weekly operating summary.' },\n  { role: 'intake', persona: 'Captures and structures inbound enquiries.' }\n];\n\nconst CHANNELS = [\n  { name: 'general', purpose: 'Client and operator conversation' },\n  { name: 'agent-worklog', purpose: 'Agents post what they did' },\n  { name: 'approvals', purpose: 'External actions wait here for a named human' },\n  { name: 'knowledge', purpose: 'Requests to add or correct the knowledge pack' },\n  { name: 'exceptions', purpose: 'Anything the agents could not handle' },\n  { name: 'review', purpose: 'Weekly and monthly operating summaries' }\n];\n\nconst agents = ROLE_POOL.slice(0, order.agent_count).map((r, i) => ({\n  agent_name: order.client_slug + '-' + r.role,\n  role: r.role,\n  persona: r.persona,\n  sequence: i + 1,\n  // Least privilege by default. Widen only with written client agreement.\n  scopes: ['read:knowledge', 'write:agent-worklog', 'propose:approvals'],\n  forbidden_actions: order.forbidden_actions\n}));\n\nreturn [{\n  json: {\n    community_id: communityId,\n    client_name: order.client_name,\n    client_slug: order.client_slug,\n    tier: order.tier,\n    operator_name: order.operator_name,\n    approver_name: order.approver_name,\n    alternate_approver_name: order.alternate_approver_name,\n    data_boundary: order.data_boundary,\n    workflows: order.workflows,\n    forbidden_actions: order.forbidden_actions,\n    agents,\n    channels: CHANNELS\n  }\n}];\n"
+      },
+      "id": "a1000000-0000-4000-8000-000000000006",
+      "name": "Plan Agents And Channels",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-240, 180]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "channels",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000007",
+      "name": "Split Channels",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [-20, 60]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities/{{ $('Plan Agents And Channels').first().json.community_id }}/channels",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.BUZZ_ADMIN_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ name: $json.name, purpose: $json.purpose }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000008",
+      "name": "Create Channel",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [200, 60]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "agents",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000009",
+      "name": "Split Agents",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [-20, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities/{{ $('Plan Agents And Channels').first().json.community_id }}/agents",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "=Bearer {{ $env.BUZZ_ADMIN_TOKEN }}"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ name: $json.agent_name, role: $json.role, persona: $json.persona, scopes: $json.scopes, generate_keypair: true }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000a",
+      "name": "Create Agent Identity",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [200, 300],
+      "notes": "One keypair per agent, generated relay-side. The private key must never transit this workflow or be logged."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.STUDEX_KNOWLEDGE_API }}/vaults",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ client_slug: $('Plan Agents And Channels').first().json.client_slug, data_boundary: $('Plan Agents And Channels').first().json.data_boundary, folders: ['approved', 'reference-only', 'corrections'], require_provenance: true }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000b",
+      "name": "Scaffold Knowledge Vault",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [420, 300],
+      "notes": "Creates the Obsidian vault skeleton. Documents are added only after the client marks each one approved or reference-only."
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "rec-1",
+              "name": "client_record",
+              "value": "={{ JSON.stringify($('Plan Agents And Channels').first().json) }}",
+              "type": "string"
+            },
+            {
+              "id": "rec-2",
+              "name": "stage",
+              "value": "stage_4_dry_run_pending",
+              "type": "string"
+            },
+            {
+              "id": "rec-3",
+              "name": "client_invited",
+              "value": "false",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000c",
+      "name": "Assemble Client Record",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [640, 300]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.STUDEX_OPS_NOTIFY_URL }}",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ event: 'stage_4_dry_run_ready', client: $('Plan Agents And Channels').first().json.client_name, operator: $('Plan Agents And Channels').first().json.operator_name, community_id: $('Plan Agents And Channels').first().json.community_id, message: 'Workspace provisioned. Run the one-week internal dry run BEFORE inviting the client. Do not invite the client from this workflow.' }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-00000000000d",
+      "name": "Notify Operator — Dry Run",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [860, 300],
+      "notes": "The workflow stops here on purpose. Client invitation is a deliberate human act after the dry run passes."
+    }
+  ],
+  "connections": {
+    "Signed Order Received": {
+      "main": [
+        [
+          {
+            "node": "Validate Order And Gates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Order And Gates": {
+      "main": [
+        [
+          {
+            "node": "Stage 1 Gates Passed?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Stage 1 Gates Passed?": {
+      "main": [
+        [
+          {
+            "node": "Create Client Community",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Halt And Notify Ops",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Client Community": {
+      "main": [
+        [
+          {
+            "node": "Plan Agents And Channels",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Plan Agents And Channels": {
+      "main": [
+        [
+          {
+            "node": "Split Channels",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Split Agents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Channels": {
+      "main": [
+        [
+          {
+            "node": "Create Channel",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Agents": {
+      "main": [
+        [
+          {
+            "node": "Create Agent Identity",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Agent Identity": {
+      "main": [
+        [
+          {
+            "node": "Scaffold Knowledge Vault",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scaffold Knowledge Vault": {
+      "main": [
+        [
+          {
+            "node": "Assemble Client Record",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Assemble Client Record": {
+      "main": [
+        [
+          {
+            "node": "Notify Operator — Dry Run",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "studex",
+    "managed-agents",
+    "onboarding"
+  ]
+}
