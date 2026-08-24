@@ -25,10 +25,21 @@ and the Obsidian `llm_wiki` idea.
 | 06 | [RISK-REGISTER.md](06-RISK-REGISTER.md) | **Read this before the deck goes to any investor** |
 | 07 | [DECK-REBUILD.md](07-DECK-REBUILD.md) | The deck: what is wrong, and the corrected structure |
 | 08 | [DECISION-SHEET.md](08-DECISION-SHEET.md) | The choices only you can make |
+| 09 | [COMPANY-IN-A-BOX.md](09-COMPANY-IN-A-BOX.md) | The agent roster, the 4/6/24-hour loops, the daily check-in |
+| 10 | [CLIENT-INTAKE-PRD.md](10-CLIENT-INTAKE-PRD.md) | The form we send clients before anything is provisioned |
+| 11 | [COMPANY-SOUL-INTERVIEW.md](11-COMPANY-SOUL-INTERVIEW.md) | The live interview, and the vault structure it produces |
+| 12 | [HOSTING-AND-KEYS.md](12-HOSTING-AND-KEYS.md) | Where this runs, and **how to send credentials safely** |
+| 13 | [MEDICAL-CLIENT.md](13-MEDICAL-CLIENT.md) | The regulated scope, and where a practice's revenue actually is |
+| 14 | [PROPOSAL-AND-AUTOMATION.md](14-PROPOSAL-AND-AUTOMATION.md) | How to propose it, and what agents can and cannot automate |
 
-Runnable artefact:
-[`automation/n8n/studex-client-onboarding.json`](../../automation/n8n/studex-client-onboarding.json)
-— importable n8n onboarding workflow.
+Runnable artefacts:
+
+- [`automation/n8n/studex-client-onboarding.json`](../../automation/n8n/studex-client-onboarding.json)
+  — onboarding stages 1–4, stops before client invitation.
+- [`automation/n8n/studex-agent-loops.json`](../../automation/n8n/studex-agent-loops.json)
+  — 4-hour vault sync, 6-hour signal loop, 24-hour proposal loop.
+- [`templates/client-vault/`](../../templates/client-vault/) — the per-client
+  Obsidian vault skeleton.
 
 Skill: [`skills/studex-managed-agents/SKILL.md`](../../skills/studex-managed-agents/SKILL.md)
 
@@ -79,6 +90,25 @@ a running system.
 **Nothing in this pack has served a single client.** The first Managed Pilot has
 to be delivered by hand before any of it is sold. That is the same gate the
 launch pack set, and it still has not been cleared.
+
+## Two corrections to the delivery brief
+
+Both are legal rather than stylistic, and both changed the design.
+
+**Cold email outreach cannot be built as asked.** POPIA section 69 prohibits
+electronic direct marketing — email, SMS and WhatsApp explicitly — without
+consent or an existing customer relationship. A non-customer may be approached
+**once**, and that message must be a genuine consent request with no marketing
+payload. Opt-out does not constitute consent, and the burden of proving consent
+is ours. The Pipeline agent is redesigned around lawful consent-gathering in
+[09-COMPANY-IN-A-BOX.md](09-COMPANY-IN-A-BOX.md) section 3.
+
+**A medical practice is the hardest possible first client.** HPCSA rules make the
+practitioner responsible for marketing done on their behalf — which is us — and
+prohibit testimonials, comparative claims, before-and-after imagery and
+inducements. The Social and Pipeline agents are therefore withheld. The good news
+is that a practice's real revenue lever is operational rather than promotional,
+and it is a bigger number. See [13-MEDICAL-CLIENT.md](13-MEDICAL-CLIENT.md).
 
 ---
 
