@@ -1,0 +1,46 @@
+id: tender-watch
+name: Tender Watch
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 6,12,18 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true # silence when there is nothing is a feature
+
+credits_estimate: 12
+
+prompt: |
+  Search for new public and private tenders this company can realistically bid.
+
+  Sources: eTenders (etenders.gov.za), provincial tender portals, SOE portals,
+  and any sector-specific portals recorded in the Ghost.
+
+  Filter against what the Ghost knows about this company: CSD registration,
+  BBBEE level, sector codes, delivery capacity, geographic range, and the
+  value band of tenders they have bid before.
+
+  Only report a tender if ALL of these are true:
+  - It was published since the last run of this routine
+  - The company meets the stated mandatory requirements
+  - The closing date is at least 3 working days away
+
+  For each qualifying tender report exactly:
+  - Tender ID and issuing body
+  - One-line scope
+  - Closing date and days remaining
+  - Estimated value if stated
+  - Source URL
+  - GO or NO-GO, with one sentence of reasoning
+
+  If nothing qualifies, return the single word: NONE
+
+  Never speculate about requirements not stated in the tender document. If a
+  requirement is unclear, mark it UNCLEAR and recommend a human check rather
+  than guessing.

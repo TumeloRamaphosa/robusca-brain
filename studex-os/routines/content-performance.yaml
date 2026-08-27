@@ -1,0 +1,35 @@
+id: content-performance
+name: Content Performance
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 11 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 10
+
+prompt: |
+  Pull performance for content published in the last 24 hours and append it to
+  the performance log in the Ghost.
+
+  For each piece record: date, hook archetype, format, length, 3-second
+  retention, saves, shares, profile visits, conversions.
+
+  Report only:
+  - Any piece whose 3-second retention beat this account's trailing average
+  - Any piece that badly underperformed, with the likely cause named
+  - The current weekly retention trend — rising, flat or falling
+
+  Judge on 3-second retention, not views. Views are a lagging output of the
+  hook. Do not draw a conclusion about a hook archetype from fewer than five
+  pieces — one hit is noise.
+
+  If nothing published in the window, return: NONE

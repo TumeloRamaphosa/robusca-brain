@@ -1,0 +1,41 @@
+id: pipeline-decay
+name: Pipeline Decay
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 9,15 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 15
+
+prompt: |
+  Find quotes, proposals and opportunities that have gone quiet.
+
+  From the Ghost, list every open quote or proposal and the date of the last
+  contact. Flag any where the silence exceeds the follow-up window for that
+  deal size:
+  - under R25,000  -> 5 working days
+  - R25,000-R250,000 -> 10 working days
+  - over R250,000  -> 15 working days
+
+  For each flagged item report:
+  - Client (initials only) and deal value
+  - What was sent, and when
+  - Days silent
+  - A ready-to-send follow-up of 3 sentences maximum, in this company's voice
+    as recorded in the Ghost, referencing the specific thing that was quoted
+
+  Draft the follow-up. Do not send it. A human sends.
+
+  If nothing has decayed, return: NONE
+
+  Do not flag the same deal twice in one week — check the ledger for a prior
+  flag before reporting.

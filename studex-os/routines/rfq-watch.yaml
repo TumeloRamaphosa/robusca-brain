@@ -1,0 +1,40 @@
+id: rfq-watch
+name: RFQ Watch
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 8,16 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 10
+
+prompt: |
+  Find new private-sector RFQs and requests for proposal in this company's
+  sector and region.
+
+  Sources: industry association boards, LinkedIn posts seeking suppliers,
+  procurement pages of companies recorded as target buyers in the Ghost, and
+  any sector marketplaces the Ghost lists.
+
+  Only report items published since the last run and within the company's
+  stated capability and geography.
+
+  For each report:
+  - Buyer and one-line requirement
+  - Deadline, if stated
+  - Source URL
+  - Whether the Ghost shows any prior relationship with this buyer
+  - GO or NO-GO with one sentence
+
+  If nothing qualifies, return: NONE
+
+  Do not report generic "we are hiring suppliers" posts with no specific
+  requirement. Specificity is the filter.

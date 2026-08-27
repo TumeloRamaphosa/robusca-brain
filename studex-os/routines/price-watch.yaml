@@ -1,0 +1,36 @@
+id: price-watch
+name: Price Watch
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: every
+  expr: "24h"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 8
+
+prompt: |
+  Check the prices this company tracks, as recorded in the Ghost — input costs,
+  commodity references, competitor list prices, freight rates, exchange rates.
+
+  Report only movements beyond the threshold recorded for each item. Where no
+  threshold is set, use 5%.
+
+  For each movement:
+  - What moved, from what to what, over what period
+  - Percentage change
+  - Source and observation date
+  - One sentence on the effect on this company's margin or pricing
+
+  If nothing crossed a threshold, return: NONE
+
+  Report the number, not a forecast. Do not predict where a price is going —
+  that is a judgement for the client, and a wrong prediction here costs more
+  trust than a missed one.
