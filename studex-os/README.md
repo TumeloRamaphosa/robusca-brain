@@ -61,6 +61,12 @@ A morning brief landing two hours off is a bad first impression.
 **Credentials never enter a sandbox.** Client tokens go to Daytona Secrets, which holds
 plaintext outside the sandbox and substitutes at network egress.
 
+**Model choice is per routine, not global.** A routine may set an optional `model` slug
+(routed via OpenRouter). Only override where a model is genuinely differentiated rather
+than marginally better — `buyer-signals` uses `x-ai/grok-4.6` because Grok is the only
+provider with first-party X search, and most buyer signals surface on X first. Everything
+else inherits the tenant default, so cheap routines stay cheap.
+
 ## What running it already told us
 
 `routines budget` against the plan allowances:

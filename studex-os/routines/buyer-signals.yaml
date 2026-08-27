@@ -9,6 +9,12 @@ schedule:
 
 session: isolated
 
+# Grok is the only provider with first-party X search as a tool. Most buyer
+# signals — hiring, funding, expansion, supplier changes — surface on X before
+# anywhere else, so this is the one routine where the model choice is a
+# capability decision rather than a cost one.
+model: x-ai/grok-4.6
+
 delivery:
   channel: tenant_primary
   mode: announce
@@ -18,6 +24,9 @@ credits_estimate: 14
 
 prompt: |
   Watch the target buyers listed in the Ghost for events worth reacting to.
+
+  Use X search as well as web search — most of these signals appear on X before
+  they appear anywhere else.
 
   Signals that count:
   - Raised funding, announced expansion, or opened a new site

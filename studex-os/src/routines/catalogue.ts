@@ -33,6 +33,14 @@ export const routineSchema = z.object({
 
   session: z.string(),
 
+  /**
+   * Optional model override, as an OpenRouter slug. Omit to use the tenant's
+   * default. Set it only where a specific model is genuinely differentiated —
+   * e.g. x-ai/grok-4.6 for routines needing first-party X search, which no
+   * other provider offers.
+   */
+  model: z.string().optional(),
+
   delivery: z.object({
     channel: z.string(),
     mode: z.enum(["announce", "silent"]),
