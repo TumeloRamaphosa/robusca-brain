@@ -1,0 +1,37 @@
+id: market-sweep
+name: Weekly Market Sweep
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 7 * * 1"
+
+session: "session:{{tenant_slug}}-market"
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: false
+
+credits_estimate: 120
+
+prompt: |
+  Run a last30days research sweep on this company's category. Follow the
+  last30days skill: five sweeps, every finding dated and linked, facts kept
+  separate from inference, and gaps recorded rather than hidden.
+
+  Scope the sweeps to this company:
+  1. Their market — demand, buyers, sector news
+  2. Category narrative — what buyers now believe, especially the negatives
+  3. Competitors — launches, pricing changes, failures. Failures teach more
+  4. Regulatory — anything affecting their licences, claims or compliance
+  5. Local ground truth — the South African conversation, in its own voice
+
+  Write the full sweep to the Ghost. Send a summary of at most 200 words with:
+  - The single most important change this week
+  - What it means the company should do, stop, or watch
+  - Anything that contradicts a decision they have already made
+
+  A sweep with no "stop" item and no unverified gap was too shallow. Real
+  research contradicts you at least once — say so if it did not.

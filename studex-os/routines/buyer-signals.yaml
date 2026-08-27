@@ -1,0 +1,40 @@
+id: buyer-signals
+name: Buyer Signals
+version: 1
+applies_to: [company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 10 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 14
+
+prompt: |
+  Watch the target buyers listed in the Ghost for events worth reacting to.
+
+  Signals that count:
+  - Raised funding, announced expansion, or opened a new site
+  - Hired into a role that implies new spend in our category
+  - Published a tender, RFQ or procurement notice
+  - Lost or changed a supplier publicly
+  - Leadership change in a buying role
+
+  Signals that do not count: routine marketing posts, reshares, generic
+  thought leadership, anniversary posts.
+
+  For each real signal report:
+  - Buyer and what happened
+  - Date and source URL
+  - Why it matters for this company specifically, in one sentence
+  - A suggested approach — who to contact and the angle
+
+  Draft only. A human decides whether to reach out.
+
+  If there are no real signals, return: NONE
