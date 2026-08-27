@@ -4,32 +4,42 @@
 
 ---
 
-## Access, corrected
+## Access — and xAI's own sources disagree
 
-Earlier notes said Grok Bot was gated to SuperGrok Heavy at $300/month. **That was
-stale** — it came from July 2026 aggregator articles written before or around launch.
-Access has since expanded considerably.
+Two xAI sources give different eligibility lists. This matters because it is a purchase
+decision, so both are recorded here rather than picking one.
 
-Per xAI's own launch post and pricing page, Grok Bot is included with:
+**The setup docs** ([docs.x.ai/grok-bot/get-started](https://docs.x.ai/grok-bot/get-started)),
+under *Before you begin*, list the eligible plans as:
 
-| Route | Price |
-|---|---|
-| **Cursor Pro** | **$20/month** |
-| Cursor Pro+ / Ultra | higher |
-| Cursor Teams Standard / Premium | per seat |
-| **SuperGrok** | **$30/month** |
-| SuperGrok Plus | $100/month |
-| SuperGrok Heavy | $300/month |
+> SuperGrok Plus, SuperGrok Heavy, Cursor Pro+, Cursor Ultra, or Cursor Teams Standard or
+> Premium (sign in with your Cursor account)
 
-Two things worth knowing:
+**The launch post** ([x.ai/news/introducing-grok-bot](https://x.ai/news/introducing-grok-bot),
+11 Aug 2026) is broader, listing SuperGrok, SuperGrok Plus and Heavy; Cursor Pro, Pro+ and
+Ultra; and Cursor Teams Standard and Premium.
 
-- **Grok Bot usage is separate from your Grok and Cursor plan usage.** Work handed to a
-  Bot does not draw down your existing allowance.
-- Desktop (macOS, Windows) and iOS at launch. **No Linux desktop, no Android, no iPad.**
+**Treat the setup docs as authoritative.** They are the gate at actual sign-in, and they
+are maintained rather than dated. On that list, **plain Cursor Pro and plain SuperGrok are
+not eligible** — the entry points are Cursor Pro+, Cursor Ultra, Cursor Teams
+Standard/Premium, SuperGrok Plus, or SuperGrok Heavy.
+
+The launch post may describe an intended rollout that has since narrowed, or eligibility
+may still be moving during beta. Either way, the two-minute test settles it: open
+[cursor.com/bot/onboarding](https://cursor.com/bot/onboarding) and try to sign in with the
+account we already hold. Do not upgrade anything before doing that.
+
+Other practical notes:
+
+- **Grok Bot usage is metered separately** from the underlying Grok or Cursor plan
+  allowance, so handing work to a Bot does not eat into coding usage.
+- Sign-in is via **Cursor account**, even on the SuperGrok routes.
+- **Legacy Privacy Mode blocks it.** Grok Bot requires cloud data storage; accounts on
+  Legacy Privacy Mode must change their Cursor privacy setting first. Worth checking
+  before assuming a failed sign-in means an ineligible plan — and worth a deliberate
+  decision, given our own posture on data handling.
+- macOS and Windows desktop plus iOS. **No Linux desktop, no Android, no iPad.**
   Enterprise access is a waitlist.
-
-**Practical conclusion: if we already hold Cursor Pro at $20/month, we already have Grok
-Bot.** Sign in with that plan rather than buying a second subscription.
 
 ---
 
@@ -68,8 +78,9 @@ Not a threat to evaluate — a capability to adopt. Specifically for:
 - **Tools without APIs.** Portals like eTenders, provincial procurement sites and CSD
   have no clean API. Computer-use against them is exactly the hard part of `tender-watch`.
 
-If we hold Cursor Pro this costs nothing to trial, and the answer to "should we build our
-own computer-use layer" is probably no.
+Whether this costs anything to trial depends on which Cursor tier we actually hold — check
+before upgrading. Either way, the answer to "should we build our own computer-use layer" is
+probably no.
 
 ---
 
@@ -113,8 +124,10 @@ attached to it.
 
 **Two things it should change:**
 
-1. **Trial it for internal work this week**, ideally on the Cursor Pro plan we already
-   hold. Particularly the demonstrate-once routine capture, against a tender portal.
+1. **Trial it for internal work this week.** First check eligibility at
+   [cursor.com/bot/onboarding](https://cursor.com/bot/onboarding) with the existing
+   account before paying for anything. Test the demonstrate-once routine capture against
+   a tender portal — that is the capability we most want and least want to build.
 2. **Stop planning to build our own computer-use layer.** If Grok Bot or Daytona's
    Computer Use sandboxes handle browser automation adequately, that is rented capability.
    Our engineering goes into tenancy, memory, ledger and channel — the parts nobody else
