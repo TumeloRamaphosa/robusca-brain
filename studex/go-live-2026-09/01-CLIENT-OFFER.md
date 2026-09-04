@@ -34,7 +34,7 @@
 | **Method** | PayFast or EFT |
 | **Billing** | ZAR monthly in advance thereafter |
 
-**Not included:** video at scale, dedicated VM, marketplace access, token/credits rail, WhatsApp *(week 1 — see Communication below)*.
+**Not included:** video at scale, dedicated VM, marketplace access, token/credits rail, Meta WABA / WhatsApp Business API *(not week 1 — see Communication below)*, dedicated `agent@yourdomain.com` inbox *(standard delivery — not founding week 1)*.
 
 **Upgrade path (not sold today):** Managed Operations R7,500 → Managed Team R22,000 → NestVM register-interest.
 
@@ -42,9 +42,12 @@
 
 ## Communication — week 1
 
-**Email only.** Daily brief and draft approvals go to your named approver's email.
+**Primary rail: Studex Agent Bridge WhatsApp** — daily brief and draft approvals go to your named approver via the founding Bridge group.  
+**Invite (join before kickoff):** <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>
 
-WhatsApp is **not available** in week 1 (Studex business channel undergoing verification). Do not plan on WhatsApp for onboarding or daily briefs until Studex confirms the channel is live in writing.
+**Email** remains available **alongside** as backup/secondary for briefs and approvals if your approver prefers.
+
+**Meta WABA (WhatsApp Business API) is not available** in week 1 — Studex business WABA is disconnected and undergoing verification. Do not plan on API-connected WhatsApp for onboarding or daily briefs until Studex confirms that channel is live in writing. The Bridge group above is the approved founding week-1 channel; it is **not** Meta WABA.
 
 ---
 
@@ -57,12 +60,12 @@ WhatsApp is **not available** in week 1 (Studex business channel undergoing veri
 | **2–3** | Knowledge pack loaded — your docs, your approval marks on each |
 | **4** | Business Ghost live — ask it something only your company would know |
 | **5** | One workflow dry-run (internal — Studex staff only) |
-| **6–7** | Workflow live with your approver; first daily brief delivered by **email** |
+| **6–7** | Workflow live with your approver; first daily brief delivered via **Studex Agent Bridge WhatsApp** *(email backup OK)* |
 
 ### Week 1 checklist (client-facing)
 
 - [ ] Business Ghost answers company-specific questions with citations to your approved docs
-- [ ] Daily brief arrives by **email** at agreed time
+- [ ] Daily brief arrives via **Studex Agent Bridge WhatsApp** at agreed time *(email backup OK)*
 - [ ] One workflow produces drafts — **you approve before anything sends**
 - [ ] [Ten-question trust audit](04-TEN-QUESTION-AUDIT.md) completed for your deployment
 - [ ] Named Studex operator contact shared
@@ -89,7 +92,7 @@ WhatsApp is **not available** in week 1 (Studex business channel undergoing veri
 1. **Named approver** (+ alternate) — only these people can release external actions  
 2. **Approved documents** — proposals, service descriptions, pricing, brand voice guide (PDF/DOCX/Notion export)  
 3. **One workflow priority** — pick one: *proposal drafting · inbox triage · meeting prep · content draft queue*  
-4. **Approver email** — for daily brief and draft approvals *(week 1 channel)*  
+4. **Approver on Bridge WhatsApp** — join <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk> before kickoff; **approver email** as backup/secondary  
 5. **Honest scope** — tell us what agents must **never** do (we write it into the order)  
 6. **Upfront payment** — 50% minimum or full month 1 before we provision
 

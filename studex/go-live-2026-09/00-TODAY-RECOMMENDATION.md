@@ -15,7 +15,7 @@
 **Price posture:** **R3,500/month FOUNDING PILOT ONLY** — margin thin at 4–8h/week operator time; exists to produce one receipt, not to scale. R950 memory-only if scope is strictly Q&A with no workflows.  
 **Payment:** **50% minimum or full month upfront** before provisioning. ZAR invoice (PayFast or EFT). No Studex Token.
 
-**Week 1 channel:** **Email only.** WhatsApp WABA disconnected — do not offer as equal option.
+**Week 1 channel:** **Studex Agent Bridge WhatsApp** for briefs and approvals — invite: <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>. **Email allowed alongside** as backup/secondary. **Meta WABA (WhatsApp Business API) is OFF** — not the week-1 rail until SMS verification is complete and confirmed in writing.
 
 **Paperwork in pack:** [`05-SERVICE-ORDER-TEMPLATE.md`](05-SERVICE-ORDER-TEMPLATE.md) + [`04-TEN-QUESTION-AUDIT.md`](04-TEN-QUESTION-AUDIT.md)
 
@@ -38,7 +38,7 @@
 ### Client sees
 
 - A **Business Ghost** that knows *their* company — goals, clients, projects, decisions, documents they approved
-- A **daily brief by email** — what needs a human decision, what drafts are ready
+- A **daily brief via Studex Agent Bridge WhatsApp** — what needs a human decision, what drafts are ready *(email backup if they prefer)*
 - **One working workflow** in week 1 (proposal draft, inbox triage, or meeting prep)
 - A **human Studex operator** they can email when something breaks
 - Completed **[ten-question audit](04-TEN-QUESTION-AUDIT.md)** scorecard
@@ -49,7 +49,7 @@
 |---|---|
 | Memory | Per-client Obsidian vault — **clone after key rotation** |
 | Agent runtime | Robusca / OpenClaw / Perplexity — not self-serve API |
-| Approvals | Human operator + email approval gate |
+| Approvals | Human operator + Bridge WhatsApp or email approval gate |
 | Ops dashboard | Internal War Room — not client-facing |
 | Cold-call demo | [`demo-vault/`](demo-vault/) — fictional Meridian Advisory only |
 
@@ -62,7 +62,7 @@
 | Co-founder behaviour | How we deliver it in week 1 |
 |---|---|
 | Remembers everything | Business Ghost vault from client-approved docs |
-| Shows up each morning | **Daily brief by email** — priorities, drafts waiting, blockers |
+| Shows up each morning | **Daily brief via Studex Agent Bridge WhatsApp** — priorities, drafts waiting, blockers *(email backup OK)* |
 | Does the boring work first | One workflow: drafts overnight for approver review |
 | Asks before spending your reputation | **Nothing sends without named human approval** |
 | Gets better over time | Vault sync + client corrections logged |

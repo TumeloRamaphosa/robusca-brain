@@ -28,7 +28,7 @@
 | **Product** | Business Ghost — Managed *(Studex Memory)* |
 | **Tier** | ☐ Founding Pilot R3,500/mo · ☐ Memory-only R950/mo |
 | **Term** | Month-to-month from **Start date:** ___________ |
-| **Communication (week 1)** | **Email only** — daily brief and drafts to approver email below. WhatsApp not included until Provider confirms channel live. |
+| **Communication (week 1)** | **Studex Agent Bridge WhatsApp** (primary) — daily brief and drafts to approver via Bridge group <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>. **Email** allowed alongside as backup/secondary. **Meta WABA / WhatsApp Business API not included** until Provider confirms WABA channel live in writing. |
 
 ### Week 1 workflow (pick one)
 

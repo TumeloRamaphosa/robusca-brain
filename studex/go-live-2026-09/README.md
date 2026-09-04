@@ -23,7 +23,7 @@
 ## The headline
 
 > **Sell Business Ghost — Managed (founding only).**  
-> Daily brief by **email** + drafts awaiting approval. **R3,500/month** founding pilot.  
+> Daily brief via **Studex Agent Bridge WhatsApp** + drafts awaiting approval *(email backup OK)*. **R3,500/month** founding pilot.  
 > **50% or full upfront** before provisioning. **No real client docs in vault until key rotation cleared.**
 
-**Hard stops:** WhatsApp down (email week 1) · API key rotation OPEN · no invented receipts
+**Hard stops:** Meta WABA OFF (Bridge WhatsApp week 1) · API key rotation OPEN · no invented receipts

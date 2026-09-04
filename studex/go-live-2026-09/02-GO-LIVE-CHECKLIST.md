@@ -38,7 +38,14 @@
 
 ### Communication — week 1
 
-**Email only.** WhatsApp WABA `105198275846951` is **DISCONNECTED** per `STUDEX_OS.md`. Do not offer WhatsApp as a channel in the offer, onboarding, or daily brief until SMS verification is complete and confirmed in writing.
+**Primary rail: Studex Agent Bridge WhatsApp** — briefs and approvals via founding Bridge group.  
+**Invite:** <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk> — approver joins before kickoff.
+
+**Email** allowed **alongside** as backup/secondary.
+
+**Meta WABA (WhatsApp Business API) is OFF** — WABA `105198275846951` is **DISCONNECTED** per `STUDEX_OS.md`. Do **not** offer Meta WABA as a channel in the offer, onboarding, or daily brief until SMS verification is complete and confirmed in writing. Bridge WhatsApp ≠ WABA.
+
+**Do not sell** dedicated `agent@yourdomain.com` as the founding week-1 channel — that remains a standard/later-delivery differentiator.
 
 ---
 
@@ -49,7 +56,7 @@
 | **robusca-brain repo** | Client vault, memory logs | `studex/clients/{client-id}/` *(create on signature)* |
 | **War Room** | Internal ops only — not client-facing | [`os/war-room/`](../../os/war-room/) |
 | **Perplexity Computer (Robusca)** | Orchestration, daily brief generation | Primary runtime |
-| **AgentMail** | Operator ↔ client **email** | `studex-2571@agentmail.to` — **rotate key before client data** |
+| **AgentMail** | Operator ↔ client **email** (backup/secondary week 1) | `studex-2571@agentmail.to` — **rotate key before client data**; not the founding week-1 primary rail |
 | **PayFast** | Invoice collection | Merchant ID `12946117` per `os/README.md` |
 | **Obsidian vault template** | Client memory | Clone from managed-agents branch `templates/client-vault/` after key rotation |
 | **Demo vault** | Cold-call demos only | [`demo-vault/`](demo-vault/) |
@@ -97,8 +104,8 @@ studex/clients/{client-id}/
 
 ### Day 5–7
 
-15. [ ] Invite client approver to review drafts via **email**  
-16. [ ] First daily brief delivered by **email**  
+15. [ ] Add client approver to **Studex Agent Bridge WhatsApp** — <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>  
+16. [ ] First daily brief delivered via **Bridge WhatsApp** *(email backup OK)*  
 17. [ ] Complete `audit-scorecard.md` from [`04-TEN-QUESTION-AUDIT.md`](04-TEN-QUESTION-AUDIT.md)  
 18. [ ] Write `week1-receipt.md` with **one client-chosen hard number** + consent  
 
@@ -119,7 +126,7 @@ studex/clients/{client-id}/
 | **1:30–2:30** | Citation | Open [`demo-vault/services/diagnostic-sprint.md`](demo-vault/services/diagnostic-sprint.md) — *"It cites your pack, not the internet."* |
 | **2:30–3:30** | Workflow | Show [`demo-vault/templates/proposal-excerpt.md`](demo-vault/templates/proposal-excerpt.md) — **DRAFT — AWAITING APPROVAL** |
 | **3:30–4:30** | Control | *"Nothing leaves without your approver. Agents produce artefacts; humans produce effects."* |
-| **4:30–5:00** | Close | *"After you sign and we run the Soul interview, we load your real vault. Founding pilot R3,500 — email daily brief, one workflow week one."* |
+| **4:30–5:00** | Close | *"After you sign and we run the Soul interview, we load your real vault. Founding pilot R3,500 — Bridge WhatsApp daily brief, one workflow week one."* |
 
 ### Path B — Post–Soul interview (prospect becoming client)
 
@@ -131,10 +138,10 @@ studex/clients/{client-id}/
 | **0:30–1:30** | Live Q&A | Client or you asks 2 questions from interview — pricing, ideal client, past decision |
 | **1:30–2:30** | Citation | Show source doc for one answer |
 | **2:30–3:30** | Workflow | Show overnight draft — **DRAFT — AWAITING APPROVAL** |
-| **3:30–4:30** | Control | Named approver must email approval before send |
+| **3:30–4:30** | Control | Named approver must reply approval in **Bridge WhatsApp or email** before send |
 | **4:30–5:00** | Close | Upfront payment reminder + week-one checklist |
 
-**Do not say in demo:** NestVM, marketplace, token, NtechLab results, "fully autonomous," "POPIA compliant," WhatsApp week 1.
+**Do not say in demo:** NestVM, marketplace, token, NtechLab results, "fully autonomous," "POPIA compliant," Meta WABA / WhatsApp Business API, dedicated `agent@yourdomain.com` week 1.
 
 ---
 
@@ -145,7 +152,8 @@ studex/clients/{client-id}/
 - "Permanent company memory"  
 - "Daily brief and drafts awaiting your approval"  
 - "Founding client only — we instrument week one together"  
-- "Email week one"  
+- "Studex Agent Bridge WhatsApp week one"  
+- "Email backup if you prefer"  
 - "Memory → Workforce → Market — you start at Memory"  
 
 ### Do not say
@@ -155,7 +163,8 @@ studex/clients/{client-id}/
 - "Join the Studex marketplace"  
 - "Your private NestVM"  
 - "Agents work while you sleep"  
-- "WhatsApp daily brief" *(week 1)*  
+- "Meta WABA / WhatsApp Business API" *(week 1 — Bridge only)*  
+- "Dedicated agent@yourdomain.com inbox" *(week 1 — standard delivery later)*  
 - "Studex Token credits"  
 
 ---
@@ -164,7 +173,7 @@ studex/clients/{client-id}/
 
 | Cadence | Action |
 |---|---|
-| Daily | Chief of Staff brief → client approver **by email** |
+| Daily | Chief of Staff brief → client approver via **Studex Agent Bridge WhatsApp** *(email backup OK)* |
 | Daily | Log to `studex/clients/{id}/worklog/YYYY-MM-DD.md` |
 | Weekly | 30-min operating review — written outcomes |
 | Weekly | Update `week1-receipt.md` → `month1-receipt.md` at day 30 |

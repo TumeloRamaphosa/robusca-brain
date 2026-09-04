@@ -12,11 +12,12 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  CLIENT (founder + named approver)                          │
-│  · Reviews daily brief (email — week 1)                     │
+│  · Reviews daily brief (Studex Agent Bridge WhatsApp — week 1) │
 │  · Approves drafts before send/post/pay                     │
-│  · Corrects memory via email or vault update request        │
+│  · Corrects memory via Bridge WhatsApp, email, or vault update request │
 └───────────────┬─────────────────────────────────────────────┘
-                │ email only (week 1)
+                │ Bridge WhatsApp primary; email backup (week 1)
+                │ Meta WABA / WhatsApp Business API: OFF
                 ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  STUDEX DELIVERY LAYER (human + Robusca)                    │
