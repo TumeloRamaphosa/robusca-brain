@@ -4,18 +4,6 @@
 **Status:** STRATEGY ONLY — nothing published, nothing provisioned by this pack alone  
 **Audience:** Tumelo + sales/delivery team closing the **first paying client today**
 
-This pack answers one question: **what do we sell, deliver, and demo in the next few hours — without launching the ecosystem?**
-
-It synthesises verified repo state and open strategy work:
-
-| Source | What we took from it |
-|---|---|
-| [PR #17](https://github.com/TumeloRamaphosa/robusca-brain/pull/17) (`studex/launch-2026-08/`) | Launch **Business Ghost** alone; Memory → Workforce → Market spine; defer Execution Exchange and token rail |
-| `studex/managed-agents/` (branch `cursor/managed-agents-service-build-d129`) | Managed delivery model, approval gates, client flow, what is designed vs live |
-| `studex/delivery-model/` (branch `cursor/studex-managed-service-delivery-model-6a24`) | Control-plane requirements, one client first, Runable as tool not product |
-| `os/war-room/`, `STUDEX_OS.md` | Internal ops surface; not client-facing SaaS today |
-| `notebooklm/notebook-07-nestvm-sales-script.md` | NestVM pitch language — **phase 2+ only** for today's offer |
-
 ---
 
 ## Read in this order
@@ -23,19 +11,19 @@ It synthesises verified repo state and open strategy work:
 | # | Document | Answers |
 |---|---|---|
 | 00 | [TODAY-RECOMMENDATION.md](00-TODAY-RECOMMENDATION.md) | The one offer, what's behind the curtain, what we defer |
-| 01 | [CLIENT-OFFER.md](01-CLIENT-OFFER.md) | One-page offer: price, week 1, "agents as co-founders" operationally |
-| 02 | [GO-LIVE-CHECKLIST.md](02-GO-LIVE-CHECKLIST.md) | Accounts, env, onboarding, ≤5 min demo, hard blockers before payment |
-| 03 | [ARCHITECTURE-SKETCH.md](03-ARCHITECTURE-SKETCH.md) | Primary delivery model today; Orgo/NestVM/buzz/markets as phase 2+ |
+| 01 | [CLIENT-OFFER.md](01-CLIENT-OFFER.md) | One-page offer: price, week 1, co-founder ops — **send with audit attached** |
+| 02 | [GO-LIVE-CHECKLIST.md](02-GO-LIVE-CHECKLIST.md) | Accounts, onboarding, demo paths, hard blockers |
+| 03 | [ARCHITECTURE-SKETCH.md](03-ARCHITECTURE-SKETCH.md) | Primary delivery model; phase 2+ for Orgo/NestVM/buzz/markets |
+| 04 | [TEN-QUESTION-AUDIT.md](04-TEN-QUESTION-AUDIT.md) | **Required attachment** — enforceable guarantee terms |
+| 05 | [SERVICE-ORDER-TEMPLATE.md](05-SERVICE-ORDER-TEMPLATE.md) | **Sign before provisioning** — same-day close blocker if missing |
+| — | [demo-vault/](demo-vault/) | Sanitized cold-call demo (fictional Meridian Advisory) |
 
 ---
 
-## The headline (if you read nothing else)
+## The headline
 
-> **Sell Business Ghost — Managed.**  
-> One company's permanent memory + one Chief-of-Staff agent loop, delivered by Studex hands-on.  
-> **R3,500/month** founding pilot (or **R950/month** memory-only if scope is strictly Q&A).  
-> Invoice in **ZAR**. No token rail. No marketplace. No NestVM promise on day one.
+> **Sell Business Ghost — Managed (founding only).**  
+> Daily brief by **email** + drafts awaiting approval. **R3,500/month** founding pilot.  
+> **50% or full upfront** before provisioning. **No real client docs in vault until key rotation cleared.**
 
-**First-client profile:** consultancy, agency, or professional services with templated proposals — the cheapest loop to prove and instrument.
-
-**Receipts status:** ⚠️ **No instrumented enterprise outcome numbers exist in this repo** for NtechLab, Pharmasyntez, ART Engineering MDC, or Project Phoenix. Do not claim results you cannot cite. The first client's week-one log *is* the receipt.
+**Hard stops:** WhatsApp down (email week 1) · API key rotation OPEN · no invented receipts

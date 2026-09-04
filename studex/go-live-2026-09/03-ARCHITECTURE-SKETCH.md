@@ -12,11 +12,11 @@
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │  CLIENT (founder + named approver)                          │
-│  · Reviews daily brief                                      │
+│  · Reviews daily brief (email — week 1)                     │
 │  · Approves drafts before send/post/pay                     │
-│  · Corrects memory via #knowledge or email                │
+│  · Corrects memory via email or vault update request        │
 └───────────────┬─────────────────────────────────────────────┘
-                │ email / WhatsApp (when live)
+                │ email only (week 1)
                 ▼
 ┌─────────────────────────────────────────────────────────────┐
 │  STUDEX DELIVERY LAYER (human + Robusca)                    │
@@ -48,6 +48,7 @@
 2. **Agents produce artefacts; humans produce effects** — approval gate is the product  
 3. **We issue keys; clients don't bring vendor keys** — Studex owns the control plane  
 4. **Instrument from day one** — `week1-receipt.md` or the pilot is theatre  
+5. **No real client data until key rotation cleared** — [`KEY_ROTATION_CHECKLIST.md`](../../KEY_ROTATION_CHECKLIST.md); use [`demo-vault/`](demo-vault/) for demos  
 
 ---
 
