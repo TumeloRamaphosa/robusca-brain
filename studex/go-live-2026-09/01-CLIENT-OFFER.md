@@ -43,7 +43,7 @@
 ## Communication — week 1
 
 **Primary rail: Studex Agent Bridge WhatsApp** — daily brief and draft approvals go to your named approver via the founding Bridge group.  
-**Invite (join before kickoff):** <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>
+**Invite (join before kickoff):** <https://chat.whatsapp.com/L15gmeS7tjnJYujYsykrgN>
 
 **Email** remains available **alongside** as backup/secondary for briefs and approvals if your approver prefers.
 
@@ -92,7 +92,7 @@
 1. **Named approver** (+ alternate) — only these people can release external actions  
 2. **Approved documents** — proposals, service descriptions, pricing, brand voice guide (PDF/DOCX/Notion export)  
 3. **One workflow priority** — pick one: *proposal drafting · inbox triage · meeting prep · content draft queue*  
-4. **Approver on Bridge WhatsApp** — join <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk> before kickoff; **approver email** as backup/secondary  
+4. **Approver on Bridge WhatsApp** — join <https://chat.whatsapp.com/L15gmeS7tjnJYujYsykrgN> before kickoff; **approver email** as backup/secondary  
 5. **Honest scope** — tell us what agents must **never** do (we write it into the order)  
 6. **Upfront payment** — 50% minimum or full month 1 before we provision
 

@@ -39,7 +39,7 @@
 ### Communication — week 1
 
 **Primary rail: Studex Agent Bridge WhatsApp** — briefs and approvals via founding Bridge group.  
-**Invite:** <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk> — approver joins before kickoff.
+**Invite:** <https://chat.whatsapp.com/L15gmeS7tjnJYujYsykrgN> — approver joins before kickoff.
 
 **Email** allowed **alongside** as backup/secondary.
 
@@ -104,7 +104,7 @@ studex/clients/{client-id}/
 
 ### Day 5–7
 
-15. [ ] Add client approver to **Studex Agent Bridge WhatsApp** — <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>  
+15. [ ] Add client approver to **Studex Agent Bridge WhatsApp** — <https://chat.whatsapp.com/L15gmeS7tjnJYujYsykrgN>  
 16. [ ] First daily brief delivered via **Bridge WhatsApp** *(email backup OK)*  
 17. [ ] Complete `audit-scorecard.md` from [`04-TEN-QUESTION-AUDIT.md`](04-TEN-QUESTION-AUDIT.md)  
 18. [ ] Write `week1-receipt.md` with **one client-chosen hard number** + consent  

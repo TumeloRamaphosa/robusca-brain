@@ -15,7 +15,7 @@
 **Price posture:** **R3,500/month FOUNDING PILOT ONLY** — margin thin at 4–8h/week operator time; exists to produce one receipt, not to scale. R950 memory-only if scope is strictly Q&A with no workflows.  
 **Payment:** **50% minimum or full month upfront** before provisioning. ZAR invoice (PayFast or EFT). No Studex Token.
 
-**Week 1 channel:** **Studex Agent Bridge WhatsApp** for briefs and approvals — invite: <https://chat.whatsapp.com/CvA7ElVG0CSDHqrMzxfyCk>. **Email allowed alongside** as backup/secondary. **Meta WABA (WhatsApp Business API) is OFF** — not the week-1 rail until SMS verification is complete and confirmed in writing.
+**Week 1 channel:** **Studex Agent Bridge WhatsApp** for briefs and approvals — invite: <https://chat.whatsapp.com/L15gmeS7tjnJYujYsykrgN>. **Email allowed alongside** as backup/secondary. **Meta WABA (WhatsApp Business API) is OFF** — not the week-1 rail until SMS verification is complete and confirmed in writing.
 
 **Paperwork in pack:** [`05-SERVICE-ORDER-TEMPLATE.md`](05-SERVICE-ORDER-TEMPLATE.md) + [`04-TEN-QUESTION-AUDIT.md`](04-TEN-QUESTION-AUDIT.md)
 
