@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studex Global Markets — MMXVI · MMXXVI</title>
+<meta name="description" content="A decade in the market. Not a moment in the hype cycle. Institutional memory, an AI workforce, and market access — for companies trading across borders." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ------------------------------------------------------------------
+     Tom Ford discipline: reduction, not ornament.
+     Obsidian, ivory, one gold. No gradients, no glows, no textures.
+     The luxury is the space and the silence.
+     ------------------------------------------------------------------ */
+  :root {
+    --obsidian: #0a0a0a;
+    --obsidian-lift: #121212;
+    --ivory: #f2f0e9;
+    --ivory-dim: #9d9a92;
+    --ivory-faint: #4a4843;
+    --gold: #c9a84c;
+    --rule: #23221f;
+
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --track-label: 0.34em;
+    --measure: 46ch;
+    --gutter: clamp(1.5rem, 6vw, 7rem);
+    --max: 1440px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--obsidian);
+    color: var(--ivory);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  /* ---- the workhorse label ---- */
+  .label {
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+    margin: 0;
+  }
+  .label.gold { color: var(--gold); }
+
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; margin: 0; }
+
+  /* ---- masthead ---- */
+  header {
+    position: fixed; inset: 0 0 auto 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.75rem var(--gutter);
+    background: linear-gradient(to bottom, rgba(10,10,10,0.92), rgba(10,10,10,0));
+  }
+  /* A crest loses its detail below ~80px and reads as a smudge. Houses use a
+     wordmark in navigation and reserve the full mark for hero and footer. */
+  .wordmark { display: block; text-decoration: none; color: var(--ivory); }
+  .wordmark .name {
+    display: block; font-family: var(--sans); font-weight: 400;
+    font-size: 0.875rem; letter-spacing: 0.42em; line-height: 1;
+  }
+  .wordmark .sub {
+    display: block; font-size: 0.5rem; font-weight: 500;
+    letter-spacing: 0.32em; color: var(--ivory-dim);
+    margin-top: 0.4375rem;
+  }
+  nav { display: flex; gap: 2.5rem; }
+  nav a {
+    color: var(--ivory-dim); text-decoration: none;
+    font-size: 0.625rem; font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    transition: color 400ms ease;
+  }
+  nav a:hover { color: var(--ivory); }
+  @media (max-width: 860px) { nav { display: none; } }
+
+  /* ---- hero ---- */
+  .hero {
+    min-height: 100svh;
+    display: grid; place-items: center;
+    text-align: center;
+    padding: 8rem 0 6rem;
+  }
+  .hero img {
+    width: clamp(150px, 20vw, 250px);
+    height: auto;
+    margin: 0 auto 4.5rem;
+    opacity: 0.95;
+  }
+  .roman {
+    font-family: var(--serif);
+    font-size: 0.8125rem;
+    letter-spacing: 0.55em;
+    color: var(--gold);
+    margin: 0 0 2.75rem;
+    text-transform: uppercase;
+  }
+  /* Wide enough that each sentence sets on one line. A one-word orphan on a
+     headline this size is the whole page's argument undermined. */
+  .hero h1 {
+    font-size: clamp(2rem, 5.4vw, 4.75rem);
+    line-height: 1.14;
+    letter-spacing: -0.015em;
+    max-width: 34ch;
+    margin: 0 auto;
+    text-wrap: balance;
+  }
+  .hero h1 em { font-style: italic; color: var(--ivory-dim); }
+  .hero .sub {
+    margin: 3rem auto 0;
+    max-width: 40ch;
+    color: var(--ivory-dim);
+    font-size: 0.9375rem;
+  }
+
+  /* ---- sections ---- */
+  section { padding: clamp(6rem, 14vh, 12rem) 0; }
+  .rule { height: 1px; background: var(--rule); }
+
+  .sec-head { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  @media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; gap: 2rem; } }
+  .sec-head h2 {
+    font-size: clamp(1.75rem, 3.6vw, 2.875rem);
+    line-height: 1.18;
+    max-width: 26ch;
+  }
+  .sec-head p { color: var(--ivory-dim); max-width: var(--measure); margin: 1.75rem 0 0; }
+
+  /* ---- the three nouns ---- */
+  .triad { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 6rem; }
+  @media (max-width: 860px) { .triad { grid-template-columns: 1fr; } }
+  .triad > div {
+    padding: 3rem 2.75rem 3rem 0;
+    border-top: 1px solid var(--rule);
+  }
+  .triad > div + div { padding-left: 2.75rem; border-left: 1px solid var(--rule); }
+  @media (max-width: 860px) {
+    .triad > div + div { padding-left: 0; border-left: 0; }
+  }
+  .triad .n {
+    font-family: var(--serif);
+    font-size: 0.875rem; color: var(--gold);
+    letter-spacing: 0.3em; margin-bottom: 1.5rem;
+  }
+  .triad h3 { font-size: 1.75rem; margin-bottom: 1rem; }
+  .triad p { color: var(--ivory-dim); font-size: 0.9375rem; margin: 0; }
+
+  /* ---- the decade ---- */
+  .decade { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0; margin-top: 5rem; }
+  .decade > div { padding: 2.5rem 2rem 2.5rem 0; border-top: 1px solid var(--rule); }
+  .decade .yr {
+    font-family: var(--serif); font-size: 2.25rem;
+    color: var(--ivory); line-height: 1; margin-bottom: 1.25rem;
+  }
+  .decade p { color: var(--ivory-dim); font-size: 0.875rem; margin: 0; max-width: 24ch; }
+
+  /* ---- selection ---- */
+  .selection { background: var(--obsidian-lift); }
+  .selection .inner { max-width: 62ch; }
+  .selection blockquote {
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(1.5rem, 3.2vw, 2.5rem);
+    line-height: 1.3; margin: 0 0 2.5rem;
+  }
+  .selection blockquote em { font-style: italic; color: var(--gold); }
+  .selection p { color: var(--ivory-dim); max-width: var(--measure); }
+
+  .terms { margin-top: 4.5rem; display: grid; gap: 0; }
+  .terms > div {
+    display: grid; grid-template-columns: 14rem 1fr; gap: 2.5rem;
+    padding: 1.75rem 0; border-top: 1px solid var(--rule);
+  }
+  @media (max-width: 700px) { .terms > div { grid-template-columns: 1fr; gap: 0.5rem; } }
+  .terms .t { font-size: 0.9375rem; }
+  .terms .d { color: var(--ivory-dim); font-size: 0.9375rem; }
+
+  /* ---- cta ---- */
+  .cta { text-align: center; }
+  .cta h2 { font-size: clamp(1.875rem, 4.5vw, 3.25rem); line-height: 1.15; max-width: 24ch; margin: 0 auto; }
+  .apply {
+    display: inline-block; margin-top: 3.5rem;
+    padding: 1.375rem 4rem;
+    border: 1px solid var(--gold); color: var(--gold);
+    text-decoration: none;
+    font-size: 0.625rem; font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    transition: background 500ms ease, color 500ms ease;
+  }
+  .apply:hover { background: var(--gold); color: var(--obsidian); }
+  .apply:focus-visible, nav a:focus-visible, .wordmark:focus-visible, .foot a:focus-visible {
+    outline: 1px solid var(--gold);
+    outline-offset: 4px;
+  }
+  .cta .fine { margin-top: 2.25rem; color: var(--ivory-faint); font-size: 0.75rem; }
+
+  /* ---- footer ---- */
+  footer { padding: 5rem 0 3.5rem; border-top: 1px solid var(--rule); }
+  .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; flex-wrap: wrap; }
+  .foot a { color: var(--ivory-dim); text-decoration: none; font-size: 0.875rem; }
+  .foot a:hover { color: var(--ivory); }
+  .foot .col { display: grid; gap: 0.75rem; }
+  .foot .fine { color: var(--ivory-faint); font-size: 0.6875rem; letter-spacing: 0.08em; }
+
+  /* ---- entrance: one fade, nothing more ---- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 1.1s ease, transform 1.1s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wordmark" href="#top">
+    <span class="name">STUDEX</span>
+    <span class="sub">GLOBAL MARKETS</span>
+  </a>
+  <nav>
+    <a href="#decade">The Decade</a>
+    <a href="#what">What We Do</a>
+    <a href="#selection">Selection</a>
+    <a href="#apply">Enquire</a>
+  </nav>
+</header>
+
+<!-- ============================ HERO ============================ -->
+<div class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <img src="assets/studex-mark-ivory.png" alt="" />
+      <p class="roman">MMXVI &nbsp;·&nbsp; MMXXVI</p>
+      <h1>A decade in the market.<br /><em>Not a moment in the hype cycle.</em></h1>
+      <p class="sub">
+        Studex Global Markets gives a company institutional memory, an AI workforce
+        that runs on it, and access to the markets it was built to reach.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ============================ THE DECADE ============================ -->
+<section id="decade">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label gold">Ten Years</p>
+      <div>
+        <h2>Most of this industry is younger than our filing cabinet.</h2>
+        <p>
+          The companies now selling autonomous agents were, for the most part,
+          incorporated in the last eighteen months. We have been building the
+          infrastructure for cross-border commerce since 2016 — through three
+          currency cycles, two continents of regulation, and one entire hype
+          cycle that arrived after we started.
+        </p>
+        <p>
+          Ten years is not a marketing claim. It is the reason our systems know
+          what a trade actually requires.
+        </p>
+      </div>
+    </div>
+
+    <div class="decade reveal">
+      <div>
+        <div class="yr">2016</div>
+        <p>Studex registered. Trade infrastructure, built by hand.</p>
+      </div>
+      <div>
+        <div class="yr">2019</div>
+        <p>First cross-border corridors. Agrifood into the Middle East.</p>
+      </div>
+      <div>
+        <div class="yr">2023</div>
+        <p>The Ghost — one persistent memory for every company we serve.</p>
+      </div>
+      <div>
+        <div class="yr">2026</div>
+        <p>The SA–Russia exchange opens. Four enterprise deployments live.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ============================ WHAT WE DO ============================ -->
+<section id="what">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label">What We Do</p>
+      <div>
+        <h2>Big companies have three things small companies do not.</h2>
+        <p>
+          Institutional memory. An execution team. Access to markets. We provide
+          all three, and we provide them in that order, because each one requires
+          the one before it.
+        </p>
+      </div>
+    </div>
+
+    <div class="triad reveal">
+      <div>
+        <div class="n">I</div>
+        <h3>Memory</h3>
+        <p>
+          Every company loses its own history. People leave and context dies with
+          them. The Ghost holds goals, meetings, customers, projects, documents
+          and decisions — permanently, and privately.
+        </p>
+      </div>
+      <div>
+        <div class="n">II</div>
+        <h3>Workforce</h3>
+        <p>
+          Agents that act on that memory. Under permission, inside your own
+          private machine, with a written record of every action taken. Not a
+          chat window. A team that reports.
+        </p>
+      </div>
+      <div>
+        <div class="n">III</div>
+        <h3>Market</h3>
+        <p>
+          The companies we serve are in a market together. Work moves between
+          them, partners are introduced, corridors open. Private intelligence,
+          shared opportunity.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ============================ SELECTION ============================ -->
+<section id="selection" class="selection">
+  <div class="wrap">
+    <div class="inner reveal">
+      <p class="label gold" style="margin-bottom:2.5rem">Selection</p>
+      <blockquote>
+        We do not sell software.<br />
+        <em>We accept companies.</em>
+      </blockquote>
+      <p>
+        Every company we take on receives a founder's attention, a private
+        environment, and a team that learns their business. That is not something
+        that scales by signing everyone. So we don't.
+      </p>
+    </div>
+
+    <div class="terms reveal">
+      <div>
+        <div class="t">Twelve per country, per year</div>
+        <div class="d">Our capacity is real, and so is the constraint. Cohorts close when they are full.</div>
+      </div>
+      <div>
+        <div class="t">A conversation, not a demo</div>
+        <div class="d">Ten minutes with the founder. Three questions. We are deciding as much as you are.</div>
+      </div>
+      <div>
+        <div class="t">Your own environment</div>
+        <div class="d">A private machine. Your data does not sit alongside anyone else's, and we will show you why.</div>
+      </div>
+      <div>
+        <div class="t">A written record</div>
+        <div class="d">Every action our agents take is logged, attributed and yours to inspect. Including the failures.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CTA ============================ -->
+<section id="apply" class="cta">
+  <div class="wrap reveal">
+    <p class="label gold" style="margin-bottom:2.5rem">MMXVI · MMXXVI</p>
+    <h2>The tenth cohort opens this year.</h2>
+    <a class="apply" href="mailto:hello@studexglobalmarkets.com?subject=Enquiry%20%E2%80%94%20Tenth%20Cohort">Request an Introduction</a>
+    <p class="fine">By enquiry. Johannesburg · Kigali · Moscow · Dubai</p>
+  </div>
+</section>
+
+<!-- ============================ FOOTER ============================ -->
+<footer>
+  <div class="wrap foot">
+    <div class="col">
+      <img src="assets/studex-mark-ivory.png" alt="Studex Global Markets" style="height:56px;width:auto;opacity:.85;margin-bottom:1rem" />
+      <p class="fine">Studex Global Markets · Est. MMXVI</p>
+    </div>
+    <div class="col">
+      <p class="label">Enquiries</p>
+      <a href="mailto:hello@studexglobalmarkets.com">hello@studexglobalmarkets.com</a>
+      <a href="https://studexglobalmarkets.com">studexglobalmarkets.com</a>
+    </div>
+    <div class="col">
+      <p class="label">Group</p>
+      <a href="#">Global Markets</a>
+      <a href="#">Super Agents</a>
+      <a href="#">Studex Meat</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.12 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
