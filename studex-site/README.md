@@ -4,12 +4,47 @@ The Studex Global Markets marketing site — tenth-anniversary edition.
 
 ```
 studex-site/
-├── index.html               the site, self-contained
+├── index.html               the front door — provenance, selection
+├── platform.html            the product page — the agents, demonstrated
 ├── POSITIONING-LUXURY.md    how to position as a high-end service
 └── assets/
-    ├── studex-mark-ivory.png   for dark backgrounds
-    └── studex-mark-black.png   for light backgrounds
+    ├── studex-mark-ivory.png            for dark backgrounds
+    ├── studex-mark-black.png            for light backgrounds
+    ├── agent-avatar-placeholder.svg     swap for the bot artwork
+    └── make-marks.py                    regenerates the marks
 ```
+
+## Two pages, two jobs
+
+`index.html` is the **brand front door**: the decade, the three nouns, selection. It argues
+provenance and says very little.
+
+`platform.html` is the **product page**: the agents shown as named entities with live
+state, what they actually did, where it runs, and access. It argues proof.
+
+The structural idea on the product page — agents as named cards, each with its own
+machine, a schedule and a running cost — is adapted from how Warmwind presents its
+workers. The mechanic is worth having because it makes an abstraction concrete. Their
+register is light, rounded, pastel and playful; ours is obsidian, near-square and quiet.
+Same idea, different house.
+
+## Swapping in the bot avatar
+
+The agent cards render a circular avatar at **34px**. Drop the artwork in as
+`assets/agent-avatar.svg` (or `.png`) and replace the seven
+`agent-avatar-placeholder.svg` references in `platform.html`.
+
+Requirements, because 34px is unforgiving:
+
+- Square, 512×512 minimum
+- Transparent background, or obsidian `#0a0a0a` to match the card
+- **Must read at 34px.** Test it small before committing to it — fine linework disappears
+- Ivory or gold on dark. Mid-tones vanish against `#1a1a19`
+- One silhouette, no internal detail. This is a seal, not an illustration
+
+If the same avatar is used for all seven agents they will read as one workforce. If each
+gets its own, they read as individuals — that is the stronger version, and it is what
+makes the vacant eighth slot land.
 
 ## Run it
 
