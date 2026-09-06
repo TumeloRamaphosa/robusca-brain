@@ -1,0 +1,21 @@
+<!--
+  Placeholder agent avatar.
+
+  Swap with Tumelo's bot artwork. Drop the file in as
+  assets/agent-avatar.png (or .svg) and update AVATAR_SRC in platform.html.
+
+  Requirements for the real asset:
+  - Square, 512x512 minimum
+  - Transparent background, or obsidian #0a0a0a to match
+  - The mark should read at 40px  it is rendered small on the agent cards
+  - Ivory or gold on dark. Avoid mid-tones; they disappear against #121212
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Agent avatar placeholder">
+  <circle cx="256" cy="256" r="256" fill="#121212"/>
+  <circle cx="256" cy="256" r="246" fill="none" stroke="#c9a84c" stroke-width="4"/>
+  <g stroke="#c9a84c" fill="none" stroke-width="4" opacity="0.55">
+    <rect x="204" y="204" width="104" height="104"/>
+    <line x1="204" y1="204" x2="308" y2="308"/>
+    <line x1="204" y1="308" x2="308" y2="204"/>
+  </g>
+</svg>
