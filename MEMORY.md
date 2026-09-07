@@ -30,6 +30,7 @@
 - 2026-06-17: New stack pieces approved — BAASH! VM on Orgo.ai (Kate + Aurora world), n8n orchestrator, TencentDB Agent Memory, Freepik integration. Specs in `BAASH_VM.md`.
 - 2026-06-17: OpenCode (Claude Code on Tencent LKE DeepSeek) joining as sister agent. Onboarding pack: `CONNECTING_AGENTS.md` + `MEGAPROMPT_OPENCODE.md`.
 - 2026-06-17: Aurora identity protocol drafted (`AURORA_IDENTITY.md`), awaiting 9 reference photos.
+- 2026-09-07: Vetted `mayukh4/linux-android` (Termux → Linux desktop / Home Assistant on old Android phones). Clean — no malware or exfiltration. Approved conditionally: dedicated wiped phone, isolated network, Termux from F-Droid, decline HACS, never forward port 8123. Report in `vetting/linux-android.md`. New `vetting/` convention established for third-party code reviews.
 
 ## Preferences
 - Timezone: Africa/Johannesburg (SAST, GMT+2)
