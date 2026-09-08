@@ -30,6 +30,8 @@
 - 2026-06-17: New stack pieces approved — BAASH! VM on Orgo.ai (Kate + Aurora world), n8n orchestrator, TencentDB Agent Memory, Freepik integration. Specs in `BAASH_VM.md`.
 - 2026-06-17: OpenCode (Claude Code on Tencent LKE DeepSeek) joining as sister agent. Onboarding pack: `CONNECTING_AGENTS.md` + `MEGAPROMPT_OPENCODE.md`.
 - 2026-06-17: Aurora identity protocol drafted (`AURORA_IDENTITY.md`), awaiting 9 reference photos.
+- 2026-09-08: 🚨 SECOND SECURITY INCIDENT. All 11 repos in the `studex-nexus` constellation are PUBLIC — including `robusca-brain`, which regressed after being flipped private on 2026-06-17. One **live billable key** exposed: SambaNova, public ~4 months (verified HTTP 200) — exact location withheld from committed files while the repos are public, sent to Agent Lord directly. A Google Gemini key elsewhere in the constellation was auto-disabled by Google's leak scanner. GitHub PAT + Discord token in robusca-brain history are already dead. Full report: `SECURITY_AUDIT_2026-09-08.md`; actions at top of `KEY_ROTATION_CHECKLIST.md`. **Lesson: June's fix flipped one repo private and stopped there — it treated the symptom. The structural fix is GitHub secret scanning + push protection org-wide, and private-by-default on new repos.**
+- 2026-09-07: Vetted `mayukh4/linux-android` (Termux → Linux desktop / Home Assistant on old Android phones). Clean — no malware or exfiltration. Approved conditionally: dedicated wiped phone, isolated network, Termux from F-Droid, decline HACS, never forward port 8123. Report in `vetting/linux-android.md`. New `vetting/` convention established for third-party code reviews.
 
 ## Preferences
 - Timezone: Africa/Johannesburg (SAST, GMT+2)
