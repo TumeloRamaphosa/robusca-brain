@@ -13,8 +13,8 @@ Full findings: `SECURITY_AUDIT_2026-09-08.md`. All 11 repos in the `studex-nexus
 
 | # | Service | Action | Where it leaked | Status |
 |---|---|---|---|---|
-| 0a | **SambaNova** | **Revoke + regenerate NOW**, then check billing for unrecognised spend | `agents-dr.fixit` → 5 files under `ollama-pool/`, public since 2026-05-11 | 🔴 **VERIFIED LIVE** |
-| 0b | **Google Gemini** | Regenerate + delete from repo | `The-Nexus-Agents-NEst` → `memory/2026-03-14.md` | 🟠 Google auto-disabled it as leaked |
+| 0a | **SambaNova** | **Revoke + regenerate NOW**, then check billing for unrecognised spend | Location sent to you directly — withheld here, this file is public | 🔴 **VERIFIED LIVE** |
+| 0b | **Google Gemini** | Regenerate + delete from repo | Location sent to you directly | 🟠 Google auto-disabled it as leaked |
 | 0c | **All 11 repos** | Flip to private (check forks first — forks survive the flip) | See audit doc for the full list | 🔴 Public right now |
 | 0d | **Org-wide** | Turn on GitHub secret scanning + push protection | github.com org settings → Code security | ⬜ The control that prevents round three |
 

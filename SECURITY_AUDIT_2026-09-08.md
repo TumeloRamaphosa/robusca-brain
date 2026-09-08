@@ -47,13 +47,15 @@ Scanned working trees and full git history of all reachable repos against ~25 cr
 
 | What | Where | Status |
 |---|---|---|
-| **SambaNova API key** | `agents-dr.fixit` — 5 files under `ollama-pool/` (`scripts/start-litellm`, `scripts/pool`, `scripts/status`, `ide-configs/cursor.json`, `ide-configs/vscode.json`) | **LIVE.** Verified HTTP 200. In working tree *and* history since commit `9f7b0fc`, 2026-05-11 — roughly four months public. Billable inference account. |
+| **SambaNova API key** | Location withheld — see note below. Sent to Agent Lord directly. | **LIVE.** Verified HTTP 200. Present in working tree *and* history for roughly four months. Billable inference account. |
+
+> **Why the location is withheld:** this document is itself committed to `robusca-brain`, which is currently public. Naming the exact file that holds a *live* credential turns this report into a targeting aid — a scanner sees thousands of dead keys, but "this specific file, verified live today" is the signal an attacker actually wants. Exact paths, commit SHA and file list went to Agent Lord directly. **Restore the detail here only once the repos are private.**
 
 ### 🟠 Confirmed leaked, already neutralised by the vendor
 
 | What | Where | Status |
 |---|---|---|
-| **Google Gemini API key** | `The-Nexus-Agents-NEst` — `memory/2026-03-14.md`, tree + history | Google's automated scanner disabled it. Their API returns: *"Your API key was reported as leaked. Please use another API key."* Third-party proof the exposure was crawled, not theoretical. Still needs deleting and replacing. |
+| **Google Gemini API key** | Location sent to Agent Lord directly; tree + history | Google's automated scanner disabled it. Their API returns: *"Your API key was reported as leaked. Please use another API key."* Third-party proof the exposure was crawled, not theoretical. Still needs deleting and replacing. |
 
 ### 🟡 Dead, but still sitting in public history
 
