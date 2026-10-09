@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "notebooklm-mcp": {
+      "command": "notebooklm-mcp",
+      "args": [],
+      "env": {
+        "NOTEBOOKLM_BASE_URL": "https://notebooklm.google.com"
+      }
+    }
+  }
+}
