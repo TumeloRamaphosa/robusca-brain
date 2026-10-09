@@ -1,8 +1,24 @@
 # 🚨 URGENT — Key Rotation Checklist
 
 **Created:** 2026-06-17
+**Reopened:** 2026-09-08 — new live exposure found, and `robusca-brain` is public again
 **Status:** OPEN — work through top to bottom
 **Reason:** robusca-brain was public from creation until 2026-06-17 04:28 SAST. All keys committed to repo during that window must be considered compromised.
+
+---
+
+## ⛔ 2026-09-08 — DO THIS FIRST
+
+Full findings: `SECURITY_AUDIT_2026-09-08.md`. All 11 repos in the `studex-nexus` constellation are public.
+
+| # | Service | Action | Where it leaked | Status |
+|---|---|---|---|---|
+| 0a | **SambaNova** | **Revoke + regenerate NOW**, then check billing for unrecognised spend | Location sent to you directly — withheld here, this file is public | 🔴 **VERIFIED LIVE** |
+| 0b | **Google Gemini** | Regenerate + delete from repo | Location sent to you directly | 🟠 Google auto-disabled it as leaked |
+| 0c | **All 11 repos** | Flip to private (check forks first — forks survive the flip) | See audit doc for the full list | 🔴 Public right now |
+| 0d | **Org-wide** | Turn on GitHub secret scanning + push protection | github.com org settings → Code security | ⬜ The control that prevents round three |
+
+Already revoked, no action needed — listed so they aren't re-investigated: GitHub classic PAT and Discord bot token in `robusca-brain` history (both return 401), Twilio Account SID (identifier, not a secret).
 
 ---
 
