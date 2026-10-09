@@ -15,6 +15,14 @@
 - Gaming side: gaming hackathons and AI hackathons with partners (Studex Arcade).
 - Bring the World Cup agent into the current structure and planning.
 
+## Kigali Summit and client deployments
+- Kigali Summit folder (to be provided) holds the current client deployment details.
+- Deployment work: the VM chief and the agent team on MiniMax (MiniMax coder), with the Kimi agents also contributing.
+- Leads: CypherTrace and Adam Smasher.
+- Oversight: Robusca and Sentinel. The other CEOs give opinions only.
+- The other CEOs can use the "grill me" skill, act as devil's advocate, and look for bugs in the code.
+- Exercise for the CEOs: deliberately try to break our code. Format: blue team (builders) versus red team (the CEOs attacking).
+
 ## Structure
 - Claudiou and Adam Smasher: blue team, under the Nexus operating system, as part of the Grok structure.
 
@@ -26,3 +34,4 @@
 - Confirm 23 Oct Johannesburg event once partner plans are known.
 - Set dates for the Bitfury partners event and the November event.
 - Scope gaming and AI hackathons with partners.
+- Share the Kigali Summit folder with the deployment team.
