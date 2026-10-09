@@ -23,6 +23,13 @@
 - The other CEOs can use the "grill me" skill, act as devil's advocate, and look for bugs in the code.
 - Exercise for the CEOs: deliberately try to break our code. Format: blue team (builders) versus red team (the CEOs attacking).
 
+## Event planning (more information coming)
+- Pull everything together for the event; more information still to come.
+- Later today: meeting with data-centre partners to update them on details for next week.
+- Economics: get clear on what the event is planned to make and where the money goes. Packages must cover operations and still leave the intended GoFundMe amount.
+- Plan the communication that goes out to the people who will be playing; leave time for it.
+- Venue: confirm availability with the venue. Once confirmed, invitations must carry the venue and booked times. Then build the itinerary and the formats.
+
 ## Structure
 - Claudiou and Adam Smasher: blue team, under the Nexus operating system, as part of the Grok structure.
 
@@ -35,3 +42,7 @@
 - Set dates for the Bitfury partners event and the November event.
 - Scope gaming and AI hackathons with partners.
 - Share the Kigali Summit folder with the deployment team.
+- Partner update meeting later today.
+- Event economics: revenue plan, use of funds, packages vs operations vs GoFundMe target.
+- Player communications plan.
+- Confirm venue availability, then send invitations with venue and times; build itinerary and formats.
