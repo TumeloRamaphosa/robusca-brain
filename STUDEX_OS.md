@@ -5,7 +5,14 @@
 **Repo:** https://github.com/TumeloRamaphosa/robusca-brain  
 **Owner:** Tumelo Ramaphosa (t.ramaphosa@studex.dev)  
 **Timezone:** Africa/Johannesburg (SAST = UTC+2)  
-**Orchestrator:** Perplexity Computer
+**Orchestrator:** Perplexity Computer / Cipher Tr@ce  
+**Action layer:** Composio — see [COMPOSIO_MESH.md](COMPOSIO_MESH.md)  
+**ClawX models/voice:** [CLAWX_MODELS.md](CLAWX_MODELS.md) · [CLAWX_VOICE_MAC_MINI.md](CLAWX_VOICE_MAC_MINI.md)  
+**Finish checklist:** [SETUP_STATUS.md](SETUP_STATUS.md)  
+**Voice assistant OS (MiniMax + Ollama + Notion/Linear):** [VOICE_ASSISTANT_OS.md](VOICE_ASSISTANT_OS.md)  
+**Obsidian conversations:** [OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md) — this repo is the vault  
+**Control flow:** `Speak/Ask → Vault context → Ollama → Agents act → MiniMax / notes`
+
 
 ---
 

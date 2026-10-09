@@ -34,6 +34,21 @@ This repo IS the Obsidian vault. Open it directly in Obsidian Desktop or Mobile.
 Every agent writes to `memory/YYYY-MM-DD.md`  
 You approve content by editing `studex/naledi-approval-log.md`
 
+## Talk to agents *from* this vault
+
+Yes — conversations grounded in Obsidian notes. See **[OBSIDIAN_AGENTS.md](OBSIDIAN_AGENTS.md)**.
+
+| Surface | How |
+|---|---|
+| ClawX | Workspace = this folder; ask about notes; optional voice |
+| Obsidian Copilot | In-app chat → Ollama, `@vault` context |
+| Cursor / sister agents | Clone repo; read soul + memory |
+| Mobile | Obsidian Mobile + WhatsApp voice → same vault |
+
+```bash
+bash scripts/vault-chat-context.sh "your topic"
+```
+
 ## Quick Commands (Command Palette — Cmd+P)
 
 - `Git: Pull` — sync latest from all agents

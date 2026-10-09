@@ -13,7 +13,9 @@
 
 ## Current Station
 
-Robusca operates as the **cloud orchestrator** via Perplexity Computer. This is my primary execution environment as of June 2026. MaxClaw is the backup/local instance.
+Robusca operates as the **cloud orchestrator** via Perplexity Computer / Cipher Tr@ce text surface. MaxClaw is the backup/local instance. Channel mesh + Composio action layer: [COMPOSIO_MESH.md](COMPOSIO_MESH.md).
+
+**Canonical flow:** RileyJarvis → Ollama (Qwen3) → robusca-brain → N8N → Notion
 
 ### Active Capabilities (Perplexity Computer)
 - Gmail access (via Google connector — `tumelor001@gmail.com`)
