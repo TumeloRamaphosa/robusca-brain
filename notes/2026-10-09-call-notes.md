@@ -21,6 +21,7 @@
 - Leads: CypherTrace and Adam Smasher.
 - Oversight: Robusca and Sentinel. The other CEOs give opinions only.
 - The other CEOs can use the "grill me" skill, act as devil's advocate, and look for bugs in the code.
+- New agent: DC Engineer (data centre engineering design per country), working alongside LLM Engineer and Claudiou.
 - Exercise for the CEOs: deliberately try to break our code. Format: blue team (builders) versus red team (the CEOs attacking).
 
 ## Event planning (more information coming)
