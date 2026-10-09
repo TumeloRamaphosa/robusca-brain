@@ -1,6 +1,6 @@
 # Studex — NotebookLM Workspace
 **Owner:** Tumelo Ramaphosa | **Contact:** t.ramaphosa@studex.dev
-**Last updated:** June 2026
+**Last updated:** July 2026
 
 ---
 
@@ -17,7 +17,7 @@ For Tumelo's use, NotebookLM is the engine for producing deep, well-sourced podc
 
 ---
 
-## The 6 Notebooks
+## The Notebooks
 
 Each file below is a NotebookLM source document. Upload the file (or paste the content) into a new NotebookLM notebook as the primary source, then follow the setup guide below.
 
@@ -29,6 +29,8 @@ Each file below is a NotebookLM source document. Upload the file (or paste the c
 | 04 | [notebook-04-africabiz.md](./notebook-04-africabiz.md) | AfricaBiz partnership — Natalia Mordvinova (Founder & Director), SA–Russia Exchange Programme, Trade Week 2026 | 6–8 min |
 | 05 | [notebook-05-partner-companies.md](./notebook-05-partner-companies.md) | The four founding partner companies — NtechLab, ART Engineering MDC, Pharmasyntez, Project Phoenix/GRM | 8–10 min |
 | 06 | [notebook-06-full-ecosystem.md](./notebook-06-full-ecosystem.md) | Full ecosystem vision — all three layers, SEAM/Studex Meat, Polsia infrastructure, continental expansion | 8–10 min |
+| 07 | [notebook-07-nestvm-sales-script.md](./notebook-07-nestvm-sales-script.md) | NestVM / Global Markets sales pitch — why advanced companies enter Africa through StudEx | 8–10 min |
+| 08 | [notebook-08-studex-world-agent-empire.md](./notebook-08-studex-world-agent-empire.md) | **StudEx World — The Rise of the Agent Empire** — cinematic gaming-world flyover narration (Audio/Video Overview) | 8–10 min |
 
 ---
 
@@ -142,20 +144,25 @@ Once you create each notebook on NotebookLM, paste the notebook URL here for qui
 | 04 — AfricaBiz | *(paste link after creating)* |
 | 05 — Partner Companies | *(paste link after creating)* |
 | 06 — Full Ecosystem | *(paste link after creating)* |
+| 07 — NestVM Sales Script | *(paste link after creating)* |
+| 08 — StudEx World (Agent Empire) | *(paste link after creating)* |
 
 ---
 
 ## File Index
 
 ```
-/home/user/workspace/robusca-brain/notebooklm/
+notebooklm/
 ├── README.md                              ← This file
 ├── notebook-01-global-markets-platform.md
 ├── notebook-02-studex-company.md
 ├── notebook-03-super-agents.md
 ├── notebook-04-africabiz.md
 ├── notebook-05-partner-companies.md
-└── notebook-06-full-ecosystem.md
+├── notebook-06-full-ecosystem.md
+├── notebook-07-nestvm-sales-script.md
+├── notebook-07-nestvm-whatsapp-pitch.md
+└── notebook-08-studex-world-agent-empire.md
 ```
 
 Source scripts (read-only reference):
