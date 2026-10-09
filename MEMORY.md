@@ -30,6 +30,11 @@
 - 2026-06-17: New stack pieces approved — BAASH! VM on Orgo.ai (Kate + Aurora world), n8n orchestrator, TencentDB Agent Memory, Freepik integration. Specs in `BAASH_VM.md`.
 - 2026-06-17: OpenCode (Claude Code on Tencent LKE DeepSeek) joining as sister agent. Onboarding pack: `CONNECTING_AGENTS.md` + `MEGAPROMPT_OPENCODE.md`.
 - 2026-06-17: Aurora identity protocol drafted (`AURORA_IDENTITY.md`), awaiting 9 reference photos.
+- 2026-08-22: Built the two skills `STUDEX_OS.md` rule 8 always required but never had — `last30days` (recency research) and `agentry` (content production line). Rule was unenforceable until now.
+- 2026-08-22: **Launch strategy set** (`studex/launch-2026-08/`). Positioning spine is Memory → Workforce → Market; structural story is the escalator (talent up, work down, one infrastructure). Wedge is anti-agent-washing: Gartner named it a procurement hazard Apr 2026 and reckons only ~130 of thousands of agent vendors are real, so "our agents are powerful" is now a low-trust sentence — but persistent memory, audit trail, isolation and outcome pricing are the buyer's actual checklist, and we already have all four.
+- 2026-08-22: Decided to launch **Business Ghost alone** (R950/company/month, unlimited seats), not the ecosystem. Execution Exchange deferred to phase 4 — two-sided cold start. Midnight Founders Club is the content engine, not a product. Recommended renaming Agentic Rise → Studex Rise ("agentic" is the tell-word we'd be campaigning against).
+- 2026-08-22: 🚩 **Token rail flagged.** The fiat→USDC→Studex-token flow is a licensed financial services business in SA — plausibly FSCA CASP licence + FIC registration + a *separate* FinSurv authorisation for the cross-border leg; utility tokens are not carved out. Needs an attorney. Separately, it contradicts a governance-led pitch and attracts crypto speculators over the R20k/month buyer. Recommended: out of all launch material, invoice in ZAR/USD.
+- 2026-08-22: 🚩 **We have no receipts.** Zero instrumented outcome numbers for NtechLab, Pharmasyntez, ART Engineering MDC or Project Phoenix. This gates the whole campaign — a launch premised on "everyone else overclaims" cannot itself overclaim. Also: June key rotation still unconfirmed, and "14 years of AI" is unsubstantiated in our own records.
 
 ## Preferences
 - Timezone: Africa/Johannesburg (SAST, GMT+2)
