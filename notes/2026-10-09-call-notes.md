@@ -22,6 +22,7 @@
 - Oversight: Robusca and Sentinel. The other CEOs give opinions only.
 - The other CEOs can use the "grill me" skill, act as devil's advocate, and look for bugs in the code.
 - New agent: DC Engineer (data centre engineering design per country), working alongside LLM Engineer and Claudiou.
+- DC Engineer scope: all compute work from small to large scale, including bare metal. Priorities: the gaming specs, including what's needed for gaming next week (with the gaming CEO, Gamer), and the Rwanda / Kigali design spec. Paired with LLM Engineer.
 - Exercise for the CEOs: deliberately try to break our code. Format: blue team (builders) versus red team (the CEOs attacking).
 
 ## Event planning (more information coming)
