@@ -17,6 +17,20 @@ import HiggsFieldPanel from "@/components/HiggsFieldPanel";
 
 const TONES = ["Premium", "Bold", "Emotional", "Funny"];
 
+type PipelineStage = {
+  icon: string;
+  codename: string;
+  label: string;
+  status: "READY" | "RUNNING" | "DONE";
+};
+
+const PIPELINE_STAGES: PipelineStage[] = [
+  { icon: "⬡", codename: "PROMPT", label: "Prompt Input", status: "READY" },
+  { icon: "◈", codename: "APEX", label: "Generates Image", status: "READY" },
+  { icon: "◈", codename: "NOVA", label: "Writes Caption", status: "READY" },
+  { icon: "⬡", codename: "CHARLIE", label: "Queues for Approval", status: "READY" },
+];
+
 const AI_TOOLS = [
   {
     name: "Hypframes",
@@ -221,12 +235,7 @@ export default function GenerateContent() {
             padding: "4px 0",
           }}
         >
-          {([
-            { icon: "⬡", codename: "PROMPT", label: "Prompt Input", status: "READY" as const },
-            { icon: "◈", codename: "APEX", label: "Generates Image", status: "READY" as const },
-            { icon: "◈", codename: "NOVA", label: "Writes Caption", status: "READY" as const },
-            { icon: "⬡", codename: "CHARLIE", label: "Queues for Approval", status: "READY" as const },
-          ]).map((stage, i, arr) => (
+          {(PIPELINE_STAGES).map((stage, i, arr) => (
             <div key={stage.codename} style={{ display: "flex", alignItems: "center" }}>
               {/* Stage card */}
               <div
@@ -253,7 +262,7 @@ export default function GenerateContent() {
                     filter:
                       stage.status === "RUNNING"
                         ? "drop-shadow(0 0 6px #4CFFA888)"
-                        : stage.status === "RUNNING"
+                        : stage.status === "READY"
                         ? "drop-shadow(0 0 4px #C9A84C88)"
                         : "none",
                     animation: stage.status === "RUNNING" ? "dotPulse 1.5s ease-in-out infinite" : "none",
