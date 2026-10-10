@@ -1,0 +1,61 @@
+# StudEx NestVM — OpenJarvis voice config
+# Copy to: ~/.openjarvis/config.toml
+#
+# Requirements on Mac Mini:
+#   - OpenJarvis installed
+#   - ollama pull qwen3.5:9b
+#   - CARTESIA_API_KEY or OPENAI_API_KEY in the environment
+#
+# Docs: os/openjarvis/VOICE_SETUP.md
+
+[engine]
+default = "ollama"
+
+[intelligence]
+default_model = "qwen3.5:9b"
+# default_model = "qwen3.5:4b"     # faster on lighter machines
+# default_model = "qwen3.5:35b"    # needs 32GB+ RAM
+
+[agent]
+default_agent = "simple"
+
+[tools]
+enabled = [
+  "code_interpreter",
+  "web_search",
+  "file_read",
+  "shell_exec",
+  "digest_collect",
+  "text_to_speech",
+]
+
+# ─── Spoken briefing (TTS) ──────────────────────────────────
+
+[digest]
+enabled = true
+schedule = "0 7 * * *"
+timezone = "Asia/Dubai"
+persona = "jarvis"
+honorific = "sir"
+tts_backend = "cartesia"
+# Sterling — deep, commanding (StudEx Black & Gold energy)
+voice_id = "b134c304-d095-4d2b-a77a-914f5e8e84e7"
+# Alternatives:
+#   Alistair  c8f7835e-28a3-4f0c-80d7-c1302ac62aae
+#   Harrison  df89f42f-f285-4613-adbf-14eedcec4c9e
+voice_speed = 1.15
+sections = ["messages", "calendar", "world"]
+
+[digest.messages]
+sources = ["gmail", "google_tasks", "imessage"]
+
+[digest.calendar]
+sources = ["gcalendar"]
+
+[digest.world]
+sources = ["hackernews", "news_rss"]
+# Add "weather" after ~/.openjarvis/connectors/weather.json is set
+
+# Optional health (uncomment + add "health" to sections):
+# [digest.health]
+# sources = ["oura"]
