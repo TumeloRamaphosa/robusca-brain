@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Puppetier — StudEx Agentic Workspace</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;500&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "Helvetica Neue", system-ui, sans-serif;
+      background: radial-gradient(ellipse at 20% 10%, #0a0818 0%, #050507 50%, #000 100%);
+      color: #f5ecd0;
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 48px 24px 80px; }
+    .tag { font-size: 10px; letter-spacing: 5px; text-transform: uppercase; color: #9a8a5a; margin-bottom: 12px; }
+    h1 { font-family: "Cormorant Garamond", serif; font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; line-height: 1.1; }
+    .gold { color: #c9a84c; }
+    .lead { margin-top: 20px; font-size: 15px; color: #9a8a5a; max-width: 520px; line-height: 1.6; }
+    .cta { display: inline-block; margin-top: 32px; padding: 14px 28px; background: #c9a84c; color: #0a0a0c; text-decoration: none; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+    .cta:hover { background: #e6c766; }
+    .bento { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 64px; }
+    .card {
+      border: 1px solid rgba(201, 168, 76, 0.2);
+      background: rgba(21, 20, 14, 0.8);
+      padding: 24px;
+    }
+    .card h2 { font-family: "Cormorant Garamond", serif; font-size: 1.5rem; font-weight: 400; margin-bottom: 8px; }
+    .card p { font-size: 12px; color: #9a8a5a; line-height: 1.5; }
+    .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #6fa84f; margin-right: 8px; }
+    .footer { margin-top: 80px; font-size: 11px; color: #5a4f2e; letter-spacing: 1px; }
+    .links { margin-top: 16px; display: flex; gap: 24px; flex-wrap: wrap; }
+    .links a { color: #c9a84c; font-size: 12px; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="tag">StudEx Group · Agentic OS</p>
+    <h1>Your agent team.<br /><span class="gold">One workspace.</span></h1>
+    <p class="lead">Puppetier connects Open WebUI, StudEx agents, and Hermes Voice. Switch models. See agents work. Speak to Hermes on Mac.</p>
+    <a class="cta" href="http://localhost:3080">Open Workspace</a>
+
+    <div class="bento">
+      <div class="card"><h2><span class="dot"></span>Hermes CEO</h2><p>Orchestrates the mesh. Strategy, RALF loop, R4M target.</p></div>
+      <div class="card"><h2><span class="dot"></span>OpenClaw CMO</h2><p>Content, campaigns, obsidian-gold brand. Approval-gated.</p></div>
+      <div class="card"><h2><span class="dot"></span>Goose Dev</h2><p>Code, deploy, ship. Vercel, Fly.io, GitHub.</p></div>
+      <div class="card"><h2><span class="dot"></span>Treasury CFO</h2><p>Revenue, Shopify, financial reporting.</p></div>
+      <div class="card"><h2><span class="dot"></span>Hermes Voice</h2><p>RileyJarvis fork. Realtime speech. cedar voice. Mac.</p></div>
+      <div class="card"><h2><span class="dot"></span>Model Freedom</h2><p>Claude, GPT, Ollama, OpenRouter — per agent.</p></div>
+    </div>
+
+    <div class="footer">
+      <p>PUPPETIER BY STUDEX · BLACK & GOLD</p>
+      <div class="links">
+        <a href="http://localhost:3080">Workspace :3080</a>
+        <a href="http://localhost:8787/health">MCP :8787</a>
+        <a href="http://localhost:8765/health">Voice :8765</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

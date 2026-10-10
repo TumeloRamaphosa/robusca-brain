@@ -1,0 +1,45 @@
+/* Puppetier — StudEx Obsidian & Gold theme for Open WebUI */
+
+:root {
+  --puppetier-obsidian: #0a0a0c;
+  --puppetier-obsidian-2: #15140e;
+  --puppetier-gold: #c9a84c;
+  --puppetier-gold-bright: #e6c766;
+  --puppetier-cream: #f5ecd0;
+  --puppetier-gold-dim: #9a8a5a;
+}
+
+html.dark body,
+body {
+  background: radial-gradient(ellipse at 20% 10%, #0a0818 0%, #050507 50%, #000 100%) !important;
+  color: var(--puppetier-cream) !important;
+}
+
+nav, header, aside, .sidebar {
+  background: var(--puppetier-obsidian-2) !important;
+  border-color: rgba(201, 168, 76, 0.15) !important;
+}
+
+button.primary, .btn-primary, [type="submit"] {
+  background: var(--puppetier-gold) !important;
+  color: var(--puppetier-obsidian) !important;
+  border-radius: 0 !important;
+}
+
+a, .text-primary {
+  color: var(--puppetier-gold-bright) !important;
+}
+
+h1, h2, h3, .font-serif {
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-weight: 300 !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--puppetier-gold-dim);
+}
+
+/* Agent rail highlight */
+[data-agent="hermes"], [data-agent="openclaw"], [data-agent="goose"], [data-agent="treasury"] {
+  border-left: 2px solid var(--puppetier-gold);
+}

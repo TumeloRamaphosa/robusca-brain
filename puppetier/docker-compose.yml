@@ -1,0 +1,73 @@
+# Puppetier — StudEx Agentic Workspace
+# Run: docker compose up -d
+# Open WebUI: http://localhost:3080
+
+services:
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: puppetier-webui
+    ports:
+      - "3080:8080"
+    volumes:
+      - open-webui-data:/app/backend/data
+      - ./open-webui/theme/puppetier.css:/app/backend/static/custom.css:ro
+      - ./open-webui/presets:/app/presets:ro
+    environment:
+      - WEBUI_NAME=Puppetier
+      - DEFAULT_USER_ROLE=user
+      - ENABLE_SIGNUP=false
+      - OPENAI_API_BASE_URL=${OPENAI_API_BASE_URL:-https://api.openai.com/v1}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - OLLAMA_BASE_URL=${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      - CUSTOM_NAME=Puppetier by StudEx
+      - WEBUI_AUTH=true
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    depends_on:
+      - mcp-gateway
+      - voice-bridge
+
+  mcp-gateway:
+    build: ./mcp-gateway
+    container_name: puppetier-mcp
+    ports:
+      - "8787:8787"
+    environment:
+      - PORT=8787
+      - HERMES_URL=http://host.docker.internal:3000
+      - OPENCLAW_URL=http://host.docker.internal:3002
+      - GOOSE_URL=http://host.docker.internal:3003
+      - TREASURY_URL=http://host.docker.internal:3004
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+
+  voice-bridge:
+    build: ./voice-bridge
+    container_name: puppetier-voice
+    ports:
+      - "8765:8765"
+    environment:
+      - PORT=8765
+      - MCP_GATEWAY_URL=http://mcp-gateway:8787
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16-alpine
+    container_name: puppetier-db
+    environment:
+      - POSTGRES_USER=puppetier
+      - POSTGRES_PASSWORD=puppetier
+      - POSTGRES_DB=puppetier
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    restart: unless-stopped
+
+volumes:
+  open-webui-data:
+  postgres-data:

@@ -26,8 +26,13 @@ Skills define _how_ tools work. This file is for _your_ specifics — the stuff 
 
 ## Skills Installed
 
-All cloned to `/Users/tumeloramaphosa/.openclaw/workspace/skills/`:
+### Mac workspace (`~/.openclaw/workspace/skills/`)
 - 1code, skills (remotion), ui-ux-pro-max-skill, superpowers, graphify, gstack, claude-goal, OpenMythos, openclaw-supermemory, StudExHermes-Command, agents-dr.fixit
+
+### Cloud repo (this workspace, 2026-07-10)
+- **Superpowers** → `.agents/skills/` (14 skills, `npx skills add obra/superpowers`)
+- **Goal** → `skills/goal/` ([jthack/claude-goal](https://github.com/jthack/claude-goal))
+- **Claude Code MCP** → `.mcp.json` (run `claude mcp add` on Mac — see `docs/AGENT_SKILLS_SETUP.md`)
 
 ## StudEx Projects
 - **StudExHermes-Command** — Cyberpunk 9-agent swarm dashboard with Kanban, memory log, social metrics, RALF loop. Next.js app.
