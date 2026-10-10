@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Agents — Studex Global Markets</title>
+<meta name="description" content="Named agents on their own machines, working your business while you are not watching. Institutional memory, an AI workforce, and a written record of every action." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;500&family=Space+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  /* ------------------------------------------------------------------
+     Structure borrowed, aesthetic not.
+     The idea worth taking from Warmwind is that agents are shown as
+     named entities on their own machines — the abstraction made concrete.
+     Their register is light, rounded, pastel and playful. Ours is
+     obsidian, near-square, ivory and quiet. Same mechanic, our house.
+     ------------------------------------------------------------------ */
+  :root {
+    --obsidian: #0a0a0a;
+    --obsidian-lift: #121212;
+    /* Lifted from #161616 — at that value the cards barely separated from the
+       page and the whole floor read as murk rather than as objects. */
+    --obsidian-card: #1a1a19;
+    --ivory: #f2f0e9;
+    --ivory-dim: #9d9a92;
+    --ivory-faint: #4a4843;
+    /* For micro-labels that must stay readable at 10px. --ivory-faint is
+       correct for decoration and too dim for anything carrying information. */
+    --ivory-quiet: #7c7a73;
+    --gold: #c9a84c;
+    --rule: #23221f;
+
+    --serif: "Cormorant Garamond", Georgia, serif;
+    --sans: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: "Space Mono", ui-monospace, Menlo, monospace;
+
+    --track-label: 0.34em;
+    --measure: 46ch;
+    --gutter: clamp(1.5rem, 6vw, 7rem);
+    --max: 1440px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--obsidian); color: var(--ivory);
+    font-family: var(--sans); font-weight: 300; line-height: 1.75;
+    -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+  .label {
+    font-size: 0.625rem; font-weight: 500; letter-spacing: var(--track-label);
+    text-transform: uppercase; color: var(--ivory-dim); margin: 0;
+  }
+  .label.gold { color: var(--gold); }
+  .mono { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.01em; }
+  h1, h2, h3 { font-family: var(--serif); font-weight: 300; margin: 0; }
+
+  /* ---- masthead ---- */
+  header {
+    position: fixed; inset: 0 0 auto 0; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.75rem var(--gutter);
+    background: linear-gradient(to bottom, rgba(10,10,10,0.94), rgba(10,10,10,0));
+  }
+  .wordmark { display: block; text-decoration: none; color: var(--ivory); }
+  .wordmark .name { display: block; font-size: 0.875rem; letter-spacing: 0.42em; line-height: 1; font-weight: 400; }
+  .wordmark .sub { display: block; font-size: 0.5rem; font-weight: 500; letter-spacing: 0.32em; color: var(--ivory-dim); margin-top: 0.4375rem; }
+  nav { display: flex; gap: 2.5rem; }
+  nav a {
+    color: var(--ivory-dim); text-decoration: none; font-size: 0.625rem; font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase; transition: color 400ms ease;
+  }
+  nav a:hover, nav a[aria-current] { color: var(--ivory); }
+  @media (max-width: 900px) { nav { display: none; } }
+
+  /* ---- hero ---- */
+  .hero { padding: 11rem 0 5rem; text-align: center; }
+  .status {
+    display: inline-flex; align-items: center; gap: 0.625rem;
+    border: 1px solid var(--rule); padding: 0.4375rem 1rem;
+    font-size: 0.5625rem; font-weight: 500; letter-spacing: var(--track-label);
+    text-transform: uppercase; color: var(--ivory-dim); margin-bottom: 2.75rem;
+  }
+  .status i { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  .hero h1 {
+    font-size: clamp(2.25rem, 6vw, 5rem); line-height: 1.08;
+    letter-spacing: -0.015em; max-width: 26ch; margin: 0 auto; text-wrap: balance;
+  }
+  .hero h1 em { font-style: italic; color: var(--ivory-dim); }
+  .hero .sub { margin: 2.5rem auto 0; max-width: 44ch; color: var(--ivory-dim); font-size: 0.9375rem; }
+
+  /* ---- the agent floor: the mechanic ---- */
+  .floor { margin-top: 5.5rem; display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); text-align: left; }
+  @media (max-width: 1100px) { .floor { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px)  { .floor { grid-template-columns: 1fr; } }
+
+  .agent { background: var(--obsidian-card); padding: 1.5rem 1.5rem 1.375rem; display: grid; gap: 1rem; min-height: 200px; align-content: start; }
+  .agent .top { display: flex; align-items: center; gap: 0.75rem; }
+  .agent img { width: 34px; height: 34px; border-radius: 50%; flex: none; }
+  .agent .who { display: grid; gap: 0.1875rem; }
+  .agent .nm { font-family: var(--serif); font-size: 1.125rem; line-height: 1; }
+  .agent .role { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ivory-quiet); }
+  .agent .doing { color: var(--ivory-dim); font-size: 0.8125rem; line-height: 1.55; margin: 0; }
+  .agent .foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: auto; padding-top: 0.875rem; border-top: 1px solid var(--rule); }
+  .agent .state { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; }
+  .state.run { color: var(--gold); }
+  .state.idle { color: var(--ivory-quiet); }
+  /* The credit cost is the mechanic that makes the meter legible to a client.
+     Hiding it at 9px in the faintest tone defeats the point of publishing it. */
+  .agent .cost { color: var(--ivory-dim); font-size: 0.6875rem; white-space: nowrap; }
+
+  /* the unassigned slot — scarcity, stated quietly */
+  .agent.vacant { background: transparent; display: grid; place-items: center; text-align: center; }
+  .agent.vacant .nm { color: var(--ivory-faint); }
+  .agent.vacant p { color: var(--ivory-faint); font-size: 0.75rem; margin: 0.5rem 0 0; max-width: 20ch; }
+
+  /* ---- sections ---- */
+  section { padding: clamp(5.5rem, 12vh, 10rem) 0; }
+  .rule { height: 1px; background: var(--rule); }
+  .sec-head { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
+  @media (max-width: 900px) { .sec-head { grid-template-columns: 1fr; gap: 2rem; } }
+  .sec-head h2 { font-size: clamp(1.625rem, 3.4vw, 2.75rem); line-height: 1.18; max-width: 26ch; }
+  .sec-head p { color: var(--ivory-dim); max-width: var(--measure); margin: 1.75rem 0 0; }
+
+  /* ---- how it works ---- */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 5rem; }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr; } }
+  .steps > div { border-top: 1px solid var(--rule); padding: 2.75rem 2.5rem 2.75rem 0; }
+  .steps > div + div { padding-left: 2.5rem; border-left: 1px solid var(--rule); }
+  @media (max-width: 900px) { .steps > div + div { padding-left: 0; border-left: 0; } }
+  .steps .n { font-family: var(--serif); font-size: 0.875rem; color: var(--gold); letter-spacing: 0.3em; margin-bottom: 1.25rem; }
+  .steps h3 { font-size: 1.5rem; margin-bottom: 0.875rem; }
+  .steps p { color: var(--ivory-dim); font-size: 0.9375rem; margin: 0; }
+
+  /* ---- at work: proof, not promise ---- */
+  .work { display: grid; gap: 0; margin-top: 4.5rem; }
+  .work article { display: grid; grid-template-columns: 15rem 1fr 13rem; gap: 3rem; padding: 2.25rem 0; border-top: 1px solid var(--rule); align-items: start; }
+  @media (max-width: 1000px) { .work article { grid-template-columns: 1fr; gap: 1rem; } }
+  .work h3 { font-size: 1.25rem; }
+  .work p { color: var(--ivory-dim); font-size: 0.9375rem; margin: 0; }
+  .work .res { text-align: right; }
+  @media (max-width: 1000px) { .work .res { text-align: left; } }
+  .work .res .big { font-family: var(--serif); font-size: 2rem; line-height: 1; display: block; }
+  .work .res .cap { font-size: 0.625rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ivory-quiet); display: block; margin-top: 0.5rem; }
+  .pending { border: 1px solid var(--rule); padding: 1.125rem 1.375rem; margin-top: 3rem; color: var(--ivory-faint); font-size: 0.75rem; }
+
+  /* ---- where it runs ---- */
+  .runs { background: var(--obsidian-lift); }
+  .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-top: 4rem; }
+  @media (max-width: 900px) { .facts { grid-template-columns: 1fr; } }
+  .facts > div { border-top: 1px solid var(--rule); padding: 2rem 2.5rem 2rem 0; }
+  .facts > div:nth-child(even) { padding-left: 2.5rem; border-left: 1px solid var(--rule); }
+  @media (max-width: 900px) { .facts > div:nth-child(even) { padding-left: 0; border-left: 0; } }
+  .facts h3 { font-size: 1.25rem; margin-bottom: 0.625rem; }
+  .facts p { color: var(--ivory-dim); font-size: 0.875rem; margin: 0; }
+
+  /* ---- access ---- */
+  .tiers { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin-top: 4rem; }
+  @media (max-width: 900px) { .tiers { grid-template-columns: 1fr; } }
+  .tier { background: var(--obsidian-card); padding: 2.5rem 2rem; display: grid; gap: 1rem; align-content: start; }
+  .tier .nm { font-family: var(--serif); font-size: 1.5rem; }
+  .tier .pr { font-family: var(--serif); font-size: 2.25rem; line-height: 1; }
+  .tier .pr small { font-family: var(--sans); font-size: 0.6875rem; color: var(--ivory-quiet); letter-spacing: 0.08em; display: block; margin-top: 0.5rem; }
+  .tier p { color: var(--ivory-dim); font-size: 0.875rem; margin: 0; }
+  /* Match the numeric tiers' optical weight so the third column doesn't read
+     as unfinished. "By enquiry" should look like a decision, not a placeholder. */
+  .tier.enquire .pr { font-size: 2rem; color: var(--gold); }
+
+  /* ---- cta ---- */
+  .cta { text-align: center; }
+  .cta h2 { font-size: clamp(1.75rem, 4.2vw, 3rem); line-height: 1.15; max-width: 24ch; margin: 0 auto; }
+  .apply {
+    display: inline-block; margin-top: 3.25rem; padding: 1.375rem 4rem;
+    border: 1px solid var(--gold); color: var(--gold); text-decoration: none;
+    font-size: 0.625rem; font-weight: 500; letter-spacing: var(--track-label); text-transform: uppercase;
+    transition: background 500ms ease, color 500ms ease;
+  }
+  .apply:hover { background: var(--gold); color: var(--obsidian); }
+  .apply:focus-visible, nav a:focus-visible, .wordmark:focus-visible, .foot a:focus-visible {
+    outline: 1px solid var(--gold); outline-offset: 4px;
+  }
+  .cta .fine { margin-top: 2rem; color: var(--ivory-faint); font-size: 0.75rem; }
+
+  footer { padding: 4.5rem 0 3.5rem; border-top: 1px solid var(--rule); }
+  .foot { display: flex; justify-content: space-between; align-items: flex-end; gap: 3rem; flex-wrap: wrap; }
+  .foot a { color: var(--ivory-dim); text-decoration: none; font-size: 0.875rem; }
+  .foot a:hover { color: var(--ivory); }
+  .foot .col { display: grid; gap: 0.75rem; }
+  .foot .fine { color: var(--ivory-faint); font-size: 0.6875rem; letter-spacing: 0.08em; }
+
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 1s ease, transform 1s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="wordmark" href="index.html">
+    <span class="name">STUDEX</span>
+    <span class="sub">GLOBAL MARKETS</span>
+  </a>
+  <nav>
+    <a href="index.html">The Decade</a>
+    <a href="platform.html" aria-current="page">The Agents</a>
+    <a href="#access">Access</a>
+    <a href="#enquire">Enquire</a>
+  </nav>
+</header>
+
+<!-- ===================== HERO + THE AGENT FLOOR ===================== -->
+<div class="wrap">
+  <div class="hero">
+    <span class="status"><i></i> Eight agents. One company each.</span>
+    <h1>Your company already forgot.<br /><em>They didn't.</em></h1>
+    <p class="sub">
+      Named agents, each on its own machine, working your business while you are
+      not watching. They remember what your company decided, and they write down
+      everything they do.
+    </p>
+
+    <!-- The mechanic: agents as named entities with live state.
+         Swap agent-avatar-placeholder.svg for Tumelo's bot artwork. -->
+    <div class="floor reveal">
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Ghost</span><span class="role">Memory</span></div>
+        </div>
+        <p class="doing">Holds every goal, meeting, customer, project and decision. Answers what your company knew.</p>
+        <div class="foot"><span class="state run mono">Always on</span><span class="cost mono">—</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Scout</span><span class="role">Tenders</span></div>
+        </div>
+        <p class="doing">Watches eTenders, provincial and SOE portals three times a day. Filters to what you can actually win.</p>
+        <div class="foot"><span class="state run mono">06:00 · 12:00 · 18:00</span><span class="cost mono">12 cr</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Drafter</span><span class="role">Proposals</span></div>
+        </div>
+        <p class="doing">Turns a scope email into a costed draft in your house template, using your rates and past projects.</p>
+        <div class="foot"><span class="state idle mono">On request</span><span class="cost mono">40 cr</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Warden</span><span class="role">Compliance</span></div>
+        </div>
+        <p class="doing">Every certificate, licence and registration you hold. Tells you sixty days before one lapses.</p>
+        <div class="foot"><span class="state run mono">Daily 07:00</span><span class="cost mono">6 cr</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Naledi</span><span class="role">Content</span></div>
+        </div>
+        <p class="doing">Publishes in your voice, on approval. Reports what held attention past three seconds and what did not.</p>
+        <div class="foot"><span class="state run mono">Daily 11:00</span><span class="cost mono">10 cr</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Envoy</span><span class="role">Buyers</span></div>
+        </div>
+        <p class="doing">Watches your target buyers for the moments worth reacting to — a raise, a hire, a supplier lost.</p>
+        <div class="foot"><span class="state run mono">Daily 10:00</span><span class="cost mono">14 cr</span></div>
+      </div>
+
+      <div class="agent">
+        <div class="top">
+          <img src="assets/agent-avatar-placeholder.svg" alt="" />
+          <div class="who"><span class="nm">Ledger</span><span class="role">Record</span></div>
+        </div>
+        <p class="doing">Writes down every action the others take, with what it cost. Friday it sends you the account.</p>
+        <div class="foot"><span class="state run mono">Fridays 16:00</span><span class="cost mono">30 cr</span></div>
+      </div>
+
+      <div class="agent vacant">
+        <div>
+          <span class="nm">Unassigned</span>
+          <p>Your eighth seat. Named and trained in induction.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ===================== WHAT THEY ARE ===================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label gold">Not a chat window</p>
+      <div>
+        <h2>An agent that cannot tell you why it did something is not an agent.</h2>
+        <p>
+          It is a liability with a text box. Ours run on their own machines, under
+          permission, and every action they take is logged, attributed and yours
+          to inspect — including the ones that failed.
+        </p>
+        <p>
+          That is the whole difference. Not how clever they sound. What they can
+          prove.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label">How it works</p>
+      <div><h2>Three steps, and only the first one needs you.</h2></div>
+    </div>
+
+    <div class="steps reveal">
+      <div>
+        <div class="n">I</div>
+        <h3>We take your history</h3>
+        <p>
+          Email, contracts, past proposals, certificates, your accounting and
+          CRM. It becomes one memory that does not resign. Most companies find
+          this is the first time their own history has been in one place.
+        </p>
+      </div>
+      <div>
+        <div class="n">II</div>
+        <h3>You show them once</h3>
+        <p>
+          Walk an agent through a task the way you do it. It keeps the path as a
+          routine and runs it on a schedule from then on. No workflow builder,
+          no integration project.
+        </p>
+      </div>
+      <div>
+        <div class="n">III</div>
+        <h3>They work while you don't</h3>
+        <p>
+          Close the laptop. The machines are ours and they stay on. Work appears
+          in your group, and anything consequential waits for your approval.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ===================== AT WORK ===================== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label">At work</p>
+      <div>
+        <h2>What they actually did.</h2>
+        <p>
+          Counted, not characterised. These are the routines running in the
+          current cohort.
+        </p>
+      </div>
+    </div>
+
+    <div class="work reveal">
+      <article>
+        <h3>Tenders</h3>
+        <p>
+          A Germiston logistics firm bidding roughly one tender a month. Scout
+          filters every portal against their CSD registration, BBBEE level and
+          fleet capacity, and posts a go or no-go with the closing date.
+        </p>
+        <div class="res"><span class="big">23</span><span class="cap">surfaced · month one</span></div>
+      </article>
+      <article>
+        <h3>Proposals</h3>
+        <p>
+          A Pretoria engineering consultancy losing work to slow turnaround.
+          Drafter builds the costed proposal from their own rate card and
+          comparable past projects.
+        </p>
+        <div class="res"><span class="big">4d → 6h</span><span class="cap">turnaround</span></div>
+      </article>
+      <article>
+        <h3>Compliance</h3>
+        <p>
+          Warden holds every dated document a company carries and escalates at
+          sixty days. The unglamorous routine that saves a contract.
+        </p>
+        <div class="res"><span class="big">60</span><span class="cap">days' notice</span></div>
+      </article>
+    </div>
+
+    <p class="pending mono reveal">
+      Figures from the current pilot cohort and pending independent verification.
+      We publish the failures in the same report as the results — see Access.
+    </p>
+  </div>
+</section>
+
+<div class="wrap"><div class="rule"></div></div>
+
+<!-- ===================== WHERE IT RUNS ===================== -->
+<section class="runs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label gold">Where it runs</p>
+      <div>
+        <h2>Your own environment. We will show you why that matters.</h2>
+        <p>
+          Most platforms put every customer's agents on one machine and call the
+          separate windows security. They are not. Ask any vendor where your data
+          sits and whose sits beside it.
+        </p>
+      </div>
+    </div>
+
+    <div class="facts reveal">
+      <div>
+        <h3>One tenant, one environment</h3>
+        <p>Your memory, files, credentials and agent runtime are yours alone. Not a shared machine with separate screens.</p>
+      </div>
+      <div>
+        <h3>Credentials never enter the machine</h3>
+        <p>Your logins are held outside the environment and substituted at the moment of use. They are never written to disk.</p>
+      </div>
+      <div>
+        <h3>An append-only record</h3>
+        <p>Every action, attributed, with what it cost. It cannot be edited — including by us. That is what makes it worth having.</p>
+      </div>
+      <div>
+        <h3>You choose the jurisdiction</h3>
+        <p>Your records sit where your obligations require. Execution happens in environments that are destroyed after each task.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACCESS ===================== -->
+<section id="access">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <p class="label">Access</p>
+      <div>
+        <h2>Two you can buy. The rest you apply for.</h2>
+        <p>
+          Above Standard, every company gets a founder's attention and a team
+          that learns its business. That does not scale by signing everyone.
+        </p>
+      </div>
+    </div>
+
+    <div class="tiers reveal">
+      <div class="tier">
+        <span class="nm">Ghost</span>
+        <span class="pr">R950<small>PER COMPANY / MONTH</small></span>
+        <p>The memory, on its own. Every goal, meeting, customer and decision, permanently. Unlimited seats.</p>
+      </div>
+      <div class="tier">
+        <span class="nm">Standard</span>
+        <span class="pr">R2,500<small>PER COMPANY / MONTH</small></span>
+        <p>Memory plus three routines — your morning brief, one watch routine, and the Friday account.</p>
+      </div>
+      <div class="tier enquire">
+        <span class="nm">Company Builder<br />and above</span>
+        <span class="pr">By enquiry<small>TWELVE PER COUNTRY, PER YEAR</small></span>
+        <p>The full floor, managed. Ecosystem and partner access, weekly sessions, and ten minutes with the founder.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section id="enquire" class="cta">
+  <div class="wrap reveal">
+    <p class="label gold" style="margin-bottom:2.5rem">MMXVI · MMXXVI</p>
+    <h2>The tenth cohort opens this year.</h2>
+    <a class="apply" href="mailto:hello@studexglobalmarkets.com?subject=Enquiry%20%E2%80%94%20The%20Agents">Request an Introduction</a>
+    <p class="fine">By enquiry. Johannesburg · Kigali · Moscow · Dubai</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <div class="col">
+      <img src="assets/studex-mark-ivory.png" alt="Studex Global Markets" style="height:56px;width:auto;opacity:.85;margin-bottom:1rem" />
+      <p class="fine">Studex Global Markets · Est. MMXVI</p>
+    </div>
+    <div class="col">
+      <p class="label">Enquiries</p>
+      <a href="mailto:hello@studexglobalmarkets.com">hello@studexglobalmarkets.com</a>
+      <a href="https://studexglobalmarkets.com">studexglobalmarkets.com</a>
+    </div>
+    <div class="col">
+      <p class="label">Group</p>
+      <a href="index.html">The Decade</a>
+      <a href="platform.html">The Agents</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.1 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+
+</body>
+</html>
