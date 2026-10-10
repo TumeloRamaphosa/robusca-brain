@@ -1,0 +1,38 @@
+id: document-expiry
+name: Document Expiry
+version: 1
+applies_to: [ghost, standard, company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 7 * * *"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: true
+
+credits_estimate: 6
+
+prompt: |
+  Check every dated document in the Ghost for approaching expiry.
+
+  Cover at minimum: tax clearance, BBBEE certificate, CSD registration,
+  company registration, professional indemnity and public liability insurance,
+  industry licences and permits, lease agreements, supplier contracts,
+  certifications, and domain and trademark renewals.
+
+  Report anything expiring within 60 days, soonest first:
+  - Document name and issuing body
+  - Expiry date and days remaining
+  - Renewal route, if the Ghost records one
+  - Whether renewal typically needs lead time
+
+  Escalate to URGENT anything inside 14 days.
+
+  If nothing expires within 60 days, return: NONE
+
+  This routine is cheap and boring and it is the one that saves a contract.
+  Never skip a document because renewal looks routine.

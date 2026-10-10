@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Studex — Design Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Cormorant+Garamond:wght@300;400&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font-family: var(--font-sans); font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: var(--content-max); margin: 0 auto; padding: 0 var(--gutter); }
+  .doc  { max-width: var(--measure); }
+
+  /* --- masthead --- */
+  .masthead {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: var(--s-5) 0; border-bottom: var(--border-strong);
+  }
+  .wordmark {
+    font-family: var(--font-display); font-size: var(--text-xl);
+    letter-spacing: var(--track-display); line-height: 1;
+  }
+  .wordmark span { color: var(--gold-deep); }
+
+  /* --- the workhorse --- */
+  .eyebrow {
+    font-size: var(--text-xs); font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--fg-muted); margin: 0 0 var(--s-3);
+  }
+  .mono { font-family: var(--font-mono); letter-spacing: var(--track-mono); }
+  .muted { color: var(--fg-muted); }
+  .num { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+  section { padding: var(--s-8) 0; border-bottom: var(--border); }
+  h1 {
+    font-family: var(--font-serif); font-weight: 400;
+    font-size: var(--text-3xl); line-height: var(--leading-tight);
+    margin: 0 0 var(--s-2);
+  }
+  h2 { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--s-4); line-height: var(--leading-snug); }
+  h3 { font-size: var(--text-base); font-weight: 600; margin: var(--s-6) 0 var(--s-2); }
+  p  { margin: 0 0 var(--s-4); }
+
+  /* --- status: a word, not a pill --- */
+  .status {
+    font-size: var(--text-xs); font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase;
+  }
+  .status.good { color: var(--signal-good); }
+  .status.warn { color: var(--signal-warn); }
+  .status.bad  { color: var(--signal-bad); }
+  .status.idle { color: var(--signal-idle); }
+
+  /* --- the one gold thing per view --- */
+  .attention {
+    border-left: 2px solid var(--gold);
+    background: var(--gold-wash);
+    padding: var(--s-4) var(--s-5);
+    margin: var(--s-5) 0;
+  }
+  .attention .eyebrow { color: var(--gold-deep); margin-bottom: var(--s-2); }
+
+  /* --- brief --- */
+  .brief-item { padding: var(--s-3) 0; border-bottom: var(--border); }
+  .brief-item:last-child { border-bottom: 0; }
+  .brief-item .src { font-size: var(--text-xs); }
+
+  /* --- ledger --- */
+  table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+  thead th {
+    text-align: left; font-size: var(--text-xs); font-weight: 500;
+    letter-spacing: var(--track-label); text-transform: uppercase;
+    color: var(--fg-muted); padding: 0 var(--s-4) var(--s-3) 0;
+    border-bottom: var(--border-strong);
+  }
+  tbody td { padding: var(--s-3) var(--s-4) var(--s-3) 0; border-bottom: var(--border); vertical-align: top; }
+  td.r, th.r { text-align: right; padding-right: 0; }
+  tbody tr:last-child td { border-bottom: var(--border-strong); }
+
+  /* --- form: label above, rule under, help always visible --- */
+  .field { margin-bottom: var(--s-5); max-width: 30rem; }
+  .field label { display: block; font-size: var(--text-sm); font-weight: 500; margin-bottom: var(--s-2); }
+  .field input, .field select {
+    width: 100%; font: inherit; font-size: var(--text-base); color: var(--fg);
+    background: transparent; border: 0; border-bottom: 1px solid var(--rule-strong);
+    border-radius: 0; padding: var(--s-2) 0;
+    transition: border-color var(--duration) var(--ease);
+  }
+  .field input:focus, .field select:focus {
+    outline: none; border: 1px solid var(--fg);
+    padding: var(--s-2); margin: -1px -1px calc(-1px + 0px) -1px;
+  }
+  .field .help { font-size: var(--text-xs); color: var(--fg-muted); margin-top: var(--s-2); }
+  .field.error input { border-color: var(--signal-bad); }
+  .field.error .help { color: var(--signal-bad); }
+  .fieldset { border: 0; padding: 0; margin: 0 0 var(--s-7); }
+  .fieldset > .eyebrow { padding-top: var(--s-4); border-top: var(--border); }
+
+  /* --- buttons: one solid per view --- */
+  .btn {
+    font: inherit; font-size: var(--text-sm); font-weight: 500;
+    background: var(--ink-900); color: var(--paper);
+    border: 1px solid var(--ink-900); border-radius: var(--radius);
+    padding: var(--s-3) var(--s-5); cursor: pointer;
+    transition: opacity var(--duration) var(--ease);
+  }
+  .btn:hover { opacity: 0.85; }
+  .btn-quiet {
+    background: none; border: 0; color: var(--fg); padding: var(--s-3) 0;
+    margin-left: var(--s-5); text-decoration: underline; text-underline-offset: 4px;
+    cursor: pointer; font: inherit; font-size: var(--text-sm);
+  }
+
+  .empty { color: var(--fg-muted); font-size: var(--text-sm); padding: var(--s-4) 0; }
+  .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: var(--s-8); }
+  @media (max-width: 720px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  .swatches { display: flex; flex-wrap: wrap; gap: var(--s-4); }
+  .sw { width: 5rem; }
+  .sw i { display: block; height: 3rem; border: var(--border); border-radius: var(--radius-sm); }
+  .sw code { font-family: var(--font-mono); font-size: 0.6875rem; color: var(--fg-muted); display: block; margin-top: var(--s-2); }
+
+  .toggle { position: fixed; top: var(--s-4); right: var(--s-4); z-index: 10; }
+</style>
+</head>
+<body>
+
+<button class="btn toggle" onclick="document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'">Theme</button>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="wordmark">STUDEX<span>.</span></div>
+    <div class="eyebrow" style="margin:0">Design preview · v0.1</div>
+  </header>
+
+  <!-- ============ DOCUMENT: the morning brief ============ -->
+  <section>
+    <div class="doc">
+      <p class="eyebrow">Morning Brief · XYZ Group</p>
+      <h1>Wednesday, 26 August</h1>
+      <p class="muted mono" style="font-size:var(--text-sm)">Generated 06:00 SAST · 24 credits</p>
+
+      <h3>Since yesterday</h3>
+      <div class="brief-item">
+        <div>4 new tenders surfaced, 1 qualified.</div>
+        <div class="src muted mono">etenders.gov.za · run 8f21a4</div>
+      </div>
+      <div class="brief-item">
+        <div>Proposal to M.N. drafted and awaiting your review.</div>
+        <div class="src muted mono">ghost/opportunities/1189</div>
+      </div>
+      <div class="brief-item">
+        <div>Diesel reference price moved <span class="num">+6.2%</span> week on week.</div>
+        <div class="src muted mono">run 8f21b0</div>
+      </div>
+
+      <!-- the single gold moment in the whole view -->
+      <div class="attention">
+        <p class="eyebrow">Needs you today</p>
+        <p style="margin:0">Tender <span class="mono">RFB-2026-118</span> closes in
+          <span class="num">3 days</span>. Compliance pack is drafted; it needs a signature
+          and the tax clearance certificate attached.</p>
+      </div>
+
+      <h3>Watching</h3>
+      <div class="brief-item">
+        <div>BBBEE certificate expires <span class="num">2026-10-14</span> — <span class="num">49 days</span>.</div>
+        <div class="src muted mono">ghost/documents/bbbee-2025</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LEDGER ============ -->
+  <section>
+    <p class="eyebrow">Ledger · last 7 days</p>
+    <h2>What the agents did</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>When</th><th>Routine</th><th>Outcome</th>
+          <th class="r">Credits</th><th class="r">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="mono muted">08-26 06:00</td><td>morning-brief</td>
+          <td>Brief delivered</td><td class="r num">24</td>
+          <td class="r"><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td class="mono muted">08-26 06:00</td><td>tender-watch</td>
+          <td>4 surfaced · 1 qualified</td><td class="r num">14</td>
+          <td class="r"><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td class="mono muted">08-26 07:00</td><td>document-expiry</td>
+          <td>BBBEE cert · 49 days</td><td class="r num">6</td>
+          <td class="r"><span class="status warn">Flagged</span></td>
+        </tr>
+        <tr>
+          <td class="mono muted">08-25 16:00</td><td>rfq-watch</td>
+          <td>Nothing matched</td><td class="r num">9</td>
+          <td class="r"><span class="status idle">Silent</span></td>
+        </tr>
+        <tr>
+          <td class="mono muted">08-25 10:00</td><td>buyer-signals</td>
+          <td>Timeout after 300s</td><td class="r num">3</td>
+          <td class="r"><span class="status bad">Failed</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="muted mono" style="font-size:var(--text-sm); margin-top:var(--s-4)">
+      Period total <span class="num">1,284</span> of <span class="num">10,000</span> credits · 12.8%
+    </p>
+  </section>
+
+  <!-- ============ FORM ============ -->
+  <section>
+    <div class="grid-2">
+      <div>
+        <p class="eyebrow">Provisioning</p>
+        <h2>New tenant</h2>
+
+        <fieldset class="fieldset">
+          <p class="eyebrow">Identity</p>
+          <div class="field">
+            <label for="n">Company name</label>
+            <input id="n" type="text" value="XYZ Group" />
+            <p class="help">As it should appear in their brief and reports.</p>
+          </div>
+          <div class="field">
+            <label for="s">Slug</label>
+            <input id="s" type="text" value="xyz" class="mono" />
+            <p class="help">Lowercase, 2–21 characters. Sets the Ghost schema. Cannot be changed later.</p>
+          </div>
+        </fieldset>
+
+        <fieldset class="fieldset">
+          <p class="eyebrow">Plan &amp; schedule</p>
+          <div class="field">
+            <label for="p">Plan</label>
+            <select id="p">
+              <option>Ghost — R950</option>
+              <option>Standard — R2,500</option>
+              <option selected>Company Builder — R5,000</option>
+              <option>Business — R10,000</option>
+            </select>
+            <p class="help">Determines the routine set and included credits.</p>
+          </div>
+          <div class="field error">
+            <label for="t">Timezone</label>
+            <input id="t" type="text" value="" placeholder="Africa/Johannesburg" />
+            <p class="help">Required — every routine inherits this. Omitting it defaults to UTC.</p>
+          </div>
+        </fieldset>
+
+        <button class="btn">Provision tenant</button>
+        <button class="btn-quiet">Cancel</button>
+      </div>
+
+      <aside>
+        <p class="eyebrow">Will create</p>
+        <table>
+          <tbody>
+            <tr><td>Ghost schema</td><td class="r mono">ghost_xyz</td></tr>
+            <tr><td>Routines</td><td class="r num">10</td></tr>
+            <tr><td>Daily credits</td><td class="r num">~170</td></tr>
+            <tr><td>Volume</td><td class="r num">20 GiB</td></tr>
+            <tr><td>Gateway</td><td class="r mono">studex-gw-xyz</td></tr>
+          </tbody>
+        </table>
+        <p class="empty">Workspace key is shown once, after provisioning.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ EMPTY STATE ============ -->
+  <section>
+    <p class="eyebrow">Tender watch · 18:00</p>
+    <p class="empty">No tenders matched today.</p>
+  </section>
+
+  <!-- ============ TOKENS ============ -->
+  <section style="border-bottom:0">
+    <p class="eyebrow">Palette</p>
+    <div class="swatches">
+      <div class="sw"><i style="background:var(--obsidian)"></i><code>obsidian</code></div>
+      <div class="sw"><i style="background:var(--gold)"></i><code>gold</code></div>
+      <div class="sw"><i style="background:var(--gold-deep)"></i><code>gold-deep</code></div>
+      <div class="sw"><i style="background:var(--paper)"></i><code>paper</code></div>
+      <div class="sw"><i style="background:var(--signal-good)"></i><code>good</code></div>
+      <div class="sw"><i style="background:var(--signal-warn)"></i><code>warn</code></div>
+      <div class="sw"><i style="background:var(--signal-bad)"></i><code>bad</code></div>
+      <div class="sw"><i style="background:var(--ink-400)"></i><code>idle</code></div>
+    </div>
+  </section>
+
+</div>
+</body>
+</html>

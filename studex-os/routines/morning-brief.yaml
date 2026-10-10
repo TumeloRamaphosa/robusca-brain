@@ -1,0 +1,39 @@
+id: morning-brief
+name: Morning Brief
+version: 1
+applies_to: [standard, company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 6 * * *"
+
+# Persistent named session so each brief builds on yesterday's rather than
+# starting from nothing every morning.
+session: "session:{{tenant_slug}}-daily"
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: false # the brief always sends, even on a quiet day
+
+credits_estimate: 25
+
+prompt: |
+  Produce this company's morning brief for {{today}} in {{timezone}}.
+
+  Read from the Ghost: open goals, active projects, yesterday's completed runs,
+  outstanding decisions, and anything flagged for follow-up.
+
+  Structure it exactly like this, and keep the whole thing under 200 words:
+
+  1. SINCE YESTERDAY — what the agents did and what changed. Counts and facts
+     only, each with a source. If nothing happened, say so.
+  2. NEEDS YOU TODAY — decisions only this company's people can make. Maximum
+     three. If there are none, say "nothing needs you today."
+  3. WATCHING — anything approaching a deadline in the next 7 days.
+
+  Rules:
+  - Never invent an item to fill a section. An empty section is information.
+  - Every factual claim carries its source (document, URL, or run id).
+  - No preamble, no sign-off, no encouragement. Start at heading 1.
+  - Money in Rand with the R prefix. Customer names as initials only.

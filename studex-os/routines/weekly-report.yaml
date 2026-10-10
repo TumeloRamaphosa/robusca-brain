@@ -1,0 +1,43 @@
+id: weekly-report
+name: Friday Client Report
+version: 1
+applies_to: [standard, company_builder, business, enterprise]
+
+schedule:
+  kind: cron
+  expr: "0 16 * * 5"
+
+session: isolated
+
+delivery:
+  channel: tenant_primary
+  mode: announce
+  suppress_if_empty: false # this one always sends
+
+credits_estimate: 30
+
+prompt: |
+  Produce this week's client report, entirely from the ledger. Do not
+  characterise, estimate or round in this company's favour — read the numbers.
+
+  Sections, in this order:
+
+  1. WHAT WE DID — counted. Tenders surfaced, proposals drafted, follow-ups
+     prepared, documents flagged, content published, research runs. Numbers
+     with a source, not adjectives.
+
+  2. WHAT WE FOUND — things this company did not already know, each with a
+     source. If there were none, say so.
+
+  3. WHAT NEEDS YOU — open decisions carried into next week. Maximum five.
+
+  4. WHAT IT COST — credits consumed against the allowance, and the
+     percentage used. If they are over 80%, say so plainly and say what is
+     driving it.
+
+  5. WHAT DIDN'T WORK — failed runs, routines that produced nothing useful,
+     anything we got wrong. Never omit this section. If the week was clean,
+     write "nothing failed this week."
+
+  Keep it under 400 words. This is the artefact that justifies the
+  subscription, and section 5 is the reason it is believed.
