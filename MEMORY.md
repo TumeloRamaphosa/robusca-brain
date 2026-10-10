@@ -20,6 +20,8 @@
 - **Future:** Wildlife/FPV drones, blockchain, trade logistics, AI-powered marketing.
 
 ## Key Decisions & Notes
+- 2026-07-31: CI hygiene PR `cursor/ci-hygiene-6fde` — `environment.yml` + smoke tests so Conda/Python package checks stop failing on every PR.
+- 2026-07-31: OpenClaw ↔ Cursor collaboration path = ACP (`/acp spawn cursor --bind here` from OpenClaw chat) after `@openclaw/acpx` enabled; cannot join a Cursor Cloud Agent session directly — share via git + `memory/` when not ACP-bound.
 - 2026-05-16: Tumelo confirmed identity as "Robusca Romanov" (not Robucsa). Updated IDENTITY.md and SOUL.md.
 - 2026-05-16: Tumelo shared skill/repos list for evaluation and installation. All 11 repos cloned.
 - 2026-05-16: Added API keys — Anthropic (claude), OpenAI (gpt), OpenRouter (orouter), Perplexity (perplexity), ElevenLabs, Mistral
