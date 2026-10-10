@@ -1,0 +1,383 @@
+{
+  "name": "StudEx — Agent Loops (4h vault sync, 6h signal, 24h proposal)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 4
+            }
+          ]
+        }
+      },
+      "id": "b2000000-0000-4000-8000-000000000001",
+      "name": "Every 4 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-1100, -160],
+      "notes": "Vault sync. Cheap and boring, and the reason nothing is ever lost."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.STUDEX_KNOWLEDGE_API }}/vaults/{{ $env.CLIENT_SLUG }}/commit",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ message: 'vault sync ' + new Date().toISOString(), sign: true, push_to: 'gitea' }) }}",
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-000000000002",
+      "name": "Commit And Push Vault",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-860, -160],
+      "notes": "Signed commit to the client's own private Gitea repository."
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities/{{ $env.CLIENT_COMMUNITY_ID }}/channels/agent-worklog/messages",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ author: 'chief-of-staff', text: 'Vault synced. ' + ($json.files_changed ?? 0) + ' notes committed.' }) }}",
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-000000000003",
+      "name": "Log Vault Sync",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-620, -160]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 6
+            }
+          ]
+        }
+      },
+      "id": "b2000000-0000-4000-8000-000000000004",
+      "name": "Every 6 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-1100, 120],
+      "notes": "Signal loop. READ ONLY. Observations with counts, no recommendations."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.STUDEX_SIGNALS_API }}/collect",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "client",
+              "value": "={{ $env.CLIENT_SLUG }}"
+            },
+            {
+              "name": "window_hours",
+              "value": "6"
+            },
+            {
+              "name": "sources",
+              "value": "social_engagement,comments,dms,inbox_unfulfilled,web_analytics"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-000000000005",
+      "name": "Collect Signals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-860, 120],
+      "notes": "Read-only collection. This node must never have write scope on any connected account."
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalise signals into observations WITH COUNTS.\n// Deliberately produces no recommendations - that is the 24h loop's job.\n// Separating observation from recommendation is what stops the proposal loop\n// inventing patterns out of three data points.\n\nconst items = $input.all();\nconst observations = [];\n\nfor (const item of items) {\n  const payload = item.json || {};\n  const signals = Array.isArray(payload.signals) ? payload.signals : [];\n\n  // Group identical or near-identical signals and carry the count through.\n  const buckets = {};\n  for (const s of signals) {\n    const theme = (s.theme || s.text || 'unknown').toLowerCase().trim();\n    if (!buckets[theme]) {\n      buckets[theme] = { theme, source: s.source || 'unknown', count: 0, examples: [] };\n    }\n    buckets[theme].count += (s.count || 1);\n    if (buckets[theme].examples.length < 3 && s.text) {\n      buckets[theme].examples.push(s.text);\n    }\n  }\n\n  for (const b of Object.values(buckets)) {\n    observations.push(b);\n  }\n}\n\nobservations.sort((a, b) => b.count - a.count);\n\nconst summary = observations.length\n  ? observations.slice(0, 8).map((o) => `- ${o.theme} (${o.source}): ${o.count}`).join('\\n')\n  : '- no signals in this window';\n\nreturn [{\n  json: {\n    collected_at: new Date().toISOString(),\n    window_hours: 6,\n    observation_count: observations.length,\n    observations,\n    summary\n  }\n}];\n"
+      },
+      "id": "b2000000-0000-4000-8000-000000000006",
+      "name": "Count And Normalise",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-620, 120]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities/{{ $env.CLIENT_COMMUNITY_ID }}/channels/agent-worklog/messages",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ author: 'research', text: 'Signal window ' + $json.collected_at + '\\n' + $json.summary }) }}",
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-000000000007",
+      "name": "Post Signal Findings",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-380, 120]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.STUDEX_KNOWLEDGE_API }}/vaults/{{ $env.CLIENT_SLUG }}/worklog/append",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ section: 'signals', body: $json.summary, collected_at: $json.collected_at }) }}",
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-000000000008",
+      "name": "Append To Vault Worklog",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-140, 120]
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hoursInterval": 24
+            }
+          ]
+        }
+      },
+      "id": "b2000000-0000-4000-8000-000000000009",
+      "name": "Every 24 Hours",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [-1100, 420],
+      "notes": "Proposal loop. Produces proposals for #approvals. Never acts."
+    },
+    {
+      "parameters": {
+        "method": "GET",
+        "url": "={{ $env.STUDEX_KNOWLEDGE_API }}/vaults/{{ $env.CLIENT_SLUG }}/worklog/recent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "section",
+              "value": "signals"
+            },
+            {
+              "name": "windows",
+              "value": "4"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-00000000000a",
+      "name": "Fetch Last 4 Signal Windows",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-860, 420]
+    },
+    {
+      "parameters": {
+        "jsCode": "// Cluster four signal windows into at most three ranked proposals.\n// A theme seen fewer than MIN_OCCURRENCES times is discarded, not proposed.\n// A proposal without a count is not a proposal, it is a guess.\n\nconst MIN_OCCURRENCES = 3;\nconst MAX_PROPOSALS = 3;\n\nconst windows = $input.all().flatMap((i) => {\n  const w = i.json.windows || i.json.observations || [];\n  return Array.isArray(w) ? w : [];\n});\n\nconst clustered = {};\nfor (const o of windows) {\n  const theme = (o.theme || 'unknown').toLowerCase().trim();\n  if (!clustered[theme]) {\n    clustered[theme] = { theme, count: 0, sources: new Set(), examples: [] };\n  }\n  clustered[theme].count += (o.count || 1);\n  if (o.source) clustered[theme].sources.add(o.source);\n  for (const ex of (o.examples || [])) {\n    if (clustered[theme].examples.length < 3) clustered[theme].examples.push(ex);\n  }\n}\n\n// Ease is a coarse 1-3 hand-set weight by source type. Frequency does the\n// real work; ease only breaks ties between comparable counts.\nconst EASE = {\n  inbox_unfulfilled: 3,\n  comments: 3,\n  dms: 3,\n  web_analytics: 2,\n  social_engagement: 2,\n  competitor: 1\n};\n\nconst ranked = Object.values(clustered)\n  .filter((c) => c.count >= MIN_OCCURRENCES)\n  .map((c) => {\n    const sources = Array.from(c.sources);\n    const ease = Math.max(...sources.map((s) => EASE[s] || 1));\n    return { ...c, sources, ease, score: c.count * ease };\n  })\n  .sort((a, b) => b.score - a.score)\n  .slice(0, MAX_PROPOSALS);\n\nconst proposals = ranked.map((r, i) => ({\n  rank: i + 1,\n  observation: r.theme,\n  count: r.count,\n  sources: r.sources,\n  examples: r.examples,\n  proposed_action: 'TO BE DRAFTED by the research agent from this observation',\n  owner: 'awaiting human assignment',\n  how_we_would_know: 'define a measure before approving',\n  requires_approval: true\n}));\n\nreturn [{\n  json: {\n    generated_at: new Date().toISOString(),\n    has_proposals: proposals.length > 0,\n    discarded_below_threshold: Object.keys(clustered).length - ranked.length,\n    proposal_count: proposals.length,\n    proposals\n  }\n}];\n"
+      },
+      "id": "b2000000-0000-4000-8000-00000000000b",
+      "name": "Cluster And Rank",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-620, 420]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "has-proposals",
+              "leftValue": "={{ $json.has_proposals }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-00000000000c",
+      "name": "Anything Worth Proposing?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [-380, 420]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{ $env.BUZZ_RELAY_API }}/communities/{{ $env.CLIENT_COMMUNITY_ID }}/channels/approvals/messages",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ author: 'research', requires_approval: true, text: 'Daily proposals (' + $json.proposal_count + '). Each needs a named human decision.', proposals: $json.proposals }) }}",
+        "options": {}
+      },
+      "id": "b2000000-0000-4000-8000-00000000000d",
+      "name": "Post Proposals To Approvals",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [-140, 340],
+      "notes": "Posts to #approvals, never to a customer. The loop ends at a human decision."
+    },
+    {
+      "parameters": {},
+      "id": "b2000000-0000-4000-8000-00000000000e",
+      "name": "Nothing Above Threshold",
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [-140, 520],
+      "notes": "A quiet day is a valid outcome. Do not manufacture proposals to fill the slot."
+    }
+  ],
+  "connections": {
+    "Every 4 Hours": {
+      "main": [
+        [
+          {
+            "node": "Commit And Push Vault",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Commit And Push Vault": {
+      "main": [
+        [
+          {
+            "node": "Log Vault Sync",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every 6 Hours": {
+      "main": [
+        [
+          {
+            "node": "Collect Signals",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Collect Signals": {
+      "main": [
+        [
+          {
+            "node": "Count And Normalise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Count And Normalise": {
+      "main": [
+        [
+          {
+            "node": "Post Signal Findings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Post Signal Findings": {
+      "main": [
+        [
+          {
+            "node": "Append To Vault Worklog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Every 24 Hours": {
+      "main": [
+        [
+          {
+            "node": "Fetch Last 4 Signal Windows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch Last 4 Signal Windows": {
+      "main": [
+        [
+          {
+            "node": "Cluster And Rank",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cluster And Rank": {
+      "main": [
+        [
+          {
+            "node": "Anything Worth Proposing?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Anything Worth Proposing?": {
+      "main": [
+        [
+          {
+            "node": "Post Proposals To Approvals",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Nothing Above Threshold",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false,
+  "meta": {
+    "templateCredsSetupCompleted": false
+  },
+  "tags": [
+    "studex",
+    "managed-agents",
+    "loops"
+  ]
+}
